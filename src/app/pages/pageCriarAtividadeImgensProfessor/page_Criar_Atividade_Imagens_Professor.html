@@ -1,0 +1,99 @@
+<body>
+  <ion-content>
+    <div class="textoMenu">
+      <ion-text class="logininfo">Professor(a): {{user ? user.nome : ''}}</ion-text>
+      <ion-text class="logininfo">Total de Alunos: {{user ? user.qtdAlunos : ''}}</ion-text>
+      <ion-text class="textMenu">Criar Atividades</ion-text>
+      <ion-text class="textMenu2">Atividade de Imagens</ion-text>
+    </div>
+    <form class="formCenter">
+      
+      <div class="tableCenter">
+        <ion-text class="negritoTitulo">Exercício 1 de 5</ion-text>
+        <ion-text class="textoCent">Exercicícios:</ion-text>
+        <div class="textoLeft">
+          <ion-text>1.Arrastar Palavras em ordem até uma Imagem.</ion-text>
+          <ion-text>2.Arrastar Palavras desoganizadas até uma Imagem.</ion-text>
+          <ion-text>3.Arrastar Palavras em ordem até duas Imagem.</ion-text>
+          <ion-text>4.Arrastar Palavras desoganizadas até duas Imagem.</ion-text>
+        </div>
+      <div class="centerDiv">
+        <ion-text class="negritoTitulo">Tipo do exercício</ion-text>
+        <ion-list class="combocss">
+            <ion-select value="1" okText="Selecionar" cancelText="Cancelar" (ionChange)="countryChange($event)">
+              <ion-select-option value="1">1</ion-select-option>
+              <ion-select-option value="2">2</ion-select-option>
+              <ion-select-option value="3">3</ion-select-option>
+              <ion-select-option value="4">4</ion-select-option>
+            </ion-select>
+        </ion-list>
+      </div>
+        <ion-text class="negrito">Imagem 1</ion-text>
+        <div class="divUpload">
+          <ion-item class="fundoAzul">
+            <ion-input type="file" accept="image/*" (change)="changeListener($event)"></ion-input>
+          </ion-item>
+        </div>
+          <div *ngIf="atividadeImage">
+            <ion-text class="negrito">Imagem 2</ion-text>
+            <div class="divUpload">
+              <ion-item class="fundoAzul">
+                <ion-input type="file" accept="image/*" (change)="changeListener($event)"></ion-input>
+              </ion-item>
+            </div>
+          </div>
+          <div class="centerDiv">
+            <ion-list class="listinput">
+              <ion-item class="inputcss">
+                <ion-input type="text" placeholder="Palavra da Image 1"></ion-input>
+              </ion-item>
+              <ion-item *ngIf="atividadeImage">
+                <ion-input class="inputcss" type="text" placeholder="Palavra da Image 2"></ion-input>
+              </ion-item>
+              <ion-item *ngIf="!atividadeImage">
+                <ion-input class="inputcss" type="text" placeholder="Palavra opção de escolha(Opcinal)"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input class="inputcss" type="text" placeholder="Palavra opção de escolha(Opcinal)"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input class="inputcss" type="text" placeholder="Palavra opção de escolha(Opcinal)"></ion-input>
+              </ion-item>
+            </ion-list>
+          </div>
+          <div class="divUpload">
+              <ion-text class="negrito">Opcinal: Parabenização final do Exercício</ion-text>
+            <ion-item class="fundoAzul">
+              <ion-input type="file" accept="image/*" (change)="changeListener($event)"></ion-input>
+            </ion-item>
+          </div>
+        <ion-button class="botaoBlue">
+          <div class="divbotao">
+            <div>
+              <ion-text class="textoBotao">Prossiga</ion-text>
+            </div>
+            <div class="divLeft">
+              <ion-icon name="chevron-forward-outline"></ion-icon>
+            </div>
+        </div>      
+        </ion-button>
+      </div>
+      
+      <ion-button id="botao02" class="botaoOrange" (click)="irVoltar()">
+        <div class="divbotao">
+          <div class="divRigth">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+          </div>
+          <div><ion-text class="textoBotao">Voltar</ion-text></div>
+      </div>
+      </ion-button>
+
+    </form>
+    <ion-text class="textofooder">
+      <div class="divImage">
+        <ion-img src="../../../assets/img/logo.png"></ion-img>
+      </div>
+      <ion-text class="textoBotao">{{versao}}</ion-text>
+    </ion-text>
+  </ion-content>
+</body>

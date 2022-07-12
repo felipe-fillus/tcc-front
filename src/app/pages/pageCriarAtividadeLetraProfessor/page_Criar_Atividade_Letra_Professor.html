@@ -1,0 +1,73 @@
+<body>
+  <ion-content>
+    <div class="textoMenu">
+      <ion-text class="logininfo">Professor(a): {{user ? user.nome : ''}}</ion-text>
+      <ion-text class="logininfo">Total de Alunos: {{user ? user.qtdAlunos : ''}}</ion-text>
+      <ion-text class="textMenu">Criar Atividades</ion-text>
+      <ion-text class="textMenu2">Atividade de Letra</ion-text>
+    </div>
+    <form class="formCenter">
+      
+      <div class="tableCenter">
+        <ion-text class="negritoTitulo">Exercício 1 de 5</ion-text>
+        <ion-text class="textoCent">Exercicícios:</ion-text>
+        <div class="textoLeft">
+          <ion-text>1.Arrastar Letra até sua sombra.</ion-text>
+          <ion-text>2.Arrastar Letras Organizadas até a Palavra.</ion-text>
+          <ion-text>3.Arrastar letras Desorganizadas até a Palavra.</ion-text>
+        </div>
+      <div class="centerDiv">
+        <ion-text class="negritoTitulo">Tipo do exercício</ion-text>
+        <ion-list class="combocss">
+            <ion-select value="1" okText="Selecionar" cancelText="Cancelar">
+              <ion-select-option value="1">1</ion-select-option>
+              <ion-select-option value="2">2</ion-select-option>
+              <ion-select-option value="3">3</ion-select-option>
+            </ion-select>
+        </ion-list>
+        <ion-text class="negritoTitulo">Palavra, sílaba ou letra do Exercício</ion-text>
+        <ion-input class="inputcss" type="text" placeholder="Palavra Base:"></ion-input>
+      </div>
+        <ion-text class="negrito">(Opcinal): Imagem Da Palavra</ion-text>
+        <div class="divUpload">
+          <ion-item class="fundoAzul">
+            <ion-input type="file" accept="image/*"></ion-input>
+          </ion-item>
+        </div>
+        
+        <div class="divUpload">
+          <ion-text class="negrito">Opcinal: Parabenização final do Exercício</ion-text>
+          <ion-item class="fundoAzul">
+            <ion-input type="file" accept="image/*" (change)="changeListener($event)"></ion-input>
+          </ion-item>
+        </div>
+        <ion-button class="botaoBlue">
+          <div class="divbotao">
+            <div>
+              <ion-text class="textoBotao">Prossiga</ion-text>
+            </div>
+            <div class="divLeft">
+              <ion-icon name="chevron-forward-outline"></ion-icon>
+            </div>
+        </div>      
+        </ion-button>
+      </div>
+      
+      <ion-button id="botao02" class="botaoOrange" (click)="irVoltar()">
+        <div class="divbotao">
+          <div class="divRigth">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+          </div>
+          <div><ion-text class="textoBotao">Voltar</ion-text></div>
+      </div>
+      </ion-button>
+
+    </form>
+    <ion-text class="textofooder">
+      <div class="divImage">
+        <ion-img src="../../../assets/img/logo.png"></ion-img>
+      </div>
+      <ion-text class="textoBotao">{{versao}}</ion-text>
+    </ion-text>
+  </ion-content>
+</body>

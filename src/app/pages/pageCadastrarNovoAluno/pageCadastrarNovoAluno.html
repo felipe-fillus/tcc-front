@@ -1,0 +1,74 @@
+<body>
+  
+  <ion-content>
+    <div class="textoMenu">
+      <ion-text class="logininfo">Professor(a): {{user ? user.nome : ''}}</ion-text>
+      <ion-text class="logininfo">Total de Alunos: {{user ? user.qtdAlunos : ''}}</ion-text>
+      <ion-text class="textMenu">Novo Aluno(a)</ion-text>
+    </div>
+
+    <form class="formCenter" [formGroup]="alunoForm">
+      <ion-list class="inputcss">
+
+        <ion-item>
+          <ion-input type="text" formControlName="nome" placeholder="Nome Aluno(a)"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input type="number" formControlName="cpf" placeholder="CPF do Aluno(a)"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input type="text" formControlName="email" placeholder="Email"></ion-input>
+        </ion-item>
+      
+        <ion-item>
+          <ion-input type="password" formControlName="senha" placeholder="Senha"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input type="password" placeholder="Senha Novamente"></ion-input>
+        </ion-item>
+
+      </ion-list>
+
+      <!-- <ion-list class="combocss">
+        <ion-item>
+          <ion-label>Nível de Autismo</ion-label>
+          <ion-select value="Leve" okText="Selecionar" cancelText="Cancelar">
+            <ion-select-option value="Leve">Leve</ion-select-option>
+            <ion-select-option value="Moderado">Moderado</ion-select-option>
+            <ion-select-option value="Severo">Severo</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list> -->
+
+      <ion-button id="botao01" class="botaoBlue" (click)="addAluno()">
+        <div class="divbotao">
+          <div class="divRigth">
+            <ion-icon name="school-outline"></ion-icon></div>
+          <div><ion-text class="textoBotao">Cadastrar Aluno</ion-text></div>
+          <div class="divLeft">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </div>
+      </div>
+      </ion-button>
+      <ion-button id="botao02" class="botaoOrange" (click)="irVoltar()">
+        <div class="divbotao">
+          <div class="divRigth">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+          </div>
+          <div>
+            <ion-text class="textoBotao">Voltar</ion-text>
+          </div>
+      </div>
+      </ion-button>
+    </form>
+    <ion-text class="textofooder">
+      <div class="divImage">
+        <ion-img src="../../../assets/img/logo.png"></ion-img>
+      </div>
+      <ion-text class="textoBotao">{{versao}}</ion-text>
+    </ion-text>
+  </ion-content>
+</body>

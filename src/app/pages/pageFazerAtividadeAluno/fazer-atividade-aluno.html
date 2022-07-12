@@ -1,0 +1,204 @@
+
+<ion-content>
+    <!-- Atividade Palavra Embaralhada -->
+    <div *ngIf="tipoAtividade == 1">
+        <div *ngIf="acertouRemove">
+        <ion-button class="botaoBlue" (click)="irVoltar()">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+        </ion-button>
+        <form class="formUp">
+            <div class="divM">
+                <div class="palavra">{{palavra}}</div>
+            </div>
+        </form>
+        <form class="formCenter">
+            <div class="imageAtividade1">
+                <ion-img src={{img2}}></ion-img>
+            </div>
+
+            <div class="divAtividade">
+                <ion-row class="ion-justify-content-center">
+                    <div cdkDropList cdkDropListOrientation="horizontal" class="example-list"
+                        (cdkDropListDropped)="validacaoAtividade1($event)" (cdkDropListEntered)="atividade1Touched()" >
+                        <div class="example-box" *ngFor="let x of palavraList"   cdkDrag><b>{{x}}</b></div>
+                    </div>
+                </ion-row>
+            </div>
+        </form>
+        </div>
+        <div class="formparabens">
+            <div *ngIf="acertou">
+                <div class="divM">
+                <ion-img class="imageparabenizacaoatividade2" src="../../../assets/img/parabens.gif" alt=""></ion-img>
+                    <ion-button class="botaoBlueAcertou" (click)="irVoltar()">
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                    </ion-button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Atividade Duas Imagens -->
+
+    <div *ngIf="tipoAtividade == 2">
+        <div *ngIf="acertouRemove"><!-- Parabenização -->
+            <ion-button class="botaoBlue" (click)="irVoltar()">
+                <ion-icon name="arrow-back-outline"></ion-icon>
+            </ion-button>
+        <form class="formUp2">
+            <div class="divComImagem">
+                <div class="divAtividadeImage">
+                    <div class="imageAtividade1">
+                        
+                        <ion-img src={{img1}}></ion-img>
+                    </div>
+
+                    <div [ngClass]="acertouAtividade2item1 ? 'atividadeCorrect' : 'divAtividade2img'">
+                        <div cdkDropList #selectedList1="cdkDropList" [cdkDropListData]="palavraSelected" [cdkDragDisabled]="!acertouAtividade2item2" [cdkDropListConnectedTo]="[selecList]"
+                            class="example-list2acerto" (cdkDropListDropped)="validarPalavraAtividade2($event)" >
+                            <div class="example-box2acerto" *ngFor="let item of palavraSelected" cdkDrag>{{item}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="espacamento"></div>
+                <div class="divAtividadeImage">
+                    <div class="imageAtividade1">
+                        <ion-img src={{img2}}></ion-img>
+                    </div>
+
+                    <div [ngClass]="{'divAtividade2img': !acertouAtividade2item2}">
+                        <div cdkDropList #selectedList2="cdkDropList" [cdkDropListData]="palavra2Selected" [cdkDropListConnectedTo]="[selecList]"
+                            class="example-list2acerto" (cdkDropListDropped)="validarPalavra2Atividade2($event)" >
+                            <div class="example-box2acerto" *ngFor="let item of palavra2Selected" cdkDrag>{{item}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form class="formCenter2">
+            <div class="divAtividade2">
+                <ion-row class="ion-justify-content-center">
+                <div cdkDropList #selecList="cdkDropList" [cdkDropListData]="palavrasToSelec" [cdkDropListConnectedTo]="[selectedList1, selectedList2]"
+                    class="example-list2" >
+                    <div class="example-box2" *ngFor="let item of palavrasToSelec" cdkDrag>{{item}}</div>
+                </div>
+                </ion-row>
+            </div>
+            
+        </form>
+        </div>
+        <div class="formparabens">
+            <div *ngIf="acertou">
+                <div class="divM">
+                <ion-img class="imageparabenizacaoatividade2" src="../../../assets/img/parabens.gif" alt=""></ion-img>
+                    <ion-button class="botaoBlueAcertou" (click)="irVoltar()">
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                    </ion-button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Atividade com uma Imagem -->
+    <div *ngIf="tipoAtividade == 3">
+        <div *ngIf="acertouRemove"><!-- Parabenização -->
+            <ion-button class="botaoBlue" (click)="irVoltar()">
+                <ion-icon name="arrow-back-outline"></ion-icon>
+            </ion-button>
+        <form class="formUp3">
+        
+            <div class="divComImagemAtividade3">
+                <div class="divAtividadeImage3">
+                    <div class="imageAtividade1">
+                        <ion-img src={{img1}}></ion-img>
+                    </div>
+
+                    <div [ngClass]="{'divAtividade2img': !acertouAtividade3}">
+                        <div cdkDropList #selectedList1="cdkDropList" [cdkDropListData]="palavraSelected" [cdkDropListConnectedTo]="[selecList]"
+                            class="example-list3acerto" (cdkDropListDropped)="validarPalavraAtividade3($event)" >
+                            <div class="example-box3acerto" *ngFor="let item of palavraSelected" cdkDrag>{{item}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="espacamento"></div>
+            </div>
+        </form>
+        <form class="formCenter2">
+            <div class="divAtividade2">
+                <ion-row class="ion-justify-content-center">
+                <div cdkDropList #selecList="cdkDropList" [cdkDropListData]="palavrasToSelec" [cdkDropListConnectedTo]="[selectedList1]"
+                    class="example-list2" >
+                    <div class="example-box2" *ngFor="let item of palavrasToSelec" cdkDrag>{{item}}</div>
+                </div>
+                </ion-row>
+            </div>
+            
+        </form>
+        </div>
+        <div class="formparabens">
+            <div *ngIf="acertou">
+                <div class="divM">
+                <ion-img class="imageparabenizacaoatividade2" src="../../../assets/img/parabens.gif" alt=""></ion-img>
+                    <ion-button class="botaoBlueAcertou" (click)="irVoltar()">
+                        <ion-icon name="checkmark-outline"></ion-icon>
+                    </ion-button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div *ngIf="tipoAtividade == 4">
+    <div *ngIf="acertouRemove"><!-- Parabenização -->
+        
+    <form class="formUp5">
+        <ion-button class="botaoBlue" (click)="irVoltar()">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+        </ion-button>
+        <div class="divM">
+            <div class="palavra">{{palavra}}</div>
+        </div>
+        
+        <div class="divContainer5">
+            <ion-row class="divTableRow5">
+                
+                <div class="divTableCell5" *ngFor="let item of palavraSelected2List" [ngClass]="item.acerto ? 'atividadeCorrect' : 'divAtividade5desc'">
+                    <div cdkDropList [id]="item.nome" [cdkDropListData]="item.nome" [cdkDropListConnectedTo]="[item.nome]"
+                        class="example-list3acerto" (cdkDropListDropped)="validarPalavraAtividade5(item)" >
+                        <div class="example-box3acerto" *ngIf="item.acerto">{{item.nome}}</div> 
+                    </div>
+                </div>
+            </ion-row>
+        </div>
+    </form>
+    <form class="formCenter2">
+        <div class="divAtividade">
+            <ion-row class="ion-justify-content-center" >
+                <div *ngFor="let item of palavraSelected2Shuffle">
+                    <div cdkDropList *ngIf="!item.acerto" [id]="item.nome" [cdkDropListData]="item.nome" [cdkDropListConnectedTo]="[item.nome]"
+                    class="example-list5">
+                        <div class="example-box5" cdkDrag>{{item.nome}}</div>
+                    </div>
+                </div>
+            </ion-row>
+        </div>
+        
+    </form>
+    </div>
+    <div class="formparabens">
+        <div *ngIf="acertou">
+            <div class="divM">
+                <div style="padding-top: 5%; font-size: 300%;" class="formUp5">{{palavra}}</div>
+            </div>
+            <ion-img class="imageparabenizacaoatividade2" src="../../../assets/img/parabens.gif" alt=""></ion-img>
+                <ion-button class="botaoBlueAcertou2" (click)="irVoltar()">
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                </ion-button>
+        </div>
+    </div>
+</div>
+
+
+</ion-content>

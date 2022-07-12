@@ -1,0 +1,133 @@
+.map-canvas {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  opacity: 0;
+  transition: opacity 150ms ease-in;
+}
+
+.divRigth{
+  position: fixed;
+  right: 92%;
+}
+.divLeft{
+  position: fixed;
+  left: 92%;
+}
+.formCenter{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.textoBotaoNegrito{
+  font-weight: bold;
+}
+.textMenu{
+  margin-top: 6%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 240%;
+  margin-bottom: 6%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.textMenu2{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  font-weight: bold;
+  font-size: 240%;
+  margin-bottom: 5px;
+}
+
+.botaoBlue{
+  height: 40px;
+  width: 90%;
+  --background: #007BFF;   
+  font-size: 130%;
+  flex-direction: row;
+  --border: none;
+  --border-radius: 30px;
+  color: black;
+  margin-bottom: 5%;
+}
+.textoBotao{
+  font-weight: bold;
+}
+.botaoBlue:active {
+--background: #4ca1fc;
+transform: translateY(3px);
+
+}
+.botaoOrange:active {
+--background: #e4a150e1;
+transform: translateY(3px);
+}
+.botaoOrange{
+height: 40px;
+width: 90%;
+--background: #f29523;
+font-size: 130%;
+text-align: center;
+--border: none;
+--border-radius: 30px;
+color: black;
+}
+.textofooder{
+text-align:center;
+font-size: 140%;
+padding-top: 20%;
+color: rgb(0, 0, 0);
+}
+.divbotao{
+  display: flex;
+}
+
+.textoMenu{
+  margin-top: 17%;
+  text-align: center;
+  color: rgb(0, 0, 0);
+}
+.show-map {
+  opacity: 1;
+}
+.logininfo{
+  font-weight: bold;
+  display: flex;
+  margin-bottom: 5px;
+  padding-left: 3%;
+  font-size: 130%;
+  text-align: left;
+}
+.inputcss{
+  margin-top: 5%;
+  margin-bottom: 5%;
+  width: 90%;
+}
+.input{
+  height: 58px;
+}
+.combocss{
+  margin-bottom: 5%;
+  width: 90%;
+  background-color: #3F99FB;
+}
+ion-content {
+  --background: none;
+  background-image: url('../../../assets/img/fundo1.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+ion-title{
+  align-items: center;
+}
+body{
+  height: 100%
+}

@@ -1,0 +1,81 @@
+<body>
+  <ion-content>
+    <div class="textoMenu">
+      <ion-text class="logininfo">Instituição: {{user ? user.nome : ''}}</ion-text>
+      <ion-text class="logininfo">Total de Professores: {{user ? user.qtdProfessor : ''}}</ion-text>
+      <ion-text class="textMenu">Menu Principal</ion-text>
+    </div>
+    <form class="formCenter">
+      <ion-button id="botao01" class="botaoBlue">
+        <div class="divbotao">
+          <div class="divRigth">
+            <ion-icon name="school-outline"></ion-icon></div>
+          <div><ion-text class="textoBotao">Meus Professores</ion-text></div>
+          <div class="divLeft">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </div>
+      </div>
+      </ion-button>
+      <ion-button id="botao02" class="botaoOrange" (click)="irCadastrarProfessor()">
+        <div class="divbotao">
+          <div class="divRigth">
+            <ion-icon name="reader-outline"></ion-icon>
+          </div>
+          <div>
+            <ion-text class="textoBotao">Cadastrar Professor</ion-text>
+          </div>
+          <div class="divLeft">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </div>
+      </div>
+      </ion-button>
+      <ion-button id="botao03" class="botaoBlue">
+        <div class="divbotao">
+          <div class="divRigth">
+            <ion-icon name="construct-outline"></ion-icon>
+          </div>
+          <div>
+            <ion-text class="textoBotao">Pagamento do Plano</ion-text>
+          </div>
+          <div class="divLeft">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </div>
+      </div>
+      </ion-button>
+      <ion-button id="botao02" class="botaoOrange">
+        <div class="divbotao">
+          <div class="divRigth">
+            <ion-icon name="reader-outline"></ion-icon>
+          </div>
+          <div>
+            <ion-text class="textoBotao">Configurações</ion-text>
+          </div>
+          <div class="divLeft">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </div>
+      </div>
+      </ion-button>
+      <ion-button id="botao02" class="botaoBlue" (click)="logout()">
+        <div class="divbotao">
+          <div class="divRigth">
+            <ion-icon name="reader-outline"></ion-icon>
+          </div>
+          <div>
+            <ion-text class="textoBotao">Sair</ion-text>
+          </div>
+          <div class="divLeft">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </div>
+        </div>
+      </ion-button>
+      
+    </form>
+    <div class="textofooder">
+      <div class="divImage">
+        <img src="../../../assets/img/logo.png">
+      </div>
+      <ion-text class="versao">{{versao}}</ion-text>
+    </div>
+        
+  </ion-content>
+</body>

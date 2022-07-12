@@ -1,0 +1,156 @@
+.page {
+  font-family: 'BebasNeue';
+}
+.map-canvas {
+  position: absolute;
+
+  height: 100%;
+  width: 100%;
+
+  background-color: transparent;
+
+  opacity: 0;
+  transition: opacity 150ms ease-in;
+}
+.divRigth{
+  position: fixed;
+  right: 92%;
+}
+.divLeft{
+  position: fixed;
+  left: 92%;
+}
+.titulo{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10%;
+}
+.formCenter{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.divImage{
+  background-position: center center;
+  background-repeat: no-repeat;
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 38%;
+  height: 9.5%;
+}
+.botaoBlue{
+  margin-top: 10%;
+  margin-bottom: 10%;
+  height: 40px;
+  width: 90%;
+  --background: #007BFF;   
+  font-size: 130%;
+  flex-direction: row;
+  --border: none;
+  --border-radius: 30px;
+  color: black;
+  
+}
+.botaoBlue:active {
+--background: #4ca1fc;
+transform: translateY(3px);
+}
+.textoBotao{
+  font-weight: bold;
+}
+.textoPage{
+  text-align: center;
+  font-weight: bold;
+  font-size: 250%;
+}
+
+ion-icon{
+  -ms-transform: scale(1.5); /* IE 9 */
+  -webkit-transform: scale(1.5); /* Chrome, Safari, Opera */
+  transform: scale(1.5);
+}
+
+input[type="radio"] {
+  -ms-transform: scale(1.5); /* IE 9 */
+  -webkit-transform: scale(1.5); /* Chrome, Safari, Opera */
+  transform: scale(1.5);
+}
+.textofooder{
+  display:block;
+  margin-top: 5%;
+  text-align:center;
+  font-size: 140%;
+  color: rgb(0, 0, 0);
+  width: 100%;
+  position:relative;
+}
+.divbotao{
+  display: flex;
+}
+
+.textoMenu{
+  top: auto;
+  text-align: center;
+  padding-top: 20%;
+  color: rgb(0, 0, 0);
+}
+.show-map {
+  opacity: 1;
+}
+.logininfo{
+  padding-left: 3%;
+  font-size: 130%;
+  text-align: left;
+}
+.inputcss{
+  width: 90%;
+  height: 58px;
+  border-radius: 10px;
+  margin-top: 10%;
+}
+.radiocss{
+  padding: 5%;
+  margin-top: 15%;
+  margin-bottom: 10%;
+  width: 90%;
+  background-color: rgba(60, 108, 228, 0.5);
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+}
+
+.divM{
+  text-align: center;
+  display:inline-block;
+  width: 100%;
+}
+.divMestra{
+  text-align: center;
+  display:inline-block;
+  align-items: center;
+  justify-content: center;
+  font-size: 180%;
+  padding: 3%;
+}
+ion-content {
+  --background: none;
+  background-image: url('../../../assets/img/fundo1.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+ion-radio{
+  --color: rgb(0, 0, 0);
+  background-color: rgb(255,255,255);
+  border-radius: 30px;
+}
+ion-title{
+  align-items: center;
+}
+body{
+  height: 100%;
+}

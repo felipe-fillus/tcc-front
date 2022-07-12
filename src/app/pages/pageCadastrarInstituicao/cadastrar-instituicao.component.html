@@ -1,0 +1,65 @@
+<body>
+  <ion-content>
+      <div class="textoMenu">
+        <ion-text class="textoPage">Cadastrar Instituição</ion-text>
+      </div>
+    <form class="formCenter" [formGroup]="formInstituicao">
+      <ion-list class="inputcss">
+        <ion-item>
+          <ion-input type="text" placeholder="Nome Institução:" formControlName="nome" name="nome"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="text" placeholder="CNPJ:" formControlName="cnpj"  name="cnpj"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="text" placeholder="Email:" formControlName="email"  name="email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="number" placeholder="CEP:" formControlName="cep"  name="cep"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="text" placeholder="Endereço:" formControlName="endereco"  name="endereco"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="number" placeholder="Número:" formControlName="numero"  name="numero"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="text" placeholder="Estado:" formControlName="uf"  name="uf"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="text" placeholder="Cidade:" formControlName="cidade"  name="cidade"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="text" placeholder="Bairro:" formControlName="bairro"  name="bairro"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="number" placeholder="Telefone:" formControlName="telefone"  name="telefone"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="password" placeholder="Senha:" formControlName="senha"  name="senha"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="password" placeholder="Senha Novamente:" formControlName="senha"  name="senha"></ion-input>
+        </ion-item>
+      </ion-list>
+
+      <ion-button id="botao01" class="botaoBlue" (click)="irCadastrar()">
+        <div class="divbotao">
+          <div class="divRigth">
+            <ion-icon name="school-outline"></ion-icon></div>
+          <div><ion-text class="textoBotao">Cadastrar Instituição</ion-text></div>
+          <div class="divLeft">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </div>
+      </div>
+      </ion-button>
+
+    </form>
+    <ion-text class="textofooder">
+      <div class="divImage">
+        <ion-img src="../../../assets/img/logo.png"></ion-img>
+      </div>
+      <ion-text class="textoBotao">{{versao}}</ion-text>
+    </ion-text>
+  </ion-content>
+</body>

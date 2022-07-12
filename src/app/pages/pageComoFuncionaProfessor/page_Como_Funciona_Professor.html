@@ -1,0 +1,48 @@
+<body>
+  <ion-content>
+    <div class="textoMenu">
+      <ion-text class="logininfo">Professor(a): {{user ? user.nome : ''}}</ion-text>
+      <ion-text class="logininfo">Total de Alunos: {{user ? user.qtdAlunos : ''}}</ion-text>
+      <ion-text class="textMenu">Como Funciona?</ion-text>
+    </div>
+    <form class="formCenter">
+      <ion-button id="botao01" class="botaoBlue">
+        <div class="divbotao">
+          <div class="divRigth">
+            <ion-icon name="school-outline"></ion-icon></div>
+          <div><ion-text class="textoBotao">Como Funciona?</ion-text></div>
+          <div class="divLeft">
+            <ion-icon name="chevron-down-outline"></ion-icon>
+          </div>
+      </div>
+      </ion-button>
+      <div class="formBotao">
+        <div class="divinterna">
+          <ion-text class="textoBotao">Grid com as informações</ion-text>
+        </div>
+        <div class="botaoInterno">
+          <ion-button class="botaoInterno"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
+          <ion-button class="botaoInterno">1 de 51</ion-button>
+          <ion-button class="botaoInterno"><ion-icon name="chevron-forward-outline"></ion-icon></ion-button>
+        </div>
+      </div>
+
+      
+      <ion-button id="botao05" class="botaoOrange" (click)="irVoltar()">
+        <div class="divbotao">
+          <div class="divRigth">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+          </div>
+          <div><ion-text class="textoBotao">Voltar</ion-text></div>
+      </div>
+      </ion-button>
+    </form>
+    <ion-text class="textofooder">
+      <div class="divImage">
+        <ion-img src="../../../assets/img/logo.png"></ion-img>
+      </div>
+      <ion-text class="textoBotao">{{versao}}</ion-text>
+    </ion-text>
+        
+  </ion-content>
+</body>
