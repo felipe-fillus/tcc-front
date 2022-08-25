@@ -33,7 +33,7 @@ export class FazerAtividadeAluno implements AfterViewInit {
   public acertou:Boolean = false;
   public acertouRemove:Boolean = true;
   router: any;
-  public tipoAtividade: number = 1; //Controlador de Atividade
+  public tipoAtividade: number = 5; //Controlador de Atividade
   public palavraSelected2List = [];
   public palavraSelected2Shuffle = [];
   public palavrasToSelec2 = ['Ri', 'no', 'ce', 'ron','te'];
@@ -41,6 +41,10 @@ export class FazerAtividadeAluno implements AfterViewInit {
   public audioCard = new Audio();
   public audioAtividade = new Audio();
   public msg = new SpeechSynthesisUtterance();
+  public msgslow = new SpeechSynthesisUtterance();
+
+  public playNormal: String = "../../../assets/atividades/normal.png"
+  public playSlow: String = "../../../assets/atividades/slow.png"
   //'
 
   public palavraSelected2fb = this.fb.group({
@@ -58,6 +62,7 @@ export class FazerAtividadeAluno implements AfterViewInit {
   ngAfterViewInit(): void {
     this.playAudioSuccess();
     this.setAudioTranslate();
+    this.setAudioTranslate1();
     
     for (let index = 0; index < this.palavrasToSelec2.length; index++) {
       this.palavraSelected2fb.get('id').setValue(index);
@@ -77,6 +82,13 @@ export class FazerAtividadeAluno implements AfterViewInit {
     this.msg.pitch = 0.8; 
     this.msg.lang = "pt-BR";
     this.msg.text ="";
+  }
+  setAudioTranslate1(){
+    this.msgslow.lang = "pt-BR";
+    this.msgslow.text ="";
+    this.msgslow.volume = 0.8;
+    this.msgslow.pitch = 0.5; 
+    this.msgslow.rate = 0.25; 
   }
 
   playAudioSuccess(){
@@ -459,5 +471,14 @@ export class FazerAtividadeAluno implements AfterViewInit {
     //this.router.navigateByUrl('/pageLogin');
   }
 
-
+  playnormal() {
+    this.msg.text =  this.palavra;
+    this.audioAtividade.pause;
+    speechSynthesis.speak(this.msg);
+  }
+  playslow(){
+    this.msgslow.text =  this.palavra;
+    this.audioAtividade.pause;
+    speechSynthesis.speak(this.msgslow);
+  }
 }

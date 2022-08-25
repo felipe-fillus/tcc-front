@@ -1,3 +1,20 @@
+
+//Geral
+
+ion-content {
+  --background: none;
+  background-image: url('../../../assets/img/fundo-atv.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+ion-title{
+  align-items: center;
+}
+ion-content{
+  height: 100%;
+}
+
 .example-list {
   width: 100%;
   max-width: 90%;
@@ -47,9 +64,6 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
   animation: random 2.2s infinite;
 }
-.palavra{
-  font-size: 180%;
-}
 
 .map-canvas {
   position: absolute;
@@ -75,16 +89,10 @@ transform: translateY(3px);
 
 }
 
-.imageAtividade1{
-  background-color: white;
-  width: 160px;
-  height: 160px;
-  border: solid 5px rgb(0, 0, 0);
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-.formUp{
+
+// Atividade 1 SCSS
+
+.formUp1{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -92,7 +100,17 @@ transform: translateY(3px);
   height: 30%;
   font-size: 200%;
 }
-.formCenter{
+
+.divM1{
+  text-align: center;
+  width: 100%;
+}
+
+.palavra1{
+  font-size: 180%;
+}
+
+.formCenter1{
   width: 100%;
   display: flex;
   align-items: center;
@@ -100,56 +118,57 @@ transform: translateY(3px);
   flex-direction: column;
   font-size: 200%;
 }
-ion-content {
-  --background: none;
-  background-image: url('../../../assets/img/fundo-atv.jpg');
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-ion-title{
-  align-items: center;
-}
-ion-content{
-  height: 100%;
+
+.imageAtividade1{
+  background-color: white;
+  width: 150px;
+  height: 150px;
+  border: solid 5px rgb(0, 0, 0);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.divAtividade{
+.divAtividade1{
   padding-top: 15px;
   text-align: center;
   width: 100%;
 }
-.divM{
-  text-align: center;
-  width: 100%;
-}
-.divMestra{
-  text-align: center;
-  display:inline-block;
-  align-items: center;
-  justify-content: center;
-  font-size: 140%;
-  padding: 3%;
-}
 
-.espacamento{
-  width: 20%;
-}
-
-.divComImagem{
-  width: 90%;
-  height: 90%;
-  display: flex;
+.formparabens1{
+  width: 100%; 
+  height: 100%; 
+  overflow: hidden;  
   text-align: center;
+  vertical-align: middle;
 }
-
-.divAtividadeImage{
-  text-align: center;
-  display:table-column;
-  height: 80%;
+.imageparabenizacaoatividade1{
+  position: absolute;  
+  overflow: hidden;  
+  top: 50%;  
+  left: 50%;  
+  -webkit-transform: translate(-50%,-50%);  
+  -moz-transform: translate(-50%,-50%);  
+  -ms-transform: translate(-50%,-50%);  
+  -o-transform: translate(-50%,-50%);  
+  transform: translate(-50%,-50%);  
+}
+.botaoBlueAcertou1{
+  padding-top:35%;
+  height: 15%;
   width: 60%;
-} 
+  --background: #007BFF;   
+  font-size: 130%;
+  --border: none;
+  --border-radius: 30px;
+  color: black;
+}
+.botaoBlueAcertou1:active {
+--background: #4ca1fc;
+transform: translateY(3px);
+}
 
+//Atividade 2 SCSS
 
 .example-list2 {
   width: 90%;
@@ -161,7 +180,7 @@ ion-content{
 }
 
 .example-box2 {
-  width: 20%;
+  width: 22%;
   padding: 1.5% 1.5%;
   border: solid 2px rgb(0, 0, 0);
   color: rgba(0, 0, 0, 0.822);
@@ -205,40 +224,35 @@ ion-content{
   justify-content: center;
   height: 70%;
 }
-.formCenter2{
-  height: 30%;
-}
-.formparabens{
-  width: 100%; 
-  height: 100%; 
-  overflow: hidden;  
-  text-align: center;
-  vertical-align: middle;
-}
-.imageparabenizacaoatividade2{
-  position: absolute;  
-  overflow: hidden;  
-  top: 50%;  
-  left: 50%;  
-  -webkit-transform: translate(-50%,-50%);  
-  -moz-transform: translate(-50%,-50%);  
-  -ms-transform: translate(-50%,-50%);  
-  -o-transform: translate(-50%,-50%);  
-  transform: translate(-50%,-50%);  
-}
 
-.imageAtividade{
-  background-color: white;
-  text-align: center;
+.divComImagem2{
+  width: 90%;
+  height: 90%;
   display: flex;
+  text-align: center;
+}
+.divAtividadeImage2{
+  text-align: center;
+  display:table-column;
+  height: 80%;
+  width: 60%;
+} 
+
+.imageAtividade2{
+  background-color: white;
+  width: 150px;
+  height: 150px;
+  border: solid 5px rgb(0, 0, 0);
+  display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 45vh;
-  height: 40vh;
-  border: solid 5px rgb(0, 0, 0);
 }
 
-.divAtividade2img{
+.atividadeCorrect2{
+  pointer-events: none;
+}
+
+.divAtividade2img2{
   background-position: center center;
   background-repeat: no-repeat;
   display: flex;
@@ -254,18 +268,41 @@ ion-content{
   justify-content: center;
 }
 
-.atividadeCorrect{
-  pointer-events: none;
+.formCenter2{
+  height: 30%;
 }
-
 
 .divAtividade2{
   padding: 10px;
   text-align: center;
   width: 100%;
-  
 }
-.botaoBlueAcertou{
+.formparabens2{
+  width: 100%; 
+  height: 100%; 
+  overflow: hidden;  
+  text-align: center;
+  vertical-align: middle;
+}
+
+.divM2{
+  text-align: center;
+  width: 100%;
+}
+
+.imageparabenizacaoatividade2{
+  position: absolute;  
+  overflow: hidden;  
+  top: 50%;  
+  left: 50%;  
+  -webkit-transform: translate(-50%,-50%);  
+  -moz-transform: translate(-50%,-50%);  
+  -ms-transform: translate(-50%,-50%);  
+  -o-transform: translate(-50%,-50%);  
+  transform: translate(-50%,-50%);  
+}
+
+.botaoBlueAcertou2{
   padding-top:35%;
   height: 15%;
   width: 60%;
@@ -275,57 +312,40 @@ ion-content{
   --border-radius: 30px;
   color: black;
 }
-.botaoBlueAcertou2{
-  padding-top:25%;
-  height: 15%;
-  width: 60%;
-  --background: #007BFF;   
-  font-size: 130%;
-  --border: none;
-  --border-radius: 30px;
-  color: black;
-}
-.botaoBlueAcertou:active {
+.botaoBlueAcertou2:active {
 --background: #4ca1fc;
 transform: translateY(3px);
 }
 
-//atividade 3
-.formUp3{
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  height: 70%;
-  align-items: center;
-}
-.divComImagemAtividade3{
+
+// Atividade 3 Scss
+
+.example-list3 {
   width: 90%;
-  height: 90%;
-  text-align: center;
-  display:inline-block;
-  align-items: center;
-  justify-content: center;
+  min-height: 30px;
+  display:contents;
+  flex-direction: row;
+  overflow: hidden;
 }
 
-.imageAtividade3{
+.example-box3 {
+  width: 20%;
+  padding: 1.5% 1.5%;
+  border: solid 2px rgb(0, 0, 0);
+  color: rgba(0, 0, 0, 0.822);
+  box-sizing: border-box;
   background-color: white;
-  display: flex;
-  margin-left: auto;
-  margin-right: auto;
-  width: 45vh;
-  height: 40vh;
-  border: solid 5px rgb(0, 0, 0);
-}
-.divAtividadeImage3{
-  position:relative;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -5%);
+  cursor: move;
+  font-size: 22px;
+  border-radius: 20px;
   text-align: center;
-  display:table;
-  height: 80%;
-  width: 60%;
-} 
+}
+
+.example-box3.cdk-drag-preview {
+  background-color: rgba(84, 252, 112, 0.678);
+  border: solid 5px rgba(1, 231, 51, 0.534);
+}
+
 .example-list3acerto {
   text-align: center;
   width: 98%;
@@ -348,17 +368,256 @@ transform: translateY(3px);
   background-color: rgba(69, 250, 52, 0.904);
 }
 
-//5
-.formUp5{
+.formUp3{
   display: flex;
+  justify-content: center;
   flex-direction: column;
-  font-size: 200%;
-  text-align: center;
+  height: 70%;
+  align-items: center;
 }
-.divComImagem2{
-  padding: 10px;
+
+.divComImagemAtividade3{
   width: 90%;
   height: 90%;
+  text-align: center;
+  display:inline-block;
+  align-items: center;
+  justify-content: center;
+}
+
+.divAtividadeImage3{
+  position:relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -5%);
+  text-align: center;
+  display:table;
+  height: 80%;
+  width: 60%;
+} 
+
+.imageAtividade3{
+  background-color: white;
+  width: 160px;
+  height: 160px;
+  border: solid 5px rgb(0, 0, 0);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.divAtividade2img3{
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  border-style:dotted;
+  border: dotted 3px rgb(0, 0, 0);
+  color: rgba(0, 0, 0, 0.822);
+  height: 80px;
+  width: 70%;
+  border-radius: 30px;
+  justify-content: center;
+}
+
+.espacamento3{
+  width: 20%;
+}
+.formCenter3{
+  height: 30%;
+}
+
+.divAtividade3{
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+}
+
+.formparabens3{
+  width: 100%; 
+  height: 100%; 
+  overflow: hidden;  
+  text-align: center;
+  vertical-align: middle;
+}
+
+.divM3{
+  text-align: center;
+  width: 100%;
+}
+
+.imageparabenizacaoatividade3{
+  position: absolute;  
+  overflow: hidden;  
+  top: 50%;  
+  left: 50%;  
+  -webkit-transform: translate(-50%,-50%);  
+  -moz-transform: translate(-50%,-50%);  
+  -ms-transform: translate(-50%,-50%);  
+  -o-transform: translate(-50%,-50%);  
+  transform: translate(-50%,-50%);  
+}
+
+.botaoBlueAcertou3{
+  padding-top:35%;
+  height: 15%;
+  width: 60%;
+  --background: #007BFF;   
+  font-size: 130%;
+  --border: none;
+  --border-radius: 30px;
+  color: black;
+}
+
+.botaoBlueAcertou3:active {
+  --background: #4ca1fc;
+  transform: translateY(3px);
+}
+
+// Atividade 4
+
+.divAtividadedesc4{
+  display: flex;
+  background-color: white;
+  border-style:dotted;
+  border: dotted 3px rgb(0, 0, 0);
+  height: 80px;
+  width: 100%;
+  border-radius: 30px;
+}
+.atividadeCorrect4{
+  pointer-events: none;
+}
+.formUp4{
+  padding-top: 1%;
+  font-size: 300%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.divM4{
+  text-align: center;
+  width: 100%;
+}
+
+.palavra4{
+  font-size: 180%;
+}
+
+.divContainer4{
+  padding: 4%;
+  width: 100%;
+  height: 90%;
+  display: table;
+}
+
+.divTableRow4{
+  display: table-row;
+} 
+.divTableCell4 {
+  width: 100px;
+  display: table-cell;
+}
+.formCenter4{
+  height: 30%;
+}
+
+.divAtividade4{
+  text-align: center;
+  width: 100%;
+}
+
+.example-box4 {
+  width: 100%;
+  border: solid 3px rgb(0, 0, 0);
+  box-sizing: border-box;
+  background-color: white;
+  cursor: move;
+  font-size: 22px;
+  border-radius: 20px;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+
+}
+
+.example-box4.cdk-drag-preview {
+  background-color: rgba(84, 252, 112, 0.678);
+  border: solid 5px rgba(1, 231, 51, 0.534);
+}
+
+.example-lista-certo4 {
+  text-align: center;
+  width: 98%;
+  height: 75px;
+  display:table;
+}
+
+.example-box-acerto4 {
+  width: 100%;
+  border: solid 3px rgb(0, 0, 0);
+  color: rgba(0, 0, 0, 0.822);
+  box-sizing: border-box;
+  background-color: white;
+  cursor: move;
+  font-size: 22px;
+  border-radius: 26px;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  background-color: rgba(69, 250, 52, 0.904);
+}
+
+.example-list4 {
+  width: 100%;
+  min-width: 100px;
+  min-height: 60px;
+  display:table;
+  
+}
+
+.formparabens4{
+  width: 100%; 
+  height: 100%; 
+  overflow: hidden;  
+  text-align: center;
+  vertical-align: middle;
+}
+
+.imageparabenizacaoatividade4{
+  position: absolute;  
+  overflow: hidden;  
+  top: 50%;  
+  left: 50%;  
+  -webkit-transform: translate(-50%,-50%);  
+  -moz-transform: translate(-50%,-50%);  
+  -ms-transform: translate(-50%,-50%);  
+  -o-transform: translate(-50%,-50%);  
+  transform: translate(-50%,-50%);  
+}
+
+.botaoBlueAcertou4{
+  padding-top:25%;
+  height: 15%;
+  width: 60%;
+  --background: #007BFF;   
+  font-size: 130%;
+  --border: none;
+  --border-radius: 30px;
+  color: black;
+}
+
+.botaoBlueAcertou4:active {
+  --background: #4ca1fc;
+  transform: translateY(3px);
+}
+
+// Atividade 5 SCSS
+
+.atividadeCorrect5{
+  pointer-events: none;
 }
 
 .divAtividade5desc{
@@ -374,8 +633,7 @@ transform: translateY(3px);
   width: 100%;
   min-width: 100px;
   min-height: 60px;
-  display:table;
-  
+  display:table;  
 }
 
 .example-box5 {
@@ -397,13 +655,62 @@ transform: translateY(3px);
   border: solid 5px rgba(1, 231, 51, 0.534);
 }
 
+.formCenter5{
+  height: 30%;
+}
+
+.botaovoltar5{
+  display: flex;
+  flex-direction: column;
+  font-size: 200%;
+  text-align: center;
+}
+
+.formUp5{
+  display: flex;
+  justify-content: center;
+  height: 70%;
+}
+
+.divComImagem5{
+  width: 90%;
+  height: 90%;
+  display: flex;
+  text-align: center;
+}
+
+.divAtividadeImage5{
+  text-align: center;
+  display:table-column;
+  height: 80%;
+  width: 60%;
+} 
+
+.imageAtividade5{
+  background-color: white;
+  width: 120px;
+  height: 120px;
+  border: solid 5px rgb(0, 0, 0);
+  border-radius: 30px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.imgMargintop5{
+  margin-top: 8px;
+}
+
+.espacamento5{
+  width: 20%;
+}
+
 .divContainer5{
-  padding: 5%;
+  padding: 2%;
   width: 100%;
   height: 90%;
-  display: table;
-  
+  display: table; 
 }
+
 .divTableRow5{
   display: table-row;
 } 
@@ -412,6 +719,79 @@ transform: translateY(3px);
   display: table-cell;
 }
 
+.example-list-acerto5 {
+  text-align: center;
+  width: 98%;
+  height: 75px;
+  display:table;
+}
 
+.example-box-acerto5 {
+  width: 100%;
+  border: solid 3px rgb(0, 0, 0);
+  color: rgba(0, 0, 0, 0.822);
+  box-sizing: border-box;
+  background-color: white;
+  cursor: move;
+  font-size: 22px;
+  border-radius: 26px;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  background-color: rgba(69, 250, 52, 0.904);
+}
 
+.divAtividade5{
+  padding-top: 15px;
+  text-align: center;
+  width: 100%;
+}
 
+.formparabens5{
+  width: 100%; 
+  height: 100%; 
+  overflow: hidden;  
+  text-align: center;
+  vertical-align: middle;
+}
+
+.divM5{
+  text-align: center;
+  width: 100%;
+}
+
+.palavraParabens5{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding-top: 5%; 
+  font-size: 300%;
+}
+
+.imageparabenizacaoatividade5{
+  position: absolute;  
+  overflow: hidden;  
+  top: 50%;  
+  left: 50%;  
+  -webkit-transform: translate(-50%,-50%);  
+  -moz-transform: translate(-50%,-50%);  
+  -ms-transform: translate(-50%,-50%);  
+  -o-transform: translate(-50%,-50%);  
+  transform: translate(-50%,-50%);  
+}
+
+.botaoBlueAcertou5{
+  padding-top:25%;
+  height: 15%;
+  width: 60%;
+  --background: #007BFF;   
+  font-size: 130%;
+  --border: none;
+  --border-radius: 30px;
+  color: black;
+}
+
+.botaoBlueAcertou5:active {
+  --background: #4ca1fc;
+  transform: translateY(3px);
+}
