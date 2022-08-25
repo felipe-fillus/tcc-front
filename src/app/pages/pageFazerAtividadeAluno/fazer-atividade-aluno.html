@@ -80,7 +80,7 @@
             <div class="divAtividade2">
                 <ion-row class="ion-justify-content-center">
                 <div cdkDropList #selecList="cdkDropList" [cdkDropListData]="palavrasToSelec" [cdkDropListConnectedTo]="[selectedList1, selectedList2]"
-                    class="example-list2" >
+                    class="example-list2">
                     <div class="example-box2" *ngFor="let item of palavrasToSelec" cdkDrag>{{item}}</div>
                 </div>
                 </ion-row>
