@@ -13,6 +13,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/pageMeusAlunosInstituicao/page_Meus_Alunos_Instituicao.Module').then(m => m.Page_Meus_Alunos_ProfessorModule)
   },
   {
+    path: 'pageQuestionarioAlunoProfessor',
+    loadChildren: () => import('./pages/pageQuestionarioAlunoProfessor/pageQuestionarioAlunoProfessor.Module').then(m => m.Page_QuestionarioAlunoProfessorModule)
+  },
+  {
     path: 'pageMeusProfessoresInstituicao',
     loadChildren: () => import('./pages/pageMeusProfessoresInstituicao/page_Meus_Professores_Instituicao.Module').then(m => m.Page_Meus_Professor_ProfessorModule)
   },
