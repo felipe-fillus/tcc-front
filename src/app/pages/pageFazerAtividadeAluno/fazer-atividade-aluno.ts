@@ -33,7 +33,7 @@ export class FazerAtividadeAluno implements AfterViewInit {
   public acertou:Boolean = false;
   public acertouRemove:Boolean = true;
   router: any;
-  public tipoAtividade: number = 5; //Controlador de Atividade
+  public tipoAtividade: number = 4; //Controlador de Atividade
   public palavraSelected2List = [];
   public palavraSelected2Shuffle = [];
   public palavrasToSelec2 = ['Ri', 'no', 'ce', 'ron','te'];

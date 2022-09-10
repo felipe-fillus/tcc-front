@@ -1,38 +1,37 @@
 <body>
   <ion-content>
     <div class="textoMenu">
-      <ion-text class="logininfo">Professor(a): {{user ? user.nome : ''}}</ion-text>
+      <ion-text class="logininfo">Instituição(a): {{user ? user.nome : ''}}</ion-text>
       <ion-text class="logininfo">Total de Alunos: {{user ? user.qtdAlunos : ''}}</ion-text>
       <ion-text class="textMenu">Meus Alunos</ion-text>
     </div>
     <form class="formCenter">
-      <ion-button id="botao01" class="botaoBlue" (click)="irCadastrarNovoAluno()">
-        <div class="divbotao">
-          <div class="divRigth">
-            <ion-icon name="person-add-outline"></ion-icon>
-          </div>
-          <div>
-            <ion-text class="textoBotao">Cadastrar Novo Aluno</ion-text>
-          </div>
-          <div class="divLeft">
-            <ion-icon name="chevron-forward-outline"></ion-icon>
-          </div>
-      </div>      
-      </ion-button>
-      <ion-button id="Meusalunos" class="botaoOrange" (click)="irMeusAlunos()">
+      <ion-button id="botao01" class="botaoBlue">
         <div class="divbotao">
           <div class="divRigth">
             <ion-icon name="school-outline"></ion-icon>
           </div>
           <div>
-            <ion-text class="textoBotao">Meus Alunos</ion-text>
+            <ion-text class="textoBotao">Alunos</ion-text>
           </div>
           <div class="divLeft">
-            <ion-icon name="chevron-forward-outline"></ion-icon>
+            <ion-icon name="chevron-down-outline"></ion-icon>
           </div>
       </div>
       </ion-button>
-      <ion-button id="botao03" class="botaoBlue" (click)="irVoltar()">
+
+      <div class="formBotao">
+            <div *ngFor="let aluno of alunos">
+              <ion-item>
+                <ion-label>
+                  {{aluno.nome}}
+                </ion-label>
+                <ion-icon name="create" slot="end"></ion-icon>
+              </ion-item>
+            </div>
+      </div>
+
+      <ion-button id="volta" class="botaoOrange" (click)="irVoltar()">
         <div class="divbotao">
           <div class="divRigth">
             <ion-icon name="arrow-back-outline"></ion-icon>
@@ -43,13 +42,12 @@
       </div>
       </ion-button>
       
-    </form>
+    </form> 
     <div class="textofooder">
       <div class="divImage">
         <img src="../../../assets/img/logo.png">
       </div>
       <ion-text class="versao">{{versao}}</ion-text>
     </div>
-        
   </ion-content>
 </body>

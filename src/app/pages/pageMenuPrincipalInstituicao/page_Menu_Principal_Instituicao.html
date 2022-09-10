@@ -6,7 +6,7 @@
       <ion-text class="textMenu">Menu Principal</ion-text>
     </div>
     <form class="formCenter">
-      <ion-button id="botao01" class="botaoBlue">
+      <ion-button id="botao01" class="botaoBlue" (click)="irmeusProfessores()">
         <div class="divbotao">
           <div class="divRigth">
             <ion-icon name="school-outline"></ion-icon></div>
@@ -42,13 +42,13 @@
           </div>
       </div>
       </ion-button>
-      <ion-button id="botao02" class="botaoOrange">
+      <ion-button id="botao02" class="botaoOrange" (click)="irMeusAlunos()">
         <div class="divbotao">
           <div class="divRigth">
             <ion-icon name="reader-outline"></ion-icon>
           </div>
           <div>
-            <ion-text class="textoBotao">Configurações</ion-text>
+            <ion-text class="textoBotao">Meus Alunos</ion-text>
           </div>
           <div class="divLeft">
             <ion-icon name="chevron-forward-outline"></ion-icon>

@@ -9,6 +9,14 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'pageMeusAlunosInstituicao',
+    loadChildren: () => import('./pages/pageMeusAlunosInstituicao/page_Meus_Alunos_Instituicao.Module').then(m => m.Page_Meus_Alunos_ProfessorModule)
+  },
+  {
+    path: 'pageMeusProfessoresInstituicao',
+    loadChildren: () => import('./pages/pageMeusProfessoresInstituicao/page_Meus_Professores_Instituicao.Module').then(m => m.Page_Meus_Professor_ProfessorModule)
+  },
+  {
     path: 'pageLogin',
     loadChildren: () => import('./pages/pageLogin/page_Login.Module').then(m => m.Page_LoginModule)
   },

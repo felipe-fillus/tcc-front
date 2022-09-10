@@ -36,7 +36,13 @@ export class Page_Menu_Principal_Instituicao implements AfterViewInit {
   irCadastrarProfessor() {
     this.router.navigateByUrl('/pageCadastrarProfessor');
   }
+  irMeusAlunos() {
+    this.router.navigateByUrl('/pageMeusAlunosInstituicao');
+  }
 
+  irmeusProfessores() {
+    this.router.navigateByUrl('/pageMeusProfessoresInstituicao');
+  }
   logout() {
     this.authBaseService.logout();
   }
