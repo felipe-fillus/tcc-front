@@ -1,74 +1,72 @@
-import { Component, ElementRef, Inject, ViewChild, AfterViewInit } from '@angular/core';
-import { ConferenceData } from '../../providers/conference-data';
-import { Platform } from '@ionic/angular';
-import { DOCUMENT} from '@angular/common';
+import { DOCUMENT } from '@angular/common';
+import { AfterViewInit, Component, Inject } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Platform, ModalController } from '@ionic/angular';
+import { ETipoAtividade } from '../../enum/tipo-atividade.enum';
 import { Versao } from '../../enum/versao.enum';
+import { ConferenceData } from '../../providers/conference-data';
 import { AuthBaseService } from '../../providers/service/auth/auth-base.service';
+import { ModalCriarAtividadeLetraProfessor } from '../modalCriarAtividadeLetraProfessor/modal_Criar_Atividade_Letra_Professor';
+import { Page_Criar_Atividade_Letra_Professor } from '../pageCriarAtividadeLetraProfessor/page_Criar_Atividade_Letra_Professor';
 
 @Component({
-  selector: 'page_Criar_Atividade_Professor',
-  templateUrl: 'page_Criar_Atividade_Professor.html',
-  styleUrls: ['./page_Criar_Atividade_Professor.scss']
+	selector: 'page_Criar_Atividade_Professor',
+	templateUrl: 'page_Criar_Atividade_Professor.html',
+	styleUrls: ['./page_Criar_Atividade_Professor.scss']
 })
 export class Page_Criar_Atividade_Professor implements AfterViewInit {
-  @ViewChild('mapCanvas', { static: true }) mapElement: ElementRef;
-  versao = Versao.numero;
-  user: any;
-  constructor(
-    @Inject(DOCUMENT) private doc: Document,
-    public confData: ConferenceData,
-    public router: Router,
-    public platform: Platform,
-    public authBaseService: AuthBaseService) {}
+	public versao = Versao.numero;
+	public user: any;
+	public tiposAtividades = ETipoAtividade;
 
-    public tipoAtividade = 'pageCriarAtividadeLetraProfessor';
-  async ngAfterViewInit() {
-    this.authBaseService.watchLoggedUser().subscribe((res) => {
+	atividadeForm = this.fb.group({
+		nomeAtividade: ['', Validators.required],
+		totalExercicos: [null, Validators.required],
+		tipoAtividade: ['', Validators.required]
+	});
 
-      if (res.user) {
-        this.user = res.user;
-      }
+	constructor(
+		public confData: ConferenceData,
+		public router: Router,
+		public platform: Platform,
+		public authBaseService: AuthBaseService,
+		private fb: FormBuilder,
+		private modalCtrl: ModalController) { }
 
-    });
-    const appEl = this.doc.querySelector('ion-app');
+	async ngAfterViewInit() {
+		this.authBaseService.watchLoggedUser().subscribe((res) => {
 
-  }
-  
-  file: File;
-  changeListener($event) : void {
-     this.file = $event.target.files[0];
-   }
-  countryChange($event) {
-    this.tipoAtividade =$event.target.value;
-  }
-   onProssiga() {
-    this.router.navigateByUrl('/'+this.tipoAtividade);
+			if (res.user) {
+				this.user = res.user;
+			}
 
-  }
+		});
+	}
 
+	async openModal() {
+		const modal = await this.modalCtrl.create({
+			component: ModalCriarAtividadeLetraProfessor
+		});
+		await modal.present();
 
-   saveProfile_click() {
-     console.log("saveProfile_click");
-     // Add your code here
-     /*this.afAuth.authState.take(1).subscribe(auth => {
-       this.afDatabase.object(`profile/${this.uid}`).set(this.profile)
-         .then(() => {
-           this.uploadProfileImage();
-           this.navCtrl.pop();
-         });
-     })*/
-   }
- 
-   uploadProfileImage(){
-     /*console.log("uploadProfileImage");
-     let fileRef = firebase.storage().ref('profileImages/' + this.uid + ".jpg");
-     fileRef.put(this.file).then(function(snapshot) {
-       console.log('Uploaded a blob or file!');
-     });*/
-   }
-   
-  irVoltar() {
-    this.router.navigateByUrl('/pageMenuAtividadesProfessor');
-  }
+		const data = await modal.onWillDismiss();
+		console.log(data);
+	}
+
+	onProssiga() {
+		this.openModal();
+		// this.saveAtividade();
+	}
+
+	saveAtividade() {
+		if (this.atividadeForm.valid) {
+			//atividade subscribe
+		}
+	}
+
+	irVoltar() {
+		this.router.navigateByUrl('/pageMenuAtividadesProfessor');
+	}
+
 }

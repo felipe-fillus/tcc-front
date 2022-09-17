@@ -1,0 +1,58 @@
+<body>
+	<ion-content>
+		<ion-toolbar>
+			<ion-buttons slot="start">
+				<ion-button (click)="cancel()">Cancelar</ion-button>
+			</ion-buttons>
+			<ion-buttons slot="end">
+				<ion-button (click)="confirm()" [strong]="true">Salvar</ion-button>
+			</ion-buttons>
+		</ion-toolbar>
+		<div class="textoMenu">
+			<ion-text class="textMenu">Criar Atividades</ion-text>
+		</div>
+		<div class="tableCenter">
+			<form class="formCenter">
+				<div class="divUpload">
+					<ion-text class="negrito">Tipo do exercício</ion-text>
+					<ion-list class="inputcss" style="padding-top: 0px;">
+						<ion-item >
+							<ion-select class="combocss" interface="popover" placeholder="Tipos Exercicícios">
+								<ion-select-option *ngFor="let type of tiposExercicios | keyvalue" [value]="type.key">{{
+									type.value }}
+								</ion-select-option>
+							</ion-select>
+						</ion-item>
+					</ion-list>
+					<ion-text class="negrito">Palavra, sílaba ou letra do Exercício</ion-text>
+					<ion-input class="inputcss" type="text" placeholder="Palavra Base:"></ion-input>
+					<ion-text class="negrito">Imagem Da Palavra</ion-text>
+					<ion-item class="fundoAzul" style="border-radius: 35px;">
+						<input type="file" id="file-upload" accept="image/jpg, image/jpeg, image/png, image/gif" style="display: none;" (change)=setImage($event)/>
+						<ion-icon name="cloud-upload" (click)=openFileDialog() style="font-size: 25px;"></ion-icon>
+						<ion-text style="margin-left: 5%;">{{nomeImagem ? 'imagem: ' + nomeImagem : 'Anexar'}}</ion-text>
+					</ion-item>
+		
+					<ion-text class="negrito">Parabenização final do Exercício</ion-text>
+					<ion-item class="fundoAzul" style="border-radius: 35px;">
+						<input type="file" id="file-upload-parabenizacao" accept="image/jpg, image/jpeg, image/png, image/gif" style="display: none;" (change)=setParabenizacao($event)/>
+						<ion-icon name="cloud-upload" (click)=openFileDialogParabenizacao() style="font-size: 25px;"></ion-icon>
+						<ion-text style="margin-left: 5%;">{{nomeParabenizacao ? 'imagem: ' + nomeParabenizacao : 'Anexar'}}</ion-text>
+					</ion-item>
+				</div>
+			</form>
+		</div>		
+		<ion-button id="botao02" class="botaoOrange" (click)="addExercicio()">
+			<div class="divbotao">
+			<ion-icon style="font-size: 45px;" name="add-circle-outline"></ion-icon>
+		  </div>
+		  </ion-button>
+
+		<ion-text class="textofooder">
+			<div class="divImage">
+				<ion-img src="../../../assets/img/logo.png"></ion-img>
+			</div>
+			<ion-text class="textoBotao">{{versao}}</ion-text>
+		</ion-text>
+	</ion-content>
+</body>

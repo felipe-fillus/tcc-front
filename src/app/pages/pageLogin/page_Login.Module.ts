@@ -8,11 +8,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
+    Page_LoginRoutingModule,
     CommonModule,
     IonicModule,
-    Page_LoginRoutingModule,
     FormsModule,
-    IonicModule,
     ReactiveFormsModule
   ],
   declarations: [

@@ -65,27 +65,31 @@
   justify-content: center;
   flex-direction: column;
 }
-.inputDiv{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+.listinput{
+  width: 90%;
+  border-radius: 30px;
+  --background: #ffffff; 
+  text-align: center;
 }
 .inputcss{
   margin-top: 5%;
   margin-left: 5%;
   margin-right: 5%;
-  height: 50px;
+  height: 40px;
   width: 90%;
   --background: #ffffff; 
   border-radius: 30px;
   text-align: center;
+  font-size: 150%;
 }
 .combocss{
-  width: 100%;
+  margin-left: 5%;
+  margin-right: 5%;
+  height: 40px;
   --background: #ffffff; 
   border-radius: 30px;
   text-align: center;
+  width: 270px;
 }
 .textoLeft{
   display: flex;
@@ -131,15 +135,15 @@ transform: translateY(3px);
 transform: translateY(3px);
 }
 .botaoOrange{
-  margin-bottom: 5%;
-height: 40px;
-width: 90%;
+height: 55px;
+width: 55px;
 --background: #f29523;
-font-size: 130%;
+font-size: 80%;
 text-align: center;
 --border: none;
---border-radius: 30px;
+--border-radius: 55px;
 color: black;
+margin-left: 20px;
 }
 .divImage{
   background-position: center center;
@@ -182,14 +186,14 @@ ion-content {
   background: #3F99FB;
   width: 90%;
   margin-top: -6px;
-  height: 500px;
+  height: 440px;
   background-size: cover;
   background-repeat: no-repeat;
   text-align: center;
   overflow-y: scroll;
 }
 .textoMenu{
-  margin-top: 17%;
+  margin-top: 5%;
   text-align: center;
   color: rgb(0, 0, 0);
 }
@@ -207,7 +211,7 @@ ion-content {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  font-size: 150%;
+  font-size: 20px;
   margin-top: 5%;
   margin-bottom: 5%;
   font-weight: bold;
@@ -218,7 +222,7 @@ ion-content {
   justify-content: center;
   flex-direction: column;
   text-align: center;
-  font-size: 150%;
+  font-size: 20px;
   font-weight: bold;
   margin-top: 5%;
 }
@@ -232,5 +236,4 @@ ion-title{
 body{
   height: 100%
 }
-
 
