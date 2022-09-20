@@ -1,14 +1,12 @@
-import { DOCUMENT } from '@angular/common';
-import { AfterViewInit, Component, Inject } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Platform, ModalController } from '@ionic/angular';
+import { ModalController, Platform } from '@ionic/angular';
 import { ETipoAtividade } from '../../enum/tipo-atividade.enum';
 import { Versao } from '../../enum/versao.enum';
 import { ConferenceData } from '../../providers/conference-data';
 import { AuthBaseService } from '../../providers/service/auth/auth-base.service';
 import { ModalCriarAtividadeLetraProfessor } from '../modalCriarAtividadeLetraProfessor/modal_Criar_Atividade_Letra_Professor';
-import { Page_Criar_Atividade_Letra_Professor } from '../pageCriarAtividadeLetraProfessor/page_Criar_Atividade_Letra_Professor';
 
 @Component({
 	selector: 'page_Criar_Atividade_Professor',
@@ -23,7 +21,8 @@ export class Page_Criar_Atividade_Professor implements AfterViewInit {
 	atividadeForm = this.fb.group({
 		nomeAtividade: ['', Validators.required],
 		totalExercicos: [null, Validators.required],
-		tipoAtividade: ['', Validators.required]
+		tipoAtividade: ['', Validators.required],
+		exercicios: [null]
 	});
 
 	constructor(
@@ -44,18 +43,21 @@ export class Page_Criar_Atividade_Professor implements AfterViewInit {
 		});
 	}
 
-	async openModal() {
+	async modal() {
 		const modal = await this.modalCtrl.create({
-			component: ModalCriarAtividadeLetraProfessor
+			component: ModalCriarAtividadeLetraProfessor,
+			componentProps: {exercicios: this.atividadeForm.get('exercicios')},
 		});
 		await modal.present();
 
-		const data = await modal.onWillDismiss();
-		console.log(data);
+		const data = await (await modal.onWillDismiss()).data;
+		this.atividadeForm.get('exercicios').setValue(data?.exercicios);
+		this.atividadeForm.get('totalExercicos').setValue(data?.exercicios.length)
+		console.log(this.atividadeForm.value);
 	}
 
-	onProssiga() {
-		this.openModal();
+	openModal() {
+		this.modal();
 		// this.saveAtividade();
 	}
 

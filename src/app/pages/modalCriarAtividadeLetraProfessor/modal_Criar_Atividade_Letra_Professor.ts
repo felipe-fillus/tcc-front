@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonModal, Platform, ModalController } from '@ionic/angular';
-import { OverlayEventDetail } from '@ionic/core';
-import { ETipoExercicio } from '../../enum/tipo-exercicio.enum';
+import { ModalController, NavParams, Platform } from '@ionic/angular';
+import { ETipoExercicioLetra } from '../../enum/tipo-exercicio-letra.enum';
 import { Versao } from '../../enum/versao.enum';
 import { ConferenceData } from '../../providers/conference-data';
 import { AuthBaseService } from '../../providers/service/auth/auth-base.service';
@@ -13,20 +13,70 @@ import { AuthBaseService } from '../../providers/service/auth/auth-base.service'
 	styleUrls: ['./modal_Criar_Atividade_Letra_Professor.scss']
 })
 export class ModalCriarAtividadeLetraProfessor {
+	
+	public versao = Versao.numero;
+	public user: any;
+	public name: string;
+	public message: string;
+	public tiposExercicios = ETipoExercicioLetra;
+	public nomeImagem: string;
+	public nomeParabenizacao: string;
+	public form: FormGroup;
+	public totalExercicios: number;
+
 	constructor(
 		public confData: ConferenceData,
 		public router: Router,
 		public platform: Platform,
 		public authBaseService: AuthBaseService,
-		private modalCtrl: ModalController) { }
+		private modalCtrl: ModalController,
+		private fb: FormBuilder,
+		private navParams: NavParams) {
 
-	public versao = Versao.numero;
-	public user: any;
-	public name: string;
-	public message: string;
-	public tiposExercicios = ETipoExercicio;
-	public nomeImagem: string;
-	public nomeParabenizacao: string;
+			this.form = this.fb.group({
+				exercicios: this.fb.array([]),
+			});
+
+			if(this.navParams.get('exercicios').value != null && this.navParams.get('exercicios').value.length > 0) {
+				this.recuperaExercicios();
+				this.totalExercicios = this.form.value.exercicios.length;
+			}
+			else {
+				this.addForm();
+			}
+			
+		 }
+
+	addForm() {
+		const exercicio = this.fb.group({
+			id: [],
+			palavra: [],
+			tipoExercicio: [],
+		  });
+		this.getExerciciosArray.push(exercicio);
+		this.totalExercicios = this.form.value.exercicios.length;
+
+	}
+
+	private recuperaExercicios() {
+		this.navParams.get('exercicios').value.forEach(element => {
+			let exercicio = this.fb.group({
+				palavra: [element.palavra],
+				tipoExercicio: [element.tipoExercicio],
+			});
+			this.getExerciciosArray.push(exercicio);
+		});
+
+	}
+
+	deleteExercicio(i) {
+		this.getExerciciosArray.removeAt(i);
+	}
+
+	get getExerciciosArray() {
+		return (<FormArray>this.form.get('exercicios'));
+	}
+
 
 	openFileDialog() {
 		(document as any).getElementById("file-upload").click();
@@ -41,16 +91,13 @@ export class ModalCriarAtividadeLetraProfessor {
 		if(f != null) {
 			this.nomeImagem = f.name;
 		}
-		console.log(f)
 	}
 
 	setParabenizacao($event: any) {
-		console.log('parabeniza');
 		let f = $event.target.files![0];
 		if(f != null) {
 			this.nomeParabenizacao = f.name;
 		}
-		console.log(f)
 	}
 
 	cancel() {
@@ -58,10 +105,15 @@ export class ModalCriarAtividadeLetraProfessor {
 	}
 
 	confirm() {
-		this.modalCtrl.dismiss(this.name, 'confirm');
-	}
-
-	addExercicio() {
-		this.modalCtrl.dismiss(null);
+		if(this.form.get('exercicios').value != null) {
+			for (let index = 0; index < this.form.get('exercicios').value.length; index++) {
+				const element = this.form.get('exercicios').value[index];
+				if(element.palavra == null || element.palavra == '') {
+					this.deleteExercicio(index);
+				} 
+				
+			}
+		}
+		this.modalCtrl.dismiss(this.form.value, 'exercicios');
 	}
 }

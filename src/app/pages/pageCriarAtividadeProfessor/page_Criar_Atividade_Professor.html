@@ -17,7 +17,7 @@
 								<ion-input class="inputcss" formControlName="totalExercicos" type="number" disabled="true" placeholder="0"></ion-input>
 							</ion-col>
 							<ion-col size="1">
-								<ion-icon style="font-size: 45px; margin-top: 80%;" name="add-circle-outline" (click)="onProssiga()"></ion-icon>
+								<ion-icon style="font-size: 45px; margin-top: 80%;" name="add-circle-outline" (click)="openModal()"></ion-icon>
 							</ion-col>
 						</ion-row>
 					</ion-grid>
@@ -38,7 +38,7 @@
 				</ion-list>
 			</form>
 
-			<ion-button class="botaoBlue" (click)="onProssiga()">
+			<ion-button class="botaoBlue" (click)="saveAtividade()">
 				<div class="divbotao">
 					<div>
 						<ion-text class="textoBotao">Salvar</ion-text>

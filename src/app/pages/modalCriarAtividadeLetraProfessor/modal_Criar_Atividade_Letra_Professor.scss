@@ -1,3 +1,6 @@
+.list-md {
+  padding-top: 0px !important;
+}
 .map-canvas {
   position: absolute;
 
@@ -66,10 +69,14 @@
   flex-direction: column;
 }
 .listinput{
+  margin-left: 5%;
+  margin-right: 5%;
+  height: 40px;
   width: 90%;
-  border-radius: 30px;
   --background: #ffffff; 
+  border-radius: 30px;
   text-align: center;
+  font-size: 150%;
 }
 .inputcss{
   margin-top: 5%;
@@ -185,7 +192,7 @@ ion-content {
   border-radius: 5px;
   background: #3F99FB;
   width: 90%;
-  margin-top: -6px;
+  margin-top: 3%;
   height: 440px;
   background-size: cover;
   background-repeat: no-repeat;
