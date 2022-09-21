@@ -8,6 +8,17 @@
 
 		<div class="tableCenter">
 			<form class="formCenter" [formGroup]="atividadeForm">
+				<ion-text class="negritoTitulo">Tipo da Atividade</ion-text>
+				
+				<ion-list class="inputcss" tyle="padding-top: 0px;">
+					<ion-item>
+						<ion-select class="combocss" interface="popover" placeholder="Tipos Atividade"  formControlName="tipoAtividade">
+							<ion-select-option *ngFor="let type of tiposAtividades | keyvalue"
+								[value]="type.key">{{ type.value }}
+							</ion-select-option>
+						</ion-select>
+					</ion-item>
+				</ion-list>
 				
 				<ion-text class="negritoTitulo">Número de Exercícios</ion-text>
 				<div style="width: 100%;">
@@ -25,17 +36,6 @@
 				<ion-text class="negritoTitulo">Nome da Atividade</ion-text>
 				<ion-input class="inputcss" type="text" formControlName="nomeAtividade" placeholder="Nome..."></ion-input>
 
-				<ion-text class="negritoTitulo">Tipo da Atividade</ion-text>
-				
-				<ion-list class="inputcss" tyle="padding-top: 0px;">
-					<ion-item>
-						<ion-select class="combocss" interface="popover" placeholder="Tipos Atividade"  formControlName="tipoAtividade">
-							<ion-select-option *ngFor="let type of tiposAtividades | keyvalue"
-								[value]="type.key">{{ type.value }}
-							</ion-select-option>
-						</ion-select>
-					</ion-item>
-				</ion-list>
 			</form>
 
 			<ion-button class="botaoBlue" (click)="saveAtividade()">
