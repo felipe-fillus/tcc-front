@@ -12,7 +12,7 @@
 				
 				<ion-list class="inputcss" tyle="padding-top: 0px;">
 					<ion-item>
-						<ion-select class="combocss" interface="popover" placeholder="Tipos Atividade"  formControlName="tipoAtividade">
+						<ion-select class="combocss" interface="popover" placeholder="Tipos Atividade"  formControlName="tipoAtividade" (ionChange)="tipoChange($event)">
 							<ion-select-option *ngFor="let type of tiposAtividades | keyvalue"
 								[value]="type.key">{{ type.value }}
 							</ion-select-option>

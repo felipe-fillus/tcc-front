@@ -1,34 +1,27 @@
-import { ETipoExercicioSilaba } from './../../enum/tipo-exercicio-silaba.enum copy';
-import { ETipoAtividade } from './../../enum/tipo-atividade.enum';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalController, NavParams, Platform } from '@ionic/angular';
-import { ETipoExercicioLetra } from '../../enum/tipo-exercicio-letra.enum';
+import { ETipoExercicioImagens } from '../../enum/tipo-exercicio-imagens.enum';
 import { Versao } from '../../enum/versao.enum';
 import { ConferenceData } from '../../providers/conference-data';
 import { AuthBaseService } from '../../providers/service/auth/auth-base.service';
-import { Observable, ReplaySubject } from 'rxjs';
 
 @Component({
-	selector: 'modal_Criar_Atividade_Letra_Professor',
-	templateUrl: 'modal_Criar_Atividade_Letra_Professor.html',
-	styleUrls: ['./modal_Criar_Atividade_Letra_Professor.scss']
+	selector: 'modal_Criar_Atividade_Imagens_Professor',
+	templateUrl: 'modal_Criar_Atividade_Imagens_Professor.html',
+	styleUrls: ['./modal_Criar_Atividade_Imagens_Professor.scss']
 })
-export class ModalCriarAtividadeLetraProfessor {
-	
+export class ModalCriarAtividadeImagensProfessor {
 	public versao = Versao.numero;
 	public user: any;
 	public name: string;
 	public message: string;
-	public tiposExerciciosLetra = ETipoExercicioLetra;
-	public tiposExerciciosSilaba = ETipoExercicioSilaba;
+	public tiposExerciciosImagens = ETipoExercicioImagens;
 	public nomeImagem: string;
 	public nomeParabenizacao: string;
 	public form: FormGroup;
 	public totalExercicios: number;
-	public validaAtividade: boolean;
-	public base64Output : any;
 
 	constructor(
 		public confData: ConferenceData,
@@ -42,9 +35,6 @@ export class ModalCriarAtividadeLetraProfessor {
 			this.form = this.fb.group({
 				exercicios: this.fb.array([]),
 			});
-
-
-			this.validaAtividade = this.navParams.get('tipoAtividade').value == 'LETRAS' ? true : false;
 
 			if(this.navParams.get('exercicios').value != null && this.navParams.get('exercicios').value.length > 0) {
 				this.recuperaExercicios();
@@ -61,10 +51,6 @@ export class ModalCriarAtividadeLetraProfessor {
 			id: [],
 			palavra: ['', Validators.required],
 			tipoExercicio: [null, Validators.required],
-			imagem: [],
-			parabenizacao: [],
-			nomeImagem: [],
-			nomeParabenizacao: []
 		  });
 		this.getExerciciosArray.push(exercicio);
 		this.totalExercicios = this.form.value.exercicios.length;
@@ -75,10 +61,6 @@ export class ModalCriarAtividadeLetraProfessor {
 			let exercicio = this.fb.group({
 				palavra: [element.palavra],
 				tipoExercicio: [element.tipoExercicio],
-				imagem: [element.imagem],
-				parabenizacao: [element.parabenizacao],
-				nomeImagem: [element.nomeImagem],
-				nomeParabenizacao: [element.nomeParabenizacao]
 			});
 			this.getExerciciosArray.push(exercicio);
 		});
@@ -94,35 +76,25 @@ export class ModalCriarAtividadeLetraProfessor {
 	}
 
 
-	openFileDialog(index: number) {
-		(document as any).getElementById("file-upload-" + index).click();
+	openFileDialog() {
+		(document as any).getElementById("file-upload").click();
 	}
 
-	openFileDialogParabenizacao(index: number) {
-		(document as any).getElementById("file-upload-parabenizacao-" + index).click();
+	openFileDialogParabenizacao() {
+		(document as any).getElementById("file-upload-parabenizacao").click();
 	}
 	 
-	setImage(event: any, index: number) {
-		let f = event.target.files[0];
-		const reader = new FileReader();
-
-		reader.readAsDataURL(f);
-		reader.onload = () => {
-			this.form.get('exercicios').value[index].imagem = reader.result;
-			this.form.get('exercicios').value[index].nomeImagem = f.name;
-			
+	setImage($event: any) {
+		let f = $event.target.files![0];
+		if(f != null) {
+			this.nomeImagem = f.name;
 		}
 	}
 
-	setParabenizacao(event: any, index: number) {
-		let f = event.target.files[0];
-		const reader = new FileReader();
-
-		reader.readAsDataURL(f);
-		reader.onload = () => {
-			this.form.get('exercicios').value[index].parabenizacao = reader.result;
-			this.form.get('exercicios').value[index].nomeParabenizacao = f.name;
-			
+	setParabenizacao($event: any) {
+		let f = $event.target.files![0];
+		if(f != null) {
+			this.nomeParabenizacao = f.name;
 		}
 	}
 
@@ -140,7 +112,7 @@ export class ModalCriarAtividadeLetraProfessor {
 				
 			}
 		}
-
+		console.log(this.form.get('exercicios').valid)
 		if(this.form.valid) {
 			this.modalCtrl.dismiss(this.form.value, 'exercicios');
 		}

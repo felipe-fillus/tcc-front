@@ -1,3 +1,4 @@
+import { ModalCriarAtividadeImagensProfessor } from './../modalCriarAtividadeImagensProfessor/modal_Criar_Atividade_Imagens_Professor';
 import { AfterViewInit, Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -17,6 +18,7 @@ export class Page_Criar_Atividade_Professor implements AfterViewInit {
 	public versao = Versao.numero;
 	public user: any;
 	public tiposAtividades = ETipoAtividade;
+	public tipoAtividade: ETipoAtividade;
 
 	atividadeForm = this.fb.group({
 		nomeAtividade: ['', Validators.required],
@@ -46,29 +48,50 @@ export class Page_Criar_Atividade_Professor implements AfterViewInit {
 	async modal() {
 		const modal = await this.modalCtrl.create({
 			component: ModalCriarAtividadeLetraProfessor,
-			componentProps: {exercicios: this.atividadeForm.get('exercicios')},
+			componentProps: {exercicios: this.atividadeForm.get('exercicios'), tipoAtividade: this.atividadeForm.get('tipoAtividade')},
 		});
 		await modal.present();
 
 		const data = await (await modal.onWillDismiss()).data;
 		this.atividadeForm.get('exercicios').setValue(data?.exercicios);
 		this.atividadeForm.get('totalExercicos').setValue(data?.exercicios.length)
-		console.log(this.atividadeForm.value);
+	}
+
+	async modalImagens() {
+		const modal = await this.modalCtrl.create({
+			component: ModalCriarAtividadeImagensProfessor,
+			componentProps: {exercicios: this.atividadeForm.get('exercicios')},
+		});
+		await modal.present();
+
+		const data = await (await modal.onWillDismiss()).data;
+		this.atividadeForm.get('exercicios').setValue(data?.exercicios);
+		this.atividadeForm.get('totalExercicos').setValue(data?.exercicios.length);
 	}
 
 	openModal() {
-		this.modal();
-		// this.saveAtividade();
+		if(this.atividadeForm.get('tipoAtividade').value != null && this.atividadeForm.get('tipoAtividade').value != '' && this.atividadeForm.get('tipoAtividade').value != 'IMAGENS') {
+			this.modal();
+		}
+		if(this.atividadeForm.get('tipoAtividade').value != null && this.atividadeForm.get('tipoAtividade').value != '' && this.atividadeForm.get('tipoAtividade').value == 'IMAGENS') {
+			this.modalImagens();
+		}
 	}
 
 	saveAtividade() {
 		if (this.atividadeForm.valid) {
-			//atividade subscribe
+			
 		}
 	}
 
 	irVoltar() {
 		this.router.navigateByUrl('/pageMenuAtividadesProfessor');
 	}
+
+	tipoChange($event) {
+		this.atividadeForm.get('nomeAtividade').reset();
+		this.atividadeForm.get('totalExercicos').reset();
+		this.atividadeForm.get('exercicios').reset();
+	 }
 
 }

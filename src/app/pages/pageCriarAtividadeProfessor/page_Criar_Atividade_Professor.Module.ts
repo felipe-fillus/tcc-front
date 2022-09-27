@@ -1,3 +1,4 @@
+import { ModalCriarAtividadeImagensProfessor } from './../modalCriarAtividadeImagensProfessor/modal_Criar_Atividade_Imagens_Professor';
 import { Page_Criar_Atividade_Letra_Professor } from './../pageCriarAtividadeLetraProfessor/page_Criar_Atividade_Letra_Professor';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -17,8 +18,8 @@ import { ModalCriarAtividadeLetraProfessor } from '../modalCriarAtividadeLetraPr
     Page_Criar_Atividade_ProfessorRoutingModule
   ],
   declarations: [
-    Page_Criar_Atividade_Professor, ModalCriarAtividadeLetraProfessor
+    Page_Criar_Atividade_Professor, ModalCriarAtividadeLetraProfessor, ModalCriarAtividadeImagensProfessor
   ],
-  entryComponents: [ModalCriarAtividadeLetraProfessor]
+  entryComponents: [ModalCriarAtividadeLetraProfessor, ModalCriarAtividadeImagensProfessor]
 })
 export class Page_Criar_Atividade_ProfessorModule { }
