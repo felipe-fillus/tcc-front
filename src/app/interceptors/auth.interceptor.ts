@@ -28,9 +28,12 @@ export class AuthInterceptor implements HttpInterceptor {
 
         if (token) {
             headers = headers.append('authorization', 'Bearer ' + token);
-            headers = headers.append('Content-Type', 'application/json;');
 
-            if(!req.url.includes("refresh-token")){
+            if (this.useApplicationJson(headers) && !this.noContentType(headers)) {
+                headers = headers.append('Content-Type', 'application/json;');
+            }
+
+            if(!req.url.includes("refresh-token") ){
               this.authBaseService.refreshToken().subscribe((res: Token) => {
                 this.authBaseService.setRefreshToken(res.jwt);
               });
@@ -48,6 +51,20 @@ export class AuthInterceptor implements HttpInterceptor {
                     return event;
                 }),
             );
+    }
+
+    useApplicationJson(header): boolean {
+        if (header.get('Content-Type') !== null && (<string>header.get('Content-Type').includes('application/x-www-form-urlencoded'))) {
+            return false;
+        }
+        return true;
+    }
+
+    noContentType(header): boolean {
+        if (header.get('no-content-type')) {
+            return true;
+        }
+        return false;
     }
 }
 

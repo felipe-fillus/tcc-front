@@ -1,3 +1,7 @@
+import { Exercicio } from './../../model/exercicio.model';
+import { Atividade } from './../../model/atividade.model';
+import { ExercicioService } from './../../providers/service/exercicio.service';
+import { AtividadeService } from './../../providers/service/ativdade.service';
 import { ModalCriarAtividadeImagensProfessor } from './../modalCriarAtividadeImagensProfessor/modal_Criar_Atividade_Imagens_Professor';
 import { AfterViewInit, Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -21,9 +25,11 @@ export class Page_Criar_Atividade_Professor implements AfterViewInit {
 	public tipoAtividade: ETipoAtividade;
 
 	atividadeForm = this.fb.group({
-		nomeAtividade: ['', Validators.required],
-		totalExercicos: [null, Validators.required],
+		id: [null],
+		idProfessor: [null, Validators.required],
 		tipoAtividade: ['', Validators.required],
+		nomeAtividade: ['', Validators.required],
+		qtdAtividade: [null, Validators.required],
 		exercicios: [null]
 	});
 
@@ -33,13 +39,16 @@ export class Page_Criar_Atividade_Professor implements AfterViewInit {
 		public platform: Platform,
 		public authBaseService: AuthBaseService,
 		private fb: FormBuilder,
-		private modalCtrl: ModalController) { }
+		private modalCtrl: ModalController,
+		private atividadeService: AtividadeService,
+		private exercicioService: ExercicioService) { }
 
 	async ngAfterViewInit() {
 		this.authBaseService.watchLoggedUser().subscribe((res) => {
-
+			
 			if (res.user) {
 				this.user = res.user;
+				this.atividadeForm.get('idProfessor').setValue(this.user.id);
 			}
 
 		});
@@ -54,7 +63,7 @@ export class Page_Criar_Atividade_Professor implements AfterViewInit {
 
 		const data = await (await modal.onWillDismiss()).data;
 		this.atividadeForm.get('exercicios').setValue(data?.exercicios);
-		this.atividadeForm.get('totalExercicos').setValue(data?.exercicios.length)
+		this.atividadeForm.get('qtdAtividade').setValue(data?.exercicios.length)
 	}
 
 	async modalImagens() {
@@ -66,7 +75,7 @@ export class Page_Criar_Atividade_Professor implements AfterViewInit {
 
 		const data = await (await modal.onWillDismiss()).data;
 		this.atividadeForm.get('exercicios').setValue(data?.exercicios);
-		this.atividadeForm.get('totalExercicos').setValue(data?.exercicios.length);
+		this.atividadeForm.get('qtdAtividade').setValue(data?.exercicios.length);
 	}
 
 	openModal() {
@@ -79,9 +88,52 @@ export class Page_Criar_Atividade_Professor implements AfterViewInit {
 	}
 
 	saveAtividade() {
+		console.log(this.atividadeForm.value)
 		if (this.atividadeForm.valid) {
-			
+			this.atividadeService.add(this.atividadeForm.value).subscribe((res: Atividade) => {
+			if(res && res.exercicios){
+				let elements =  this.atividadeForm.get('exercicios').value;
+				for (var i = 0, element; element = elements[i++];){
+					console.log(element.palavra);
+					
+					for (let index = 0; index < res.exercicios.length; index++) {
+						if(element.palavra == res.exercicios[index].palavra) {
+							this.salvarImagem(res.exercicios[index].id, element.imagem, element.nomeImagem);
+							this.salvarParabenizacao(res.exercicios[index].id, element.parabenizacao, element.nomeParabenizacao);
+						}
+					}
+				}
+			}
+			});
 		}
+		this.irVoltar();
+	}
+
+	private salvarImagem(idExercicio: number, base64: string, fileName: string) {
+        const file = this.getFile(base64, fileName);
+		this.atividadeService.uploadFiles(idExercicio, file,'salvar-imagem').subscribe((res: any) => {
+		});
+	}
+	private salvarParabenizacao(idExercicio: number, base64: string, fileName: string) {
+		const file = this.getFile(base64, fileName);
+		this.atividadeService.uploadFiles(idExercicio, file,'salvar-parabenizacao').subscribe((res: any) => {
+		});
+	}
+
+	getFile(base64, imgName): any {
+		const imgBlob = this.dataURItoBlob(base64);
+		return new File([imgBlob], imgName, { type: "image/png" });
+	}
+
+	dataURItoBlob(dataURI) {
+		const byteString = window.atob(dataURI);
+		const arrayBuffer = new ArrayBuffer(byteString.length);
+		const int8Array = new Uint8Array(arrayBuffer);
+		for (let i = 0; i < byteString.length; i++) {
+		  int8Array[i] = byteString.charCodeAt(i);
+		}
+		const blob = new Blob([int8Array], { type: "image/png" });
+		return blob;
 	}
 
 	irVoltar() {
@@ -90,7 +142,7 @@ export class Page_Criar_Atividade_Professor implements AfterViewInit {
 
 	tipoChange($event) {
 		this.atividadeForm.get('nomeAtividade').reset();
-		this.atividadeForm.get('totalExercicos').reset();
+		this.atividadeForm.get('qtdAtividade').reset();
 		this.atividadeForm.get('exercicios').reset();
 	 }
 

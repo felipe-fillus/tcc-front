@@ -16,7 +16,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 	styleUrls: ['./modal_Criar_Atividade_Letra_Professor.scss']
 })
 export class ModalCriarAtividadeLetraProfessor {
-	
+
 	public versao = Versao.numero;
 	public user: any;
 	public name: string;
@@ -28,7 +28,7 @@ export class ModalCriarAtividadeLetraProfessor {
 	public form: FormGroup;
 	public totalExercicios: number;
 	public validaAtividade: boolean;
-	public base64Output : any;
+	public base64Output: any;
 
 	constructor(
 		public confData: ConferenceData,
@@ -39,22 +39,20 @@ export class ModalCriarAtividadeLetraProfessor {
 		private fb: FormBuilder,
 		private navParams: NavParams) {
 
-			this.form = this.fb.group({
-				exercicios: this.fb.array([]),
-			});
+		this.form = this.fb.group({
+			exercicios: this.fb.array([]),
+		});
 
+		this.validaAtividade = this.navParams.get('tipoAtividade').value == 'LETRAS' ? true : false;
 
-			this.validaAtividade = this.navParams.get('tipoAtividade').value == 'LETRAS' ? true : false;
-
-			if(this.navParams.get('exercicios').value != null && this.navParams.get('exercicios').value.length > 0) {
-				this.recuperaExercicios();
-				this.totalExercicios = this.form.value.exercicios.length;
-			}
-			else {
-				this.addForm();
-			}
-			
-		 }
+		if (this.navParams.get('exercicios').value != null && this.navParams.get('exercicios').value.length > 0) {
+			this.recuperaExercicios();
+			this.totalExercicios = this.form.value.exercicios.length;
+		}
+		else {
+			this.addForm();
+		}
+	}
 
 	addForm() {
 		const exercicio = this.fb.group({
@@ -63,9 +61,8 @@ export class ModalCriarAtividadeLetraProfessor {
 			tipoExercicio: [null, Validators.required],
 			imagem: [],
 			parabenizacao: [],
-			nomeImagem: [],
-			nomeParabenizacao: []
-		  });
+			imagensExercicio: []
+		});
 		this.getExerciciosArray.push(exercicio);
 		this.totalExercicios = this.form.value.exercicios.length;
 	}
@@ -77,12 +74,9 @@ export class ModalCriarAtividadeLetraProfessor {
 				tipoExercicio: [element.tipoExercicio],
 				imagem: [element.imagem],
 				parabenizacao: [element.parabenizacao],
-				nomeImagem: [element.nomeImagem],
-				nomeParabenizacao: [element.nomeParabenizacao]
 			});
 			this.getExerciciosArray.push(exercicio);
 		});
-
 	}
 
 	deleteExercicio(i) {
@@ -101,16 +95,16 @@ export class ModalCriarAtividadeLetraProfessor {
 	openFileDialogParabenizacao(index: number) {
 		(document as any).getElementById("file-upload-parabenizacao-" + index).click();
 	}
-	 
+
 	setImage(event: any, index: number) {
 		let f = event.target.files[0];
 		const reader = new FileReader();
 
 		reader.readAsDataURL(f);
 		reader.onload = () => {
-			this.form.get('exercicios').value[index].imagem = reader.result;
+			this.form.get('exercicios').value[index].imagem = this.clearImgHeader(reader.result.toString());
 			this.form.get('exercicios').value[index].nomeImagem = f.name;
-			
+
 		}
 	}
 
@@ -120,10 +114,18 @@ export class ModalCriarAtividadeLetraProfessor {
 
 		reader.readAsDataURL(f);
 		reader.onload = () => {
-			this.form.get('exercicios').value[index].parabenizacao = reader.result;
+			this.form.get('exercicios').value[index].parabenizacao = this.clearImgHeader(reader.result.toString());
 			this.form.get('exercicios').value[index].nomeParabenizacao = f.name;
-			
 		}
+	}
+	
+	clearImgHeader(imgStringBase64: string | ArrayBuffer) {
+		let base64 = '';
+		if (imgStringBase64.toString()) {
+		  base64 = imgStringBase64.toString().split(',')[1];
+		}
+		
+		return base64;
 	}
 
 	cancel() {
@@ -131,17 +133,17 @@ export class ModalCriarAtividadeLetraProfessor {
 	}
 
 	confirm() {
-		if(this.form.get('exercicios').value != null) {
+		if (this.form.get('exercicios').value != null) {
 			for (let index = 0; index < this.form.get('exercicios').value.length; index++) {
 				const element = this.form.get('exercicios').value[index];
-				if(element.palavra == null || element.palavra == '') {
+				if (element.palavra == null || element.palavra == '') {
 					this.deleteExercicio(index);
-				} 
-				
+				}
+
 			}
 		}
 
-		if(this.form.valid) {
+		if (this.form.valid) {
 			this.modalCtrl.dismiss(this.form.value, 'exercicios');
 		}
 	}

@@ -5,7 +5,7 @@ import { CheckTutorial } from './providers/check-tutorial.service';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/pageFazerAtividadeAluno',
+    redirectTo: '/pageMenuPrincipalProfessor',
     pathMatch: 'full'
   },
   {
