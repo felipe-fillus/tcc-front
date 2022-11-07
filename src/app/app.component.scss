@@ -8,6 +8,11 @@ ion-menu ion-content {
   --background: var(--ion-item-background, var(--ion-background-color, #fff));
 }
 
+ion-content{ 
+  font-family:CaviarDreams !important;
+  font-size:1.1em;
+}
+
 /* Remove background transitions for switching themes */
 ion-menu ion-item {
   --transition: none;
