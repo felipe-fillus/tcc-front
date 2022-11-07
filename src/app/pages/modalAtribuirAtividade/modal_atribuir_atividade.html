@@ -1,0 +1,24 @@
+<body>
+	<ion-content>
+		<ion-toolbar>
+			<ion-buttons slot="end">
+				<ion-button (click)="confirm()" [strong]="true">Voltar</ion-button>
+			</ion-buttons>
+		</ion-toolbar>
+		<div class="textoMenu">
+			<ion-text class="textMenu">Atribuir Atividades</ion-text>
+		</div>
+		<form class="formCenter">
+			<div style="width: 100%;">
+				<ion-list>
+					<ion-item allow-empty-selection="true" *ngFor="let aluno of alunos; let i = index" >
+						<ion-item style="width: 100%;">
+							<ion-label>{{ aluno.nome }} </ion-label>
+							<ion-checkbox slot="end" [checked]="aluno.atividade" (ionChange)="onChange($event, i)"></ion-checkbox>
+						  </ion-item>
+					</ion-item>
+				</ion-list>
+			</div>
+		</form>
+	</ion-content>
+</body>

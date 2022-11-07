@@ -1,3 +1,5 @@
+import { AtividadeAluno } from "./atividade-aluno.model";
+
 export class Aluno {
     id:number;
     nome:string;
@@ -6,6 +8,8 @@ export class Aluno {
     idInstituicao:number;
     idProfessor:number;
     senha:string;
+    atividadesAluno?: AtividadeAluno[];
+    atividade: boolean;
 
     constructor() {
         this.id = null;
@@ -15,5 +19,7 @@ export class Aluno {
         this.idInstituicao = null;
         this.idProfessor = null;
         this.senha = null;
+        this.atividadesAluno = [];
+        this.atividade = null;
     }
 }

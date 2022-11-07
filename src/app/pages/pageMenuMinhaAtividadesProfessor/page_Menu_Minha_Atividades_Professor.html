@@ -45,13 +45,14 @@
 						<ion-row class="title-card">
 							{{ atividade.nomeAtividade }}
 						</ion-row>
+						<ion-button fill="clear" (click)="modal(i)">Atribuir</ion-button>
 					</ion-col>
 					<ion-col size="2">
 						<ion-row>
-							<ion-button fill="clear"><ion-icon name="trash-outline"></ion-icon></ion-button>
+							<ion-button fill="clear" (click)="deletarAtividade(i)"><ion-icon name="trash-outline"></ion-icon></ion-button>
 						</ion-row>
 						<ion-row>
-							<ion-button fill="clear"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+							<ion-button fill="clear" (click)="irAtividade(i)"><ion-icon name="pencil-outline"></ion-icon></ion-button>
 						</ion-row>
 					</ion-col>
 				</ion-row>

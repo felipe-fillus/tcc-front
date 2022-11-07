@@ -43,7 +43,7 @@ export class Page_Meus_Alunos_Professor implements AfterViewInit {
   }
 
   getAluno() {
-    this.alunoService.filter(this.filterForm.value,'lista-alunos').subscribe((res: Aluno[]) => {
+    this.alunoService.listarAlunos(this.filterForm.get('idProfessor').value).subscribe((res: Aluno[]) => {
       if(res != null && res.length > 0){
         this.alunos = res;
       }

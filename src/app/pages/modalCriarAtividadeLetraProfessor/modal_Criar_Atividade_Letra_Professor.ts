@@ -69,13 +69,18 @@ export class ModalCriarAtividadeLetraProfessor {
 
 	private recuperaExercicios() {
 		this.navParams.get('exercicios').value.forEach(element => {
+			
 			let exercicio = this.fb.group({
+				id: [element.id ? element.id : null],
+				idAtividade: [element.idAtividade ? element.idAtividade : null],
 				palavra: [element.palavra],
 				tipoExercicio: [element.tipoExercicio],
-				imagem: [element.imagem],
-				parabenizacao: [element.parabenizacao],
+				nomeImagem: [element.nomeImagem],
+				nomeParabenizacao: [element.nomeParabenizacao]
 			});
 			this.getExerciciosArray.push(exercicio);
+			
+			
 		});
 	}
 
@@ -129,7 +134,22 @@ export class ModalCriarAtividadeLetraProfessor {
 	}
 
 	cancel() {
-		this.modalCtrl.dismiss(null);
+		if (this.form.get('exercicios').value != null) {
+			for (let index = 0; index < this.form.get('exercicios').value.length; index++) {
+				const element = this.form.get('exercicios').value[index];
+				if (element.palavra == null || element.palavra == '') {
+					this.deleteExercicio(index);
+				}
+
+			}
+		}
+
+		if (this.form.get('exercicios').value != null && this.form.valid) {
+			this.modalCtrl.dismiss(this.form.value, 'exercicios');
+		}
+		else {
+			this.modalCtrl.dismiss(null);
+		}
 	}
 
 	confirm() {
@@ -144,6 +164,7 @@ export class ModalCriarAtividadeLetraProfessor {
 		}
 
 		if (this.form.valid) {
+			console.log(this.form.value)
 			this.modalCtrl.dismiss(this.form.value, 'exercicios');
 		}
 	}

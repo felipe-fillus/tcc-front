@@ -5,8 +5,12 @@ import { CheckTutorial } from './providers/check-tutorial.service';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/pageMenuPrincipalProfessor',
+    redirectTo: '/pageLogin',
     pathMatch: 'full'
+  },
+  {
+    path: 'pageLogin',
+    loadChildren: () => import('./pages/pageLogin/page_Login.Module').then(m => m.Page_LoginModule)
   },
   {
     path: 'pageMeusAlunosInstituicao',
@@ -20,10 +24,7 @@ const routes: Routes = [
     path: 'pageMeusProfessoresInstituicao',
     loadChildren: () => import('./pages/pageMeusProfessoresInstituicao/page_Meus_Professores_Instituicao.Module').then(m => m.Page_Meus_Professor_ProfessorModule)
   },
-  {
-    path: 'pageLogin',
-    loadChildren: () => import('./pages/pageLogin/page_Login.Module').then(m => m.Page_LoginModule)
-  },
+  
   {
     path: 'pageMenuAtividadesProfessor',
     loadChildren: () => import('./pages/pageMenuAtividadesProfessor/page_Menu_Atividades_Professor.Module').then(m => m.Page_Menu_Atividades_ProfessorModule)
@@ -55,6 +56,10 @@ const routes: Routes = [
   {
     path: 'pageCriarAtividadeProfessor',
     loadChildren: () => import('./pages/pageCriarAtividadeProfessor/page_Criar_Atividade_Professor.Module').then(m => m.Page_Criar_Atividade_ProfessorModule)
+  },
+  {
+    path: 'pageEditarAtividadeProfessor',
+    loadChildren: () => import('./pages/pageEditarAtividadeProfessor/page_Editar_Atividade_Professor.Module').then(m => m.Page_Editar_Atividade_ProfessorModule)
   },
   {
     path: 'pageCriarAtividadeImgensProfessor',
