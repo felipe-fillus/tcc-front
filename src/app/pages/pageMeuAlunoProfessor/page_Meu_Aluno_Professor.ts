@@ -18,6 +18,7 @@ export class Page_Meu_Aluno_Professor implements AfterViewInit {
   user: any;
   idAluno: any;
   aluno: any;
+  professor: any;
   constructor(
     public confData: ConferenceData,
     public router: Router,
@@ -29,23 +30,21 @@ export class Page_Meu_Aluno_Professor implements AfterViewInit {
     }
 
   async ngAfterViewInit() {
-    this.activeRoute.queryParams.subscribe((params) => {
-      if(params) {
-        this.idAluno = params.id;
-        this.buscarAluno(this.idAluno);
-      }
-    });
-    this.authBaseService.watchLoggedUser().subscribe((res) => {
+    this.idAluno = this.activeRoute.snapshot.params['id'];
 
+    if(this.idAluno != null) {
+      this.buscarAluno();
+    }
+    this.authBaseService.watchLoggedUser().subscribe((res) => {
       if (res.user) {
         this.user = res.user;
       }
-
+      
     });
   }
 
 
-  buscarAluno(id : number) {
+  buscarAluno() {
     this.alunoService.getById(this.idAluno).subscribe(res => {
       if(res) {
         this.aluno = res;
@@ -54,22 +53,17 @@ export class Page_Meu_Aluno_Professor implements AfterViewInit {
   }
 
   irAleterarAluno() {
-    this.router.navigate(['pageAlterarAlunoProfessor'], 
-    {queryParams: 
-      {       
-        id : this.idAluno
-      }
-    });
+    this.router.navigate(['/pageAlterarAlunoProfessor/' + this.idAluno]);
   }
+
   irParabenizacao() {
-    this.router.navigateByUrl('/pageParabenizacaoProfessor');
+    this.router.navigate(['/pageParabenizacaoProfessor/' + this.idAluno]);
   }
+
   irAtividadeRealizada() {
-    this.router.navigateByUrl('/pageAtividadeRealizadasAlunoProfessor');
+    this.router.navigate(['/pageAtividadeAlunoProfessor/' + this.idAluno]);
   }
-  irAtividadePendentes() {
-    this.router.navigateByUrl('/pageAtividadePendentesAlunoProfessor');
-  }
+  
   irVoltar() {
     this.router.navigateByUrl('/pageMeusAlunosProfessor');
   }

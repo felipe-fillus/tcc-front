@@ -42,9 +42,9 @@ export class Page_Menu_Minha_Atividades_Professor implements AfterViewInit, View
 			if (res.user) {
 				this.user = res.user;
 				this.formFilter.get('idProfessor').setValue(this.user.id);
-        this.filtrarAtividade();
         
 			}
+      this.filtrarAtividade();
 
 		});
     this.$subscriptions.push(user);

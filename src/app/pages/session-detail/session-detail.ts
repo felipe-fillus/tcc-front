@@ -48,7 +48,7 @@ export class SessionDetailPage {
   }
 
   sessionClick(item: string) {
-    console.log('Clicked', item);
+
   }
 
   toggleFavorite() {
@@ -62,6 +62,6 @@ export class SessionDetailPage {
   }
 
   shareSession() {
-    console.log('Clicked share session');
+
   }
 }

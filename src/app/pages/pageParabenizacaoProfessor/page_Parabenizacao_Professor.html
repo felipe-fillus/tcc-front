@@ -1,61 +1,70 @@
 <body>
-  <ion-content>
-    <div class="textoMenu">
-      <ion-text class="logininfo">Professor(a): {{user ? user.nome : ''}}</ion-text>
-      <ion-text class="logininfo">Total de Alunos: {{user ? user.qtdAlunos : ''}}</ion-text>
-      <ion-text class="textMenu">Aluno(a)</ion-text>
-      <ion-text class="textMenu2">Gabriel Afonso Pereira</ion-text>
-    </div>
-    <form class="formCenter">
-      <ion-button id="botao01" class="botaoBlue">
-        <div class="divbotao">
-          <div class="divRigth">
-            <ion-icon name="school-outline"></ion-icon></div>
-          <div><ion-text class="textoBotao">Parabenização</ion-text></div>
-          <div class="divLeft">
-            <ion-icon name="chevron-down-outline"></ion-icon>
-          </div>
-      </div>
-      </ion-button>
-      <div class="tableCenter">
+	<ion-content>
+		<div class="textoMenu">
+			<ion-text class="logininfo">Professor(a): {{user ? user.nome : ''}}</ion-text>
+			<ion-text class="logininfo">Total de Alunos: {{user ? user.qtdAlunos : ''}}</ion-text>
+			<ion-text class="textMenu">Aluno(a)</ion-text>
+			<ion-text class="textMenu2">{{aluno ? aluno.nome : ''}}</ion-text>
+		</div>
+		<form class="formCenter" [formGroup]="imagemForm">
+			<ion-button id="botao01" class="botaoBlue">
+				<div class="divbotao">
+					<div class="divRigth">
+						<ion-icon name="school-outline"></ion-icon>
+					</div>
+					<div>
+						<ion-text class="textoBotao">Parabenização</ion-text>
+					</div>
+					<div class="divLeft">
+						<ion-icon name="chevron-down-outline"></ion-icon>
+					</div>
+				</div>
+			</ion-button>
+			<div class="tableCenter">
 
-        <ion-text class="negrito">Insira Uma imagem</ion-text>
-        <div class="divUpload">
-          <ion-item class="fundoAzul">
-            <ion-input type="file" accept="image/*" (change)="changeListener($event)"></ion-input>
-          </ion-item>
-        </div>
-          <div>
-            <ion-text class="negrito">Parabenização Atual</ion-text>
-            <div class="divImageAtual">
-              <ion-img src="../../../assets/img/parabens.gif"></ion-img>
-            </div>
-          </div>
-        
-        <ion-button class="botaoBlue">
-          <div class="divbotao">
-            <div>
-              <ion-text class="textoBotao">Aplicar Alteração</ion-text>
-            </div>
-        </div>      
-        </ion-button>
-      </div>
-      
-      <ion-button id="botao02" class="botaoOrange" (click)="irVoltar()">
-        <div class="divbotao">
-          <div class="divRigth">
-            <ion-icon name="arrow-back-outline"></ion-icon>
-          </div>
-          <div><ion-text class="textoBotao">Voltar</ion-text></div>
-      </div>
-      </ion-button>
+				<ion-text class="negrito">Insira Uma imagem</ion-text>
+				<div class="divUpload">
+					<ion-text class="negrito">Parabenização final do Exercício</ion-text>
+					<ion-item class="fundoAzul" style="border-radius: 35px;">
+						<input type="file" [id]="'file-upload-parabenizacao'" accept="image/jpg, image/jpeg, image/png, image/gif" style="display: none;" (change)="setParabenizacao($event)"/>
+						<ion-icon name="cloud-upload" (click)=openFileDialogParabenizacao() style="font-size: 25px;"></ion-icon>
+						<ion-text style="margin-left: 5%;">{{imagemForm.value.nomeParabenizacao ? imagemForm.value.nomeParabenizacao : 'Anexar'}}</ion-text>
+					</ion-item>
+				</div>
+				<div>
+					<ion-text class="negrito">Parabenização Atual</ion-text>
+					<div class="divImageAtual">
+						<ion-img  [src]="converted_image" alt="Select Image" *ngIf="imageUploaded"></ion-img>
+						<ion-img  [src]="getImage()" alt="Select Image" *ngIf="imageLoaded"></ion-img>
+					</div>
+				</div>
 
-    </form>
-    <ion-text class="textofooder">
-      <div class="divImage">
-        <ion-img src="../../../assets/img/logo.png"></ion-img>
-      </div>
-      <ion-text class="textoBotao">{{versao}}</ion-text>
-    </ion-text>
-  </ion-content>
+				<ion-button class="botaoBlue" style="margin-top: 10px; margin-bottom: 10px;" (click)="salvarParabenizacao()"  *ngIf="imageUploaded">
+					<div class="divbotao">
+						<div>
+							<ion-text class="textoBotao">Aplicar Alteração</ion-text>
+						</div>
+					</div>
+				</ion-button>
+			</div>
+
+			<ion-button id="botao02" class="botaoOrange" (click)="irVoltar()">
+				<div class="divbotao">
+					<div class="divRigth">
+						<ion-icon name="arrow-back-outline"></ion-icon>
+					</div>
+					<div>
+						<ion-text class="textoBotao">Voltar</ion-text>
+					</div>
+				</div>
+			</ion-button>
+
+		</form>
+		<ion-text class="textofooder">
+			<div class="divImage">
+				<ion-img src="../../../assets/img/logo.png"></ion-img>
+			</div>
+			<ion-text class="textoBotao">{{versao}}</ion-text>
+		</ion-text>
+	</ion-content>
 </body>

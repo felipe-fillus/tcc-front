@@ -44,13 +44,11 @@ export class AlterarAlunoprofessor implements AfterViewInit {
     }
 
   async ngAfterViewInit() {
+    this.idAluno = this.activeRoute.snapshot.params['id'];
 
-    this.activeRoute.queryParams.subscribe((params) => {
-      if(params) {
-        this.idAluno = params.id;
-        this.buscarAluno(this.idAluno);
-      }
-    });
+    if(this.idAluno != null) {
+      this.buscarAluno(this.idAluno);
+    }
 
     this.authBaseService.watchLoggedUser().subscribe((res) => {
 
@@ -64,17 +62,11 @@ export class AlterarAlunoprofessor implements AfterViewInit {
   }
 
   irVoltar() {
-    this.router.navigate(['pageMeuAlunoProfessor'], 
-    {queryParams: 
-      {       
-        id : this.idAluno
-      }
-  });
+    this.router.navigate(['/pageMeuAlunoProfessor/' + this.idAluno]);
   }
 
   buscarAluno(id : number) {
     this.alunoService.getById(this.idAluno).subscribe(res => {
-      console.log(res);
       if(res) {
         this.alunoForm.controls.id.setValue(res.id);
         this.alunoForm.controls.cpf.setValue(res.cpf);
@@ -86,8 +78,9 @@ export class AlterarAlunoprofessor implements AfterViewInit {
   }
 
   addAluno(){
+    console.log(this.alunoForm.value)
     if(this.alunoForm.valid){
-      this.alunoService.edit(this.alunoForm.value).subscribe((res: Aluno) => {
+      this.alunoService.edit(this.alunoForm.value,'alterar-aluno').subscribe((res: Aluno) => {
         if(res){
           this.alunoCadastradoAlert(res.nome);
         }
@@ -99,7 +92,10 @@ export class AlterarAlunoprofessor implements AfterViewInit {
   async alunoCadastradoAlert(nome:string) {
     const alert = this.alertControl.create({
       message: 'Aluno ' + nome + ' alterado com sucesso!',
-      buttons: ['Continuar']
+      buttons: [{text:'Continuar', role: 'confirm',
+      handler: () => {
+        this.irVoltar();
+      },}]
     });
     (await alert).present();
   }

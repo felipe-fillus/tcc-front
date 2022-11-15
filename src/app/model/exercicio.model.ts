@@ -1,11 +1,10 @@
-import { AnyNaptrRecord } from "dns";
-
 export class Exercicio {
     id:number;
     idAtividade:number;
     tipoExercicio:any;
     imagensExercicio:ImagemAnexo[];
     palavra:string;
+    palavraList:String[];
 
     constructor() {
         this.id = null;
@@ -13,6 +12,7 @@ export class Exercicio {
         this.tipoExercicio = null;
         this.imagensExercicio = null;
         this.palavra = null;
+        this.palavraList = null;
     }
 }
 

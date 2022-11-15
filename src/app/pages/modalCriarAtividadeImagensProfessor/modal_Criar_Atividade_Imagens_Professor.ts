@@ -112,7 +112,6 @@ export class ModalCriarAtividadeImagensProfessor {
 				
 			}
 		}
-		console.log(this.form.get('exercicios').valid)
 		if(this.form.valid) {
 			this.modalCtrl.dismiss(this.form.value, 'exercicios');
 		}

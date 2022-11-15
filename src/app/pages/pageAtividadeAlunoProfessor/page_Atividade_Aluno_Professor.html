@@ -1,12 +1,11 @@
-<body>
+<body> 
   <ion-content>
     <div class="textoMenu">
-      <ion-text class="logininfo">Aluno(a): {{user ? user.nome : ''}}</ion-text>
-      <ion-text class="logininfo">Professor(a): {{user ? user.professorDTO.nome : ''}}</ion-text>
-      <ion-text class="logininfo">Atividade Pendentes: {{atividadesPendentes ? atividadesPendentes : ''}}</ion-text>
-      <ion-text class="textMenu">Minhas Atividades</ion-text>
+      <ion-text class="logininfo">Professor(a): {{user ? user.nome : ''}}</ion-text>
+      <ion-text class="logininfo">Total de Alunos: {{user ? user.qtdAlunos : ''}}</ion-text>
+      <ion-text class="textMenu">Atividade Realizadas</ion-text>
+      <ion-text class="textMenu2">{{aluno ? aluno.nome : ''}}</ion-text>
     </div>
-
     <form class="formCenter" [formGroup]="formFilter">
       <div>
         <ion-row>
@@ -40,30 +39,28 @@
 					</ion-col>
           <ion-col size="2">
             <ion-icon size="large" name="checkmark-outline" *ngIf="atividade.concluido" style="color: green;"></ion-icon>
-            <ion-icon size="large" name="create-outline" *ngIf="!atividade.concluido" (click)="irAtividade(atividade.idAtividade)"></ion-icon>
+            <ion-icon size="large" name="close-outline" *ngIf="!atividade.concluido" style="color: red;"></ion-icon>
           </ion-col>
 				</ion-row>
 			</ion-card>
 		</div>
-
     <div class="formCenter">
-      <ion-button id="botao05" class="botaoOrange" (click)="irVoltar()">
-        <div class="divbotao">
-          <div class="divRigth">
-            <ion-icon name="arrow-back-outline"></ion-icon>
-          </div>
-          <div>
-            <ion-text class="textoBotao">Voltar</ion-text>
-          </div>
-      </div>
-      </ion-button>
-    </div>
-
-    <div class="textofooder">
+			<ion-button id="botao05" class="botaoOrange" (click)="irVoltar()">
+				<div class="divbotao">
+					<div class="divRigth">
+						<ion-icon name="arrow-back-outline"></ion-icon>
+					</div>
+					<div>
+						<ion-text class="textoBotao">Voltar</ion-text>
+					</div>
+				</div>
+			</ion-button>
+		</div>
+    <ion-text class="textofooder">
       <div class="divImage">
-        <img src="../../../assets/img/logo.png">
+        <ion-img src="../../../assets/img/logo.png"></ion-img>
       </div>
-      <ion-text class="versao">{{versao}}</ion-text>
-    </div>
+      <ion-text class="textoBotao">{{versao}}</ion-text>
+    </ion-text>
   </ion-content>
 </body>

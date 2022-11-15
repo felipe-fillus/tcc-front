@@ -21,6 +21,16 @@
   justify-content: center;
   flex-direction: column;
 }
+.title-card {
+  display: flex;
+  padding-top: 6px;
+  margin-left: 10px;
+  font-size: 20px;
+}
+.div-atividades {
+  height: 320px;
+  overflow-y: scroll;
+}
 .textMenu2{
   display: flex;
   align-items: center;
@@ -172,4 +182,20 @@ ion-title{
 body{
   height: 100%
 }
+ion-searchbar.custom {
+  --border-radius: 40px;
+}
+.botao-filtro{
+  background: #007BFF;   
+  border-radius: 30px;
+  margin-top: 10px;
+}
+
+.dropCheckBox {
+  border-radius: 30px;
+  height: 43px;
+  padding: 0px;
+  margin-top: 7px
+}
+
 

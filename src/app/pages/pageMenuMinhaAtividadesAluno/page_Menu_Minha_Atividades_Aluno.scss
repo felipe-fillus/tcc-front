@@ -1,3 +1,4 @@
+
 .map-canvas {
   position: absolute;
 
@@ -9,8 +10,36 @@
   opacity: 0;
   transition: opacity 150ms ease-in;
 }
-.versao{
+.textMenu{
+  margin-top: 6%;
+  text-align: center;
   font-weight: bold;
+  font-size: 240%;
+  margin-bottom: 6%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.title-card {
+  display: flex;
+  padding-top: 6px;
+  margin-left: 10px;
+  font-size: 20px;
+}
+.div-atividades {
+  height: 320px;
+  overflow-y: scroll;
+}
+.textMenu2{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  font-weight: bold;
+  font-size: 240%;
+  margin-bottom: 5%;
 }
 .textoBotao{
   font-weight: bold;
@@ -25,7 +54,21 @@
   width: 38%;
   height: 9.5%;
 }
-
+.certetext{
+  font-size: 200%;
+}
+.botaoInterno{  
+  font-weight: bold;
+  margin-top: 10px;
+  position:relative;
+  text-align:center;
+    --background: #007BFF;
+    color: black;
+}
+.divGrid{
+  padding-top: 20px;
+  text-align: center;
+}
 .divRigth{
   position: fixed;
   right: 92%;
@@ -50,7 +93,7 @@
   --border: none;
   --border-radius: 30px;
   color: black;
-  
+  font-weight: bold;
 }
 .botaoBlue:active {
 --background: #4ca1fc;
@@ -61,8 +104,9 @@ transform: translateY(3px);
 --background: #e4a150e1;
 transform: translateY(3px);
 }
+
 .botaoOrange{
-height: 40px;
+  height: 40px;
 width: 90%;
 --background: #f29523;
 font-size: 130%;
@@ -70,12 +114,16 @@ text-align: center;
 --border: none;
 --border-radius: 30px;
 color: black;
+font-weight: bold;
 }
 .textofooder{
-text-align:center;
-font-size: 130%;
-margin-top: 45%;
-color: rgb(0, 0, 0);
+  display:block;
+  margin-top: 15%;
+  text-align:center;
+  font-size: 140%;
+  color: rgb(0, 0, 0);
+  width: 100%;
+  position:relative;
 }
 .divbotao{
   display: flex;
@@ -84,17 +132,6 @@ color: rgb(0, 0, 0);
   margin-top: 17%;
   text-align: center;
   color: rgb(0, 0, 0);
-}
-.textMenu{
-  margin-top: 8%;
-  text-align: center;
-  font-weight: bold;
-  font-size: 240%;
-  margin-bottom: 22%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
 }
 .show-map {
   opacity: 1;
@@ -107,21 +144,9 @@ color: rgb(0, 0, 0);
   font-size: 130%;
   text-align: left;
 }
-
-.botaoBlueSequence{
-  height: 40px;
+.sizetext{
   font-weight: bold;
-  width: 90%;
-  --background: #3F99FB;   
-  font-size: 115%;
-  text-align: center;
-  --border: none;
-  --border-radius: 30px;
-  color: black;
-}
-.botaoBlueSequence:active {
-  --background: #b1d3f8;
-  transform: translateY(3px);
+  font-size: 95%;
 }
 ion-content {
   --background: none;
@@ -130,9 +155,47 @@ ion-content {
   background-repeat: no-repeat;
   background-size: cover;
 }
+.tableCenter{
+  border-radius: 5px;
+  background: #3F99FB;
+  width: 90%;
+  margin-top: -6px;
+  height: 300px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow-y: scroll;
+}
+
+.divUpload{
+  width: 90%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
 ion-title{
   align-items: center;
+}
+.fundoAzul{
+  background: #3F99FB;
 }
 body{
   height: 100%
 }
+ion-searchbar.custom {
+  --border-radius: 40px;
+}
+.botao-filtro{
+  background: #007BFF;   
+  border-radius: 30px;
+  margin-top: 10px;
+}
+
+.dropCheckBox {
+  border-radius: 30px;
+  height: 43px;
+  padding: 0px;
+  margin-top: 7px
+}
+
+

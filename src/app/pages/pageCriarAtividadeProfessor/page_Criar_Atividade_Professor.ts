@@ -88,13 +88,11 @@ export class Page_Criar_Atividade_Professor implements AfterViewInit {
 	}
 
 	saveAtividade() {
-		console.log(this.atividadeForm.value)
 		if (this.atividadeForm.valid) {
 			this.atividadeService.add(this.atividadeForm.value).subscribe((res: Atividade) => {
 			if(res && res.exercicios){
 				let elements =  this.atividadeForm.get('exercicios').value;
 				for (var i = 0, element; element = elements[i++];){
-					console.log(element.palavra);
 					
 					for (let index = 0; index < res.exercicios.length; index++) {
 						if(element.palavra == res.exercicios[index].palavra) {

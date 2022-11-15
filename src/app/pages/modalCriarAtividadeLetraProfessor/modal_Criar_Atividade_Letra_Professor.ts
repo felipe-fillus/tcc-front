@@ -164,7 +164,6 @@ export class ModalCriarAtividadeLetraProfessor {
 		}
 
 		if (this.form.valid) {
-			console.log(this.form.value)
 			this.modalCtrl.dismiss(this.form.value, 'exercicios');
 		}
 	}

@@ -33,4 +33,11 @@ export class AtividadeService extends BaseService<Atividade> {
         return this.http.delete(this.urlApi + '/remove-atividade/' + id, {});
     }
 
+    getByIdAluno(id: number) {
+        return this.http.get(this.urlApi + '/buscar-idaluno/' + id);
+    }
+
+    filtrar(model: any) {
+        return this.http.post(this.urlApi + '/filtrar', model);
+    }
 }
