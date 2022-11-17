@@ -243,4 +243,9 @@ ion-title{
 body{
   height: 100%
 }
-
+:root {
+  .popover-content {
+      left: 0 !important;
+      width: 100%;
+  }
+}

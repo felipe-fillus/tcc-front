@@ -1,4 +1,5 @@
-import { ETipoExercicioSilaba } from './../../enum/tipo-exercicio-silaba.enum copy';
+import { ExercicioService } from './../../providers/service/exercicio.service';
+import { ETipoExercicioSilaba } from '../../enum/tipo-exercicio-silaba.enum';
 import { ETipoAtividade } from './../../enum/tipo-atividade.enum';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -37,7 +38,8 @@ export class ModalCriarAtividadeLetraProfessor {
 		public authBaseService: AuthBaseService,
 		private modalCtrl: ModalController,
 		private fb: FormBuilder,
-		private navParams: NavParams) {
+		private navParams: NavParams,
+		private exercicioService: ExercicioService) {
 
 		this.form = this.fb.group({
 			exercicios: this.fb.array([]),
@@ -85,6 +87,11 @@ export class ModalCriarAtividadeLetraProfessor {
 	}
 
 	deleteExercicio(i) {
+		// const exercicio = this.getExerciciosArray.value[i];
+		// if(exercicio != null && exercicio != undefined && exercicio.id != null) {
+		// 	console.log(exercicio.id)
+		// 	this.exercicioService.delete(exercicio.id);
+		// }
 		this.getExerciciosArray.removeAt(i);
 	}
 

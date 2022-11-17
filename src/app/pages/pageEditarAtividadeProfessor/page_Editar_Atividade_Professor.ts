@@ -107,11 +107,14 @@ export class Page_Editar_Atividade_Professor implements AfterViewInit {
 			if(res && res.exercicios){
 				let elements =  this.atividadeForm.get('exercicios').value;
 				for (var i = 0, element; element = elements[i++];){
-					
 					for (let index = 0; index < res.exercicios.length; index++) {
 						if(element.palavra == res.exercicios[index].palavra) {
-							this.salvarImagem(res.exercicios[index].id, element.imagem, element.nomeImagem);
-							this.salvarParabenizacao(res.exercicios[index].id, element.parabenizacao, element.nomeParabenizacao);
+							if(element.imagem !== null && element.imagem !== undefined) {
+								this.salvarImagem(res.exercicios[index].id, element.imagem, element.nomeImagem);
+							}
+							if(element.parabenizacao !== null && element.parabenizacao !== undefined) {
+								this.salvarParabenizacao(res.exercicios[index].id, element.parabenizacao, element.nomeParabenizacao);
+							}
 						}
 					}
 				}

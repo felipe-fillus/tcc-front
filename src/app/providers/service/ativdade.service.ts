@@ -40,4 +40,8 @@ export class AtividadeService extends BaseService<Atividade> {
     filtrar(model: any) {
         return this.http.post(this.urlApi + '/filtrar', model);
     }
+
+    setCloncluido(model: any) {
+        return this.http.post(this.urlApi + '/set-concluido', model);
+    }
 }

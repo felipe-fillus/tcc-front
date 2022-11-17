@@ -6,6 +6,6 @@ import { BaseService } from "./base.service";
     providedIn: 'root'
 })
 export class ExercicioService extends BaseService<Exercicio> {
-    serviceName = 'atividade';
+    serviceName = 'exercicio';
 
 }

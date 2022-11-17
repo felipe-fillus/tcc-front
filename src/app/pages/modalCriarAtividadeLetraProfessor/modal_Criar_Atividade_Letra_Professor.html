@@ -28,7 +28,7 @@
 						<ion-list class="listinput"  *ngIf="validaAtividade">
 							<ion-item>
 								<ion-select class="combocss" interface="popover" placeholder="Tipos Exercicícios" formControlName="tipoExercicio">
-									<ion-select-option *ngFor="let type of tiposExerciciosLetra | keyvalue" [value]="type.key">{{
+									<ion-select-option *ngFor="let type of tiposExerciciosLetra | keyvalue" [value]="type.key" interface="action-sheet">{{
 										type.value }}
 									</ion-select-option>
 								</ion-select>

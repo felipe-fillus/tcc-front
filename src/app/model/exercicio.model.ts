@@ -4,7 +4,7 @@ export class Exercicio {
     tipoExercicio:any;
     imagensExercicio:ImagemAnexo[];
     palavra:string;
-    palavraList:String[];
+    palavraList:string[];
 
     constructor() {
         this.id = null;

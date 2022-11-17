@@ -1,18 +1,30 @@
 <ion-content>
-    <!-- Atividade Palavra Embaralhada -->
+    <!-- INICIO ATIVIDADE 1 -->
     <div *ngIf="tipoAtividade == 1">
         <div *ngIf="acertouRemove">
-            <ion-button class="botaoBlue" (click)="irVoltar()">
-                <ion-icon name="arrow-back-outline"></ion-icon>
-            </ion-button>
+            <div class="divrodape">
+                <ion-button class="botaoBlue" (click)="voltarMenuAtividades()">
+                    <ion-icon name="arrow-back-outline"></ion-icon>
+                </ion-button>
+                <div class="divAtividadeImageSom1Slow">
+                    <div class="imageAtividadeSom1" (click)="playslow()">
+                        <ion-img src={{playSlow}}></ion-img>
+                    </div>
+                </div>
+                <div class="divAtividadeImageSom1">
+                    <div class="imageAtividadeSom1" (click)="playnormal()">
+                        <ion-img src={{playNormal}}></ion-img>
+                    </div>
+                </div>
+            </div>
             <form class="formUp1">
                 <div class="divM1">
                     <div class="palavra1">{{palavra}}</div>
                 </div>
             </form>
             <form class="formCenter1">
-                <div class="imageAtividade1">
-                    <ion-img src={{img2}}></ion-img>
+                <div class="imageAtividade1" (click)="playnormal()">
+                    <ion-img [src]=getImage()></ion-img>
                 </div>
 
                 <div class="divAtividade1">
@@ -20,7 +32,7 @@
                         <div cdkDropList cdkDropListOrientation="horizontal" class="example-list"
                             (cdkDropListDropped)="validacaoAtividade1($event)"
                             (cdkDropListEntered)="atividade1Touched()">
-                            <div class="example-box" *ngFor="let x of palavraList" cdkDrag><b>{{x}}</b></div>
+                            <div class="example-box" *ngFor="let x of palavraListEmbaralhada" cdkDrag><b>{{x}}</b></div>
                         </div>
                     </ion-row>
                 </div>
@@ -29,25 +41,154 @@
         <div class="formparabens1">
             <div *ngIf="acertou">
                 <div class="divM1">
-                    <ion-img class="imageparabenizacaoatividade1" src="../../../assets/img/parabens.gif" alt="">
-                    </ion-img>
-                    <ion-button class="botaoBlueAcertou1" (click)="irVoltar()">
+                    <div class="palavraParabens">{{palavra}}</div>
+                </div>
+                <ion-img class="imageparabenizacaoatividade" [src]="getParabenizacao()" alt="">
+                </ion-img>
+                <ion-button class="botaoBlueAcertou" (click)="atividadeControler(nextExercicioIndex)">
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                </ion-button>
+            </div>
+        </div>
+    </div>
+    <!-- FIM ATIVIDADE 1 -->
+    <!-- INICIO ATIVIDADE 4 e 5 -->
+    <div *ngIf="tipoAtividade == 4 || tipoAtividade == 5">
+        <div *ngIf="acertouRemove">
+            <div class="divrodape" *ngIf="tipoAtividade == 4">
+                <ion-button class="botaoBlue" (click)="voltarMenuAtividades()">
+                    <ion-icon name="arrow-back-outline"></ion-icon>
+                </ion-button>
+                <div class="divAtividadeImageSom4Slow">
+                    <div class="imageAtividadeSom4" (click)="playslow()">
+                        <ion-img src={{playSlow}}></ion-img>
+                    </div>
+                </div>
+                <div class="divAtividadeImageSom4">
+                    <div class="imageAtividadeSom4" (click)="playnormal()">
+                        <ion-img src={{playNormal}}></ion-img>
+                    </div>
+                </div>
+
+            </div>
+            <div *ngIf="tipoAtividade == 5">
+                <ion-button class="botaoBlue" (click)="voltarMenuAtividades()">
+                    <ion-icon name="arrow-back-outline"></ion-icon>
+                </ion-button>
+                <div class="divrodape">
+                    <div class="divAtividadeImage5">
+                        <div class="imageAtividade5" (click)="playnormal()">
+                            <ion-img src={{playSom}}></ion-img>
+                        </div>
+                    </div>
+
+                    <div class="imageAtividade1" (click)="playnormal()">
+                        <ion-img [src]=getImage()></ion-img>
+                    </div>
+
+                    <div class="divAtividadeImage5">
+                        <div class="imageAtividade5" (click)="playslow()">
+                            <ion-img src={{playSlow}}></ion-img>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form class="formUp4">
+                <div class="divM4" *ngIf="tipoAtividade == 4">
+                    <div class="palavra4">{{palavra}}</div>
+                    <div class="divAtividadeImage4">
+                        <div class="imageAtividade4" (click)="playnormal()">
+                            <ion-img [src]=getImage()></ion-img>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divContainer4">
+                    <ion-row class="divTableRow4">
+
+                        <div class="divTableCell4" *ngFor="let item of palavraListAtividade4"
+                            [ngClass]="item.acerto ? 'atividadeCorrect4' : 'divAtividadedesc4'">
+                            <div class="example-lista-certo4"
+                                cdkDropList 
+                                [id]="item.id"
+                                [cdkDropListData]="item.nome"
+                                [cdkDropListConnectedTo]="allDropList"
+                                (cdkDropListDropped)="validarPalavraAtividade4e5($event)">
+                                <div class="example-box-acerto4" *ngIf="item.acerto">{{item.nome}}</div>
+                            </div>
+                        </div>
+                    </ion-row>
+                </div>
+            </form>
+            <form class="formCenter4">
+                <div class="divAtividade4">
+                    <ion-row class="ion-justify-content-center">
+                        <div *ngFor="let item of palavraListEmbaralhadaAtividade4">
+                            <div class="example-list4" *ngIf="!item.acerto" 
+                                cdkDropList 
+                                [id]="item.id" 
+                                [cdkDropListData]="item.nome" 
+                                [cdkDropListConnectedTo]="allDropList">
+                                <div class="example-box4" cdkDrag>{{item.nome}}</div>
+                            </div>
+                        </div>
+                    </ion-row>
+                </div>
+
+            </form>
+        </div>
+        <div class="formparabens4">
+            <div *ngIf="acertou">
+                <div class="palavraParabens">{{palavra}}</div>
+                <div>
+                    <ion-img class="imageparabenizacaoatividade" [src]="getParabenizacao()" alt=""></ion-img>
+                </div>
+                <div>
+                    <ion-button class="botaoBlueAcertou" (click)="atividadeControler(nextExercicioIndex)">
                         <ion-icon name="checkmark-outline"></ion-icon>
                     </ion-button>
                 </div>
             </div>
         </div>
     </div>
+    <!-- FIM ATIVIDADE 4 e 5 -->
 
-    <!-- <div *ngIf="tipoAtividade == 2">
+
+
+   <!--  <div *ngIf="tipoAtividade == 2">
         <div *ngIf="acertouRemove">
-            <ion-button class="botaoBlue" (click)="irVoltar()">
-                <ion-icon name="arrow-back-outline"></ion-icon>
-            </ion-button>
+            
+            <div class="divrodape">
+                <ion-button class="botaoBlue" (click)="irVoltar()">
+                    <ion-icon name="arrow-back-outline"></ion-icon>
+                </ion-button>
+                
+                <div class="divAtividadeImageSomSlowPalavra1_2">
+                    <div class="imageAtividadeSom2" (click)="playslow()">
+                        <ion-img src={{playSlow}}></ion-img>
+                    </div>
+                </div>
+                <div class="divAtividadeImageSomPalavra1_2">
+                    <div class="imageAtividadeSom2" (click)="playnormal()">
+                        <ion-img src={{playNormal}}></ion-img>
+                    </div>
+                </div>
+                
+                <div class="divAtividadeImageSomSlowPalavra2_2">
+                    <div class="imageAtividadeSom2" (click)="playslow2()">
+                        <ion-img src={{playSlow}}></ion-img>
+                    </div>
+                </div>
+                <div class="divAtividadeImageSomPalavra2_2">
+                    <div class="imageAtividadeSom2" (click)="playnormal2()">
+                        <ion-img src={{playNormal}}></ion-img>
+                    </div>
+                </div>
+            </div>
             <form class="formUp2">
                 <div class="divComImagem2">
                     <div class="divAtividadeImage2">
-                        <div class="imageAtividade2">
+                        <div class="imageAtividade2" (click)="playnormal()">
 
                             <ion-img src={{img1}}></ion-img>
                         </div>
@@ -63,7 +204,7 @@
                     </div>
                     <div class="espacamento"></div>
                     <div class="divAtividadeImage2">
-                        <div class="imageAtividade2">
+                        <div class="imageAtividade2" (click)="playnormal2()">
                             <ion-img src={{img2}}></ion-img>
                         </div>
 
@@ -105,16 +246,30 @@
 
 
 
+   
     <div *ngIf="tipoAtividade == 3">
         <div *ngIf="acertouRemove">
-            <ion-button class="botaoBlue" (click)="irVoltar()">
-                <ion-icon name="arrow-back-outline"></ion-icon>
-            </ion-button>
+            
+            <div class="divrodape">
+                <ion-button class="botaoBlue" (click)="irVoltar()">
+                    <ion-icon name="arrow-back-outline"></ion-icon>
+                </ion-button>
+                <div class="divAtividadeImageSom3Slow">
+                    <div class="imageAtividadeSom3" (click)="playslow()">
+                        <ion-img src={{playSlow}}></ion-img>
+                    </div>
+                </div>
+                <div class="divAtividadeImageSom3">
+                    <div class="imageAtividadeSom3" (click)="playnormal()">
+                        <ion-img src={{playNormal}}></ion-img>
+                    </div>
+                </div>
+            </div>
             <form class="formUp3">
 
                 <div class="divComImagemAtividade3">
                     <div class="divAtividadeImage3">
-                        <div class="imageAtividade3">
+                        <div class="imageAtividade3" (click)="playnormal()">
                             <ion-img src={{img1}}></ion-img>
                         </div>
 
@@ -151,121 +306,6 @@
                         <ion-icon name="checkmark-outline"></ion-icon>
                     </ion-button>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div *ngIf="tipoAtividade == 4">
-        <div *ngIf="acertouRemove">
-            <ion-button class="botaoBlue" (click)="irVoltar()">
-                <ion-icon name="arrow-back-outline"></ion-icon>
-            </ion-button>
-            <form class="formUp4">
-                <div class="divM4">
-                    <div class="palavra4">{{palavra}}</div>
-                </div>
-
-                <div class="divContainer4">
-                    <ion-row class="divTableRow4">
-
-                        <div class="divTableCell4" *ngFor="let item of palavraSelected2List"
-                            [ngClass]="item.acerto ? 'atividadeCorrect4' : 'divAtividadedesc4'">
-                            <div cdkDropList [id]="item.nome" [cdkDropListData]="item.nome"
-                                [cdkDropListConnectedTo]="[item.nome]" class="example-lista-certo4"
-                                (cdkDropListDropped)="validarPalavraAtividade5(item)">
-                                <div class="example-box-acerto4" *ngIf="item.acerto">{{item.nome}}</div>
-                            </div>
-                        </div>
-                    </ion-row>
-                </div>
-            </form>
-            <form class="formCenter4">
-                <div class="divAtividade4">
-                    <ion-row class="ion-justify-content-center">
-                        <div *ngFor="let item of palavraSelected2Shuffle">
-                            <div cdkDropList *ngIf="!item.acerto" [id]="item.nome" [cdkDropListData]="item.nome"
-                                [cdkDropListConnectedTo]="[item.nome]" class="example-list4">
-                                <div class="example-box4" cdkDrag>{{item.nome}}</div>
-                            </div>
-                        </div>
-                    </ion-row>
-                </div>
-
-            </form>
-        </div>
-        <div class="formparabens4">
-            <div *ngIf="acertou">
-                <div class="divM">
-                    <div class="palavraParabens4">{{palavra}}</div>
-                </div>
-                <ion-img class="imageparabenizacaoatividade4" src="../../../assets/img/parabens.gif" alt=""></ion-img>
-                <ion-button class="botaoBlueAcertou4" (click)="irVoltar()">
-                    <ion-icon name="checkmark-outline"></ion-icon>
-                </ion-button>
-            </div>
-        </div>
-    </div>
-
-    <div *ngIf="tipoAtividade == 5">
-        <div *ngIf="acertouRemove">
-
-            <form class="botaovoltar5">
-                <ion-button class="botaoBlue" (click)="irVoltar()">
-                    <ion-icon name="arrow-back-outline"></ion-icon>
-                </ion-button>
-                <div class="formUp2">
-                    <div class="divComImagem5">
-                        <div class="divAtividadeImage5">
-                            <div class="imageAtividade5" (click)="playnormal()">
-                                <ion-img class="imgMargintop5" src={{playNormal}}></ion-img>
-                            </div>
-                        </div>
-                        <div class="espacamento5"></div>
-                        <div class="divAtividadeImage5">
-                            <div class="imageAtividade5" (click)="playslow()">
-                                <ion-img src={{playSlow}}></ion-img>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="divContainer5">
-                    <ion-row class="divTableRow5">
-
-                        <div class="divTableCell5" *ngFor="let item of palavraSelected2List"
-                            [ngClass]="item.acerto ? 'atividadeCorrect5' : 'divAtividade5desc'">
-                            <div cdkDropList [id]="item.nome" [cdkDropListData]="item.nome"
-                                [cdkDropListConnectedTo]="[item.nome]" class="example-list-acerto5"
-                                (cdkDropListDropped)="validarPalavraAtividade5(item)">
-                                <div class="example-box-acerto5" *ngIf="item.acerto">{{item.nome}}</div>
-                            </div>
-                        </div>
-                    </ion-row>
-                </div>
-            </form>
-            <form class="formCenter5">
-                <div class="divAtividade5">
-                    <ion-row class="ion-justify-content-center">
-                        <div *ngFor="let item of palavraSelected2Shuffle">
-                            <div cdkDropList *ngIf="!item.acerto" [id]="item.nome" [cdkDropListData]="item.nome"
-                                [cdkDropListConnectedTo]="[item.nome]" class="example-list5">
-                                <div class="example-box5" cdkDrag>{{item.nome}}</div>
-                            </div>
-                        </div>
-                    </ion-row>
-                </div>
-
-            </form>
-        </div>
-        <div class="formparabens5">
-            <div *ngIf="acertou">
-                <div class="divM5">
-                    <div class="palavraParabens5">{{palavra}}</div>
-                </div>
-                <ion-img class="imageparabenizacaoatividade5" src="../../../assets/img/parabens.gif" alt=""></ion-img>
-                <ion-button class="botaoBlueAcertou5" (click)="irVoltar()">
-                    <ion-icon name="checkmark-outline"></ion-icon>
-                </ion-button>
             </div>
         </div>
     </div> -->

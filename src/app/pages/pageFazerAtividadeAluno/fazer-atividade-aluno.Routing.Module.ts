@@ -5,7 +5,7 @@ import { FazerAtividadeAluno } from './fazer-atividade-aluno';
 
 const routes: Routes = [
   {
-    path: '',
+    path: ':id',
     component: FazerAtividadeAluno
   }
 ];

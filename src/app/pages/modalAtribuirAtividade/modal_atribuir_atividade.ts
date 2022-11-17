@@ -1,5 +1,5 @@
 import { AtividadeService } from './../../providers/service/ativdade.service';
-import { ETipoExercicioSilaba } from '../../enum/tipo-exercicio-silaba.enum copy';
+import { ETipoExercicioSilaba } from '../../enum/tipo-exercicio-silaba.enum';
 import { ETipoAtividade } from '../../enum/tipo-atividade.enum';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';

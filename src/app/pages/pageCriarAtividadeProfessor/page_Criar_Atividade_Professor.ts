@@ -5,7 +5,7 @@ import { AtividadeService } from './../../providers/service/ativdade.service';
 import { ModalCriarAtividadeImagensProfessor } from './../modalCriarAtividadeImagensProfessor/modal_Criar_Atividade_Imagens_Professor';
 import { AfterViewInit, Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController, Platform } from '@ionic/angular';
 import { ETipoAtividade } from '../../enum/tipo-atividade.enum';
 import { Versao } from '../../enum/versao.enum';
@@ -22,16 +22,9 @@ export class Page_Criar_Atividade_Professor implements AfterViewInit {
 	public versao = Versao.numero;
 	public user: any;
 	public tiposAtividades = ETipoAtividade;
-	public tipoAtividade: ETipoAtividade;
+	public tipoAtividade = ETipoAtividade;
 
-	atividadeForm = this.fb.group({
-		id: [null],
-		idProfessor: [null, Validators.required],
-		tipoAtividade: ['', Validators.required],
-		nomeAtividade: ['', Validators.required],
-		qtdAtividade: [null, Validators.required],
-		exercicios: [null]
-	});
+	public atividadeForm;
 
 	constructor(
 		public confData: ConferenceData,
@@ -40,18 +33,31 @@ export class Page_Criar_Atividade_Professor implements AfterViewInit {
 		public authBaseService: AuthBaseService,
 		private fb: FormBuilder,
 		private modalCtrl: ModalController,
+		private activeRoute : ActivatedRoute,
 		private atividadeService: AtividadeService,
-		private exercicioService: ExercicioService) { }
+		private exercicioService: ExercicioService) { 
+			activeRoute.params.subscribe(val => {
+				this.authBaseService.watchLoggedUser().subscribe((res) => {
+					this.atividadeForm = this.fb.group({
+						id: [null],
+						idProfessor: [null, Validators.required],
+						tipoAtividade: ['', Validators.required],
+						nomeAtividade: ['', Validators.required],
+						qtdAtividade: [null, Validators.required],
+						exercicios: [null]
+					});
+			
+					if (res.user) {
+						this.user = res.user;
+						this.atividadeForm.get('idProfessor').setValue(this.user.id);
+					}
+		
+				});
+			});
+		}
 
 	async ngAfterViewInit() {
-		this.authBaseService.watchLoggedUser().subscribe((res) => {
-			
-			if (res.user) {
-				this.user = res.user;
-				this.atividadeForm.get('idProfessor').setValue(this.user.id);
-			}
-
-		});
+		
 	}
 
 	async modal() {

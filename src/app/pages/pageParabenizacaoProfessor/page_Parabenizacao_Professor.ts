@@ -120,7 +120,6 @@ export class Page_Parabenizacao_Professor implements AfterViewInit {
 		if (this.imagePreview.pathImage != null ) {
 			this.imageLoaded = true;
 		}
-		
 	}
 
 	getImage() {
