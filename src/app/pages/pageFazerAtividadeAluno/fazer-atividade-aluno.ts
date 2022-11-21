@@ -1,3 +1,5 @@
+import { ETipoAtividade } from './../../enum/tipo-atividade.enum';
+import { ETipoExercicioVogal } from './../../enum/tipo-exercicio-vogal.enum';
 import { Exercicio } from './../../model/exercicio.model';
 import { Atividade } from './../../model/atividade.model';
 import { element } from 'protractor';
@@ -25,6 +27,7 @@ export class FazerAtividadeAluno implements AfterViewInit {
 	msg = new SpeechSynthesisUtterance();
 	msgslow = new SpeechSynthesisUtterance();
 	tipoAtividade: number; //Controlador de Atividade
+	variavel = [];
 
 	private user:any;
 	private idAtividade: number;
@@ -54,6 +57,13 @@ export class FazerAtividadeAluno implements AfterViewInit {
 	private palavraListEmbaralhadaAtividade4 = [];
 	private allDropList = [];
 
+	//variaveis Atividade 6
+	private palavraListAtividade6 = [];
+	private palavraListEmbaralhadaAtividade6 = [];
+	private allDropListAtividade6 = [];
+	private tipoExercicioVogalConcluido = false;
+	private indexAtividadeVogal: number;
+
 	private palavraSelected2fb = this.fb.group({
 		id: [null],
 		nome: [null],
@@ -82,7 +92,11 @@ export class FazerAtividadeAluno implements AfterViewInit {
 	}
 
 	openExercicio() {
-		console.log("ngAfterViewInit")
+		this.indexAtividadeVogal = 0;
+		this.tipoExercicioVogalConcluido = false;
+		this.acertouRemove = true;
+		this.acertou = false;
+
 		this.idAtividade = this.activeRoute.snapshot.params['id'];
 		if(this.idAtividade != null) {
 			this.buscarAtividade();
@@ -116,14 +130,25 @@ export class FazerAtividadeAluno implements AfterViewInit {
 	}
 
 	atividadeControler(index? : number) {
-		if(this.exercicios.length == this.nextExercicioIndex) {
+		const tipoVogal = this.atividade.tipoAtividade == this.getEnumKey(ETipoAtividade.VOGAIS, ETipoAtividade);
+		
+		if((this.exercicios.length == this.nextExercicioIndex && !tipoVogal) || (this.tipoExercicioVogalConcluido && tipoVogal)) {
 			this.atividadeService.setCloncluido({idAluno: this.user.id, idAtividade: this.idAtividade}).subscribe((res:any) => {
 				this.voltarMenuAtividades();
 			});
 			return;
 		}
 
-		switch(this.exercicios[index].tipoExercicio) {
+		let tipoExercicio;
+
+		if(tipoVogal) {
+			tipoExercicio = this.exercicios[0].tipoExercicio
+		}
+		else {
+			tipoExercicio = this.exercicios[index].tipoExercicio;
+		}
+
+		switch(tipoExercicio) {
 			case this.getEnumKey(ETipoExercicioSilaba.SILABAS_EMBARALHADAS, ETipoExercicioSilaba): {
 				this.tipoAtividade = 1;
 				this.controladorExercicio1(this.exercicios[index]);
@@ -169,6 +194,16 @@ export class FazerAtividadeAluno implements AfterViewInit {
 				this.controladorExercicio4e5(this.exercicios[index]);
 				break;
 			}
+			case this.getEnumKey(ETipoExercicioVogal.SOMENTE_VOGAL, ETipoExercicioVogal): {
+				this.tipoAtividade = 6;
+				this.controladorExercicio6(this.exercicios[0]);
+				break;
+			}
+			case this.getEnumKey(ETipoExercicioVogal.VOGAIS_COM_CONSOANTES, ETipoExercicioVogal): {
+				this.tipoAtividade = 6;
+				this.controladorExercicio6(this.exercicios[0]);
+				break;
+			}
 		}
 		
 		if(this.exercicios.length >= index + 1) {
@@ -195,7 +230,12 @@ export class FazerAtividadeAluno implements AfterViewInit {
 				exercicio.tipoExercicio == this.getEnumKey(ETipoExercicioSilaba.SILABAS_DESORGANIZADAS_SOM, ETipoExercicioSilaba);
 		
 		this.palavra = exercicio.palavra;
-		this.palavraList = exercicio.palavraList;
+
+		this.palavraList = [];
+		exercicio.palavraList.forEach(element => {
+			this.palavraList.push(element)
+		});
+
 		this.palavraListEmbaralhadaAtividade4 = [];
 		this.palavraListAtividade4 = [];
 		this.allDropList = [];
@@ -221,6 +261,63 @@ export class FazerAtividadeAluno implements AfterViewInit {
 				this.palavraListEmbaralhadaAtividade4.push(this.palavraSelected2fb.value);
 			}
 		}
+		console.log(this.palavraListAtividade4);
+		console.log(this.palavraListEmbaralhadaAtividade4);
+		this.carregarImagemExericio(exercicio);
+		this.acertouRemove = true;
+		this.acertou = false;
+	}
+
+	controladorExercicio6(exercicio : Exercicio) {
+		this.palavra = exercicio.palavra;
+
+		this.palavraList = [];
+		exercicio.palavraList.forEach(element => {
+			this.palavraList.push(element)
+		});
+
+		this.palavraListEmbaralhadaAtividade6 = [];
+		this.palavraListAtividade6 = [];
+		this.allDropListAtividade6 = [];
+
+		for (let index = 0; index < this.palavraList.length; index++) {
+			this.palavraSelected2fb.get('id').setValue(index.toString());
+			this.palavraSelected2fb.get('nome').setValue(this.palavraList[index]);
+			this.palavraListAtividade6.push(this.palavraSelected2fb.value);
+			this.allDropListAtividade6.push(index.toString());
+		}
+
+		if(this.indexAtividadeVogal == 0) {
+			this.indexAtividadeVogal = 1;
+			for (let index = 0; index < this.palavraList.length; index++) {
+				this.palavraSelected2fb.get('id').setValue(index.toString());
+				this.palavraSelected2fb.get('nome').setValue(this.palavraList[index]);
+				this.palavraListEmbaralhadaAtividade6.push(this.palavraSelected2fb.value);
+			}
+		} else if(this.indexAtividadeVogal == 1) {
+			this.indexAtividadeVogal = 2;
+			const vogal0 = this.palavraList[0];
+			const vogal1 = this.palavraList[1];
+			this.palavraList[0] = vogal1;
+			this.palavraList[1] = vogal0;
+
+			for (let index = 0; index < this.palavraList.length; index++) {
+				this.palavraSelected2fb.get('id').setValue(index.toString());
+				this.palavraSelected2fb.get('nome').setValue(this.palavraList[index]);
+				this.palavraListEmbaralhadaAtividade6.push(this.palavraSelected2fb.value);
+			}
+		} else if(this.indexAtividadeVogal == 2) {
+			this.tipoExercicioVogalConcluido = true;
+			this.embaralharPalavraList(exercicio);
+			for (let index = 0; index < this.palavraListEmbaralhada.length; index++) {
+				this.palavraSelected2fb.get('id').setValue(index.toString());
+				this.palavraSelected2fb.get('nome').setValue(this.palavraListEmbaralhada[index]);
+				this.palavraListEmbaralhadaAtividade6.push(this.palavraSelected2fb.value);
+			}
+		}
+
+		console.log(this.palavraListAtividade6);
+		console.log(this.palavraListEmbaralhadaAtividade6);
 
 		this.carregarImagemExericio(exercicio);
 		this.acertouRemove = true;
@@ -295,6 +392,7 @@ export class FazerAtividadeAluno implements AfterViewInit {
 	}
 
 	validarPalavraAtividade4e5(event: CdkDragDrop<number[]>) {
+		console.log(event)
 		if(event.previousContainer.data == event.container.data) {
 			this.palavraListAtividade4[event.container.id].acerto = true;
 
@@ -323,6 +421,34 @@ export class FazerAtividadeAluno implements AfterViewInit {
 			speechSynthesis.pause;
 			this.audioAtividade.play();
 		}, 1000);
+	}
+
+	validarPalavraAtividade6(event: CdkDragDrop<number[]>) {
+		console.log(event)
+		if(event.previousContainer.data == event.container.data) {
+			this.palavraListAtividade6[event.container.id].acerto = true;
+
+			speechSynthesis.pause;
+			this.audioCard.play();
+			setTimeout(() => {
+				this.msg.text = this.palavraListAtividade6[event.container.id].nome;
+				this.audioAtividade.pause;
+				speechSynthesis.speak(this.msg);
+			}, 350);
+			this.palavraListEmbaralhadaAtividade6[event.previousContainer.id].acerto = true;
+		}
+
+		if (this.palavraListAtividade6.find(x => x.acerto == false)) {
+			return;
+		}
+
+		this.acertou = true;
+		this.acertouRemove = false;
+	}
+
+	repeatAtividade6() {
+		this.indexAtividadeVogal = this.indexAtividadeVogal - 1;
+		this.atividadeControler();
 	}
 
 	// validarPalavraAtividade2(event: CdkDragDrop<string[]>) {

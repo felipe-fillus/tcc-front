@@ -183,12 +183,12 @@ transform: translateY(3px);
 .divAtividadeImageSom1Slow{
   top:5px;
   position: absolute;
-  left: 72%;
+  left: 90%;
   text-align: center;
   display:table-column;
 } 
-.imageAtividadeSom1{
-  background-color: #007BFF;
+.imageAtividadeSom{
+  background-color: #d7d8da;
   width: 50px;
   height: 50px;
   border: solid 2px rgb(0, 0, 0);
@@ -601,7 +601,7 @@ transform: translateY(3px);
 
 .divAtividadedesc4{
   display: flex;
-  background-color: white;
+  background-color: #f2f2f2;
   border-style:dotted;
   border: dotted 3px rgb(0, 0, 0);
   height: 80px;
@@ -668,7 +668,7 @@ transform: translateY(3px);
   width: 100%;
   border: solid 3px rgb(0, 0, 0);
   box-sizing: border-box;
-  background-color: white;
+  background-color: #f2f2f2;
   cursor: move;
   font-size: 22px;
   border-radius: 20px;
@@ -735,6 +735,19 @@ transform: translateY(3px);
   -o-transform: translate(-50%,-50%);  
   transform: translate(-50%,-50%);  
 }
+.div-botao-atividade-6{
+  margin-top: 255px;
+}
+.botaoBlueAcertouAtividade6{
+  height: 15%;
+  width: 30%;
+  --background: #007BFF;   
+  font-size: 130%;
+  --border: none;
+  --border-radius: 30px;
+  color: black;
+}
+
 
 .botaoBlueAcertou{
   margin-top: 255px;

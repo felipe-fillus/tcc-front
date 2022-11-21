@@ -33,6 +33,7 @@ export class Page_Menu_Minha_Atividades_Professor implements AfterViewInit, View
       tipoLetra: [true],
       tipoSilaba: [true],
       tipoImagem: [true],
+      tipoVogal: [true],
       idProfessor: [null, Validators.required]
     });
 

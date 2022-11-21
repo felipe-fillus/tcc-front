@@ -1,3 +1,4 @@
+import { ETipoExercicioVogal } from './../../enum/tipo-exercicio-vogal.enum';
 import { ExercicioService } from './../../providers/service/exercicio.service';
 import { ETipoExercicioSilaba } from '../../enum/tipo-exercicio-silaba.enum';
 import { ETipoAtividade } from './../../enum/tipo-atividade.enum';
@@ -24,11 +25,15 @@ export class ModalCriarAtividadeLetraProfessor {
 	public message: string;
 	public tiposExerciciosLetra = ETipoExercicioLetra;
 	public tiposExerciciosSilaba = ETipoExercicioSilaba;
+	public tiposExerciciosVogal = ETipoExercicioVogal;
+	public addConsoantes = false;
 	public nomeImagem: string;
 	public nomeParabenizacao: string;
 	public form: FormGroup;
 	public totalExercicios: number;
-	public validaAtividade: boolean;
+	public tipoAtividadeLetra: any;
+	public tipoAtividadeSilaba: any;
+	public tipoAtividadeVogal: any;
 	public base64Output: any;
 
 	constructor(
@@ -45,7 +50,9 @@ export class ModalCriarAtividadeLetraProfessor {
 			exercicios: this.fb.array([]),
 		});
 
-		this.validaAtividade = this.navParams.get('tipoAtividade').value == 'LETRAS' ? true : false;
+		this.tipoAtividadeLetra = this.navParams.get('tipoAtividade').value == 'LETRAS' ? true : false;
+		this.tipoAtividadeSilaba = this.navParams.get('tipoAtividade').value == 'SILABAS' ? true : false;
+		this.tipoAtividadeVogal = this.navParams.get('tipoAtividade').value == 'VOGAIS' ? true : false;
 
 		if (this.navParams.get('exercicios').value != null && this.navParams.get('exercicios').value.length > 0) {
 			this.recuperaExercicios();
@@ -59,7 +66,7 @@ export class ModalCriarAtividadeLetraProfessor {
 	addForm() {
 		const exercicio = this.fb.group({
 			id: [],
-			palavra: ['', Validators.required],
+			palavra: [''],
 			tipoExercicio: [null, Validators.required],
 			imagem: [],
 			parabenizacao: [],
@@ -163,15 +170,33 @@ export class ModalCriarAtividadeLetraProfessor {
 		if (this.form.get('exercicios').value != null) {
 			for (let index = 0; index < this.form.get('exercicios').value.length; index++) {
 				const element = this.form.get('exercicios').value[index];
-				if (element.palavra == null || element.palavra == '') {
+
+				if(this.addConsoantes == false && this.tipoAtividadeVogal == true) {
+					continue;
+				}
+
+				if ((element.palavra == null || element.palavra == '')) {
+					console.log("NULL")
 					this.deleteExercicio(index);
 				}
 
 			}
 		}
-
 		if (this.form.valid) {
 			this.modalCtrl.dismiss(this.form.value, 'exercicios');
+		}
+	}
+
+	validaTipoVogal(event: any, index: number) {
+		const itemSelected = event;
+
+		if(itemSelected == 'VOGAIS_COM_CONSOANTES') {
+			this.form.get('exercicios').value[index].palavra = '';
+			this.addConsoantes = true
+		}
+		else {
+			this.form.get('exercicios').value[index].palavra = 'A - E - I - O - U';
+			this.addConsoantes = false;
 		}
 	}
 }

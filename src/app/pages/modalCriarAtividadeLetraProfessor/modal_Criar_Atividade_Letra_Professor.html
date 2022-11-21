@@ -25,7 +25,16 @@
 								</ion-col>
 							</ion-row>
 						</ion-grid>
-						<ion-list class="listinput"  *ngIf="validaAtividade">
+						<ion-list class="listinput"  *ngIf="tipoAtividadeVogal">
+							<ion-item>
+								<ion-select class="combocss" interface="popover" placeholder="Tipos Exercicícios" formControlName="tipoExercicio" (ngModelChange)="validaTipoVogal($event, i)">
+									<ion-select-option *ngFor="let type of tiposExerciciosVogal | keyvalue" [value]="type.key" interface="action-sheet">
+										{{type.value}}
+									</ion-select-option>
+								</ion-select>
+							</ion-item>
+						</ion-list>
+						<ion-list class="listinput"  *ngIf="tipoAtividadeLetra">
 							<ion-item>
 								<ion-select class="combocss" interface="popover" placeholder="Tipos Exercicícios" formControlName="tipoExercicio">
 									<ion-select-option *ngFor="let type of tiposExerciciosLetra | keyvalue" [value]="type.key" interface="action-sheet">{{
@@ -34,7 +43,7 @@
 								</ion-select>
 							</ion-item>
 						</ion-list>
-						<ion-list class="listinput" *ngIf="!validaAtividade">
+						<ion-list class="listinput" *ngIf="tipoAtividadeSilaba">
 							<ion-item >
 								<ion-select class="combocss" interface="popover" placeholder="Tipos Exercicícios" formControlName="tipoExercicio">
 									<ion-select-option *ngFor="let type of tiposExerciciosSilaba | keyvalue" [value]="type.key">{{
@@ -43,16 +52,23 @@
 								</ion-select>
 							</ion-item>
 						</ion-list>
-						<ion-text class="negrito">Palavra, sílaba ou letra do Exercício</ion-text>
-						<ion-input class="inputcss" type="text" placeholder="Palavra Base:" formControlName="palavra"></ion-input>
-						<ion-text class="negrito">Imagem Da Palavra</ion-text>
-						<ion-item class="fundoAzul" style="border-radius: 35px;">
-							<input type="file" [id]="'file-upload-' + i" accept="image/jpg, image/jpeg, image/png, image/gif" style="display: none;" (change)="setImage($event, i)"/>
-							<ion-icon name="cloud-upload" (click)=openFileDialog(i) style="font-size: 25px;"></ion-icon>
-							<ion-text style="margin-left: 5%;">{{exercicio.value.nomeImagem ? exercicio.value.nomeImagem : 'Anexar'}}</ion-text>
-						</ion-item>
+						<div *ngIf="!tipoAtividadeVogal">
+							<ion-text class="negrito">Palavra, sílaba ou letra do exercício</ion-text>
+							<ion-input class="inputcss" type="text" placeholder="Palavra Base:" formControlName="palavra"></ion-input>
+							<ion-text class="negrito">Imagem da palavra</ion-text>
+							<ion-item class="fundoAzul" style="border-radius: 35px;">
+								<input type="file" [id]="'file-upload-' + i" accept="image/jpg, image/jpeg, image/png, image/gif" style="display: none;" (change)="setImage($event, i)"/>
+								<ion-icon name="cloud-upload" (click)=openFileDialog(i) style="font-size: 25px;"></ion-icon>
+								<ion-text style="margin-left: 5%;">{{exercicio.value.nomeImagem ? exercicio.value.nomeImagem : 'Anexar'}}</ion-text>
+							</ion-item>
+						</div>
+						
+						<div *ngIf="tipoAtividadeVogal && addConsoantes">
+							<ion-text class="negrito">Consoante ou conjunção</ion-text>
+							<ion-input class="inputcss" type="text" placeholder="Consoante:" formControlName="palavra"></ion-input>
+						</div>
 			
-						<ion-text class="negrito">Parabenização final do Exercício</ion-text>
+						<ion-text class="negrito">Parabenização final do exercício</ion-text>
 						<ion-item class="fundoAzul" style="border-radius: 35px;">
 							<input type="file" [id]="'file-upload-parabenizacao-' + i" accept="image/jpg, image/jpeg, image/png, image/gif" style="display: none;" (change)="setParabenizacao($event, i)"/>
 							<ion-icon name="cloud-upload" (click)=openFileDialogParabenizacao(i) style="font-size: 25px;"></ion-icon>
