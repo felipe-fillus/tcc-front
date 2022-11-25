@@ -1,3 +1,4 @@
+import { Aluno } from './aluno.model';
 export class Professor {
     id:number;
     nome:string;
@@ -6,7 +7,8 @@ export class Professor {
     telefone:string;
     idInstituicao:number;
     senha:string;
-
+    alunos?: Aluno[];
+    
     constructor() {
         this.id = null;
         this.nome = null;
@@ -15,5 +17,6 @@ export class Professor {
         this.telefone = null;
         this.idInstituicao = null;
         this.senha = null;
+        this.alunos = null;
     }
 }

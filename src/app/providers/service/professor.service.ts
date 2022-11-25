@@ -8,4 +8,13 @@ import { BaseService } from "./base.service";
 export class ProfessorService extends BaseService<Professor> {
     serviceName = 'professor';
 
+    filtrar(model: any) {
+        return this.http.post(this.urlApi + '/filtrar-professores', model);
+    }
+
+
+    deletarProfessor(id: number) {
+        return this.http.delete(this.urlApi + '/delete-professor/' + id, {});
+    }
+
 }

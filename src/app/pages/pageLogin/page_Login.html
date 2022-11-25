@@ -1,44 +1,63 @@
 <body>
-  <ion-content>
-    <div class="titulo">
-      <ion-text class="textoPage">Login Usuário</ion-text>
-    </div>
-    <form class="formCenter" [formGroup]="loginForm">
-      
-      <ion-list class="inputcss">
-        <ion-item>
-        <ion-input formControlName="login" type="text" placeholder="Email:"></ion-input>
-        </ion-item>
-      </ion-list>
-      <ion-list class="inputcss">
-        <ion-item>
-          <ion-input formControlName="senha" type="password" placeholder="Senha:"></ion-input>
-        </ion-item>
-      </ion-list>
-        <div class="radiocss">
-            <div class="divM">
-              <ion-radio-group>
-                <ion-text class="divMestra"><ion-radio data-val="true" type="radio"(click)="onTipoSelect('INSTITUICAO')"></ion-radio> Instituição </ion-text>
-                <ion-text class="divMestra"><ion-radio type="radio" (click)="onTipoSelect('PROFESSOR')"></ion-radio> Professor </ion-text>
-                <ion-text class="divMestra"><ion-radio type="radio" (click)="onTipoSelect('ALUNO')"></ion-radio> Aluno </ion-text>
-              </ion-radio-group>
-            </div>
-        </div>
-    <ion-button class="botaoBlue" (click)="onLogin()">
-      <div class="divbotao">
-        <div class="divRigth">
-          <ion-icon name="log-in-outline"></ion-icon>
-        </div>
-        <div><ion-text class="textoBotao">Login</ion-text></div>
-    </div>
-    </ion-button>
+	<ion-content>
+		<div class="titulo">
+			<ion-text class="textoPage">Login Usuário</ion-text>
+		</div>
+		<form class="formCenter" [formGroup]="loginForm">
 
-    </form>
-    <ion-text class="textofooder">
-      <div class="divImage">
-        <ion-img src="../../../assets/img/logo.png"></ion-img>
-      </div>
-      <ion-text class="textoBotao">{{versao}}</ion-text>
-    </ion-text>
-  </ion-content>
+			<ion-list class="inputcss">
+				<ion-item>
+					<ion-input formControlName="login" type="text" placeholder="Email:"></ion-input>
+				</ion-item>
+			</ion-list>
+			<ion-list class="inputcss">
+				<ion-item>
+					<ion-input formControlName="senha" type="password" placeholder="Senha:"></ion-input>
+				</ion-item>
+			</ion-list>
+			<div class="radiocss">
+				<div class="divM">
+					<ion-radio-group>
+						<ion-text class="divMestra">
+							<ion-radio data-val="true" type="radio" (click)="onTipoSelect('INSTITUICAO')"></ion-radio>
+							Instituição
+						</ion-text>
+						<ion-text class="divMestra">
+							<ion-radio type="radio" (click)="onTipoSelect('PROFESSOR')"></ion-radio> Professor
+						</ion-text>
+						<ion-text class="divMestra">
+							<ion-radio type="radio" (click)="onTipoSelect('ALUNO')"></ion-radio> Aluno
+						</ion-text>
+					</ion-radio-group>
+				</div>
+			</div>
+			<ion-button class="botaoBlue" (click)="onLogin()">
+				<div class="divbotao">
+					<div class="divRigth">
+						<ion-icon name="log-in-outline"></ion-icon>
+					</div>
+					<div>
+						<ion-text class="textoBotao">Login</ion-text>
+					</div>
+				</div>
+			</ion-button>
+			<ion-button class="botaoOrange" (click)="modal()">
+				<div class="divbotao">
+					<div class="divRigth">
+						<ion-icon name="log-in-outline"></ion-icon>
+					</div>
+					<div>
+						<ion-text class="textoBotao">Nova Instituição</ion-text>
+					</div>
+				</div>
+			</ion-button>
+
+		</form>
+		<ion-text class="textofooder">
+			<div class="divImage">
+				<ion-img src="../../../assets/img/logo.png"></ion-img>
+			</div>
+			<ion-text class="textoBotao">{{versao}}</ion-text>
+		</ion-text>
+	</ion-content>
 </body>

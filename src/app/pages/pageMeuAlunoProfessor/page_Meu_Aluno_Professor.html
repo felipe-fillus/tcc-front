@@ -3,7 +3,7 @@
 		<div class="textoMenu">
 			<ion-text class="logininfo">Professor(a): {{user ? user.nome : ''}}</ion-text>
 			<ion-text class="logininfo">Total de Alunos: {{user ? user.qtdAlunos : ''}}</ion-text>
-			<ion-text class="textMenu2">{{aluno ? aluno.nome : ''}}</ion-text>
+			<ion-text class="textMenu2">Aluno(a) {{aluno ? aluno.nome : ''}}</ion-text>
 		</div>
 
 		<form class="formCenter">
@@ -47,7 +47,7 @@
 				</div>
 			</ion-button>
 
-			<ion-button id="botao04" class="botaoBlue">
+			<ion-button id="botao04" class="botaoBlue" (click)="irQuestionarioAluno()">
 				<div class="divbotao">
 					<div class="divRigth">
 						<ion-icon name="reader-outline"></ion-icon>

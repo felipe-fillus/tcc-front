@@ -74,7 +74,6 @@ export class CadastrarInstituicao implements AfterViewInit {
         senha: [null, Validators.required]
       })
     }
-    
   }
 
   irCadastrar(): void {

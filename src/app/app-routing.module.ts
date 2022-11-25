@@ -28,7 +28,10 @@ const routes: Routes = [
     path: 'pageMeusProfessoresInstituicao',
     loadChildren: () => import('./pages/pageMeusProfessoresInstituicao/page_Meus_Professores_Instituicao.Module').then(m => m.Page_Meus_Professor_ProfessorModule)
   },
-  
+  {
+    path: 'pageQuestionarioAlunoProfessor',
+    loadChildren: () => import('./pages/pageQuestionarioAlunoProfessor/pageQuestionarioAlunoProfessor.Module').then(m => m.Page_QuestionarioAlunoProfessorModule)
+  },
   {
     path: 'pageMenuAtividadesProfessor',
     loadChildren: () => import('./pages/pageMenuAtividadesProfessor/page_Menu_Atividades_Professor.Module').then(m => m.Page_Menu_Atividades_ProfessorModule)
@@ -36,6 +39,10 @@ const routes: Routes = [
   {
     path: 'pageCadastrarProfessor',
     loadChildren: () => import('./pages/pageCadastrarProfessor/pageCadastrarProfessor.module').then(m => m.PageCadastrarProfessorModule)
+  },
+  {
+    path: 'pageAlterarProfessor',
+    loadChildren: () => import('./pages/pageAlterarProfessor/pageAlterarProfessor.module').then(m => m.PageAlterarProfessorModule)
   },
   {
     path: 'pageMenuPrincipalInstituicao',

@@ -67,5 +67,9 @@ export class Page_Meu_Aluno_Professor implements AfterViewInit {
   irVoltar() {
     this.router.navigateByUrl('/pageMeusAlunosProfessor');
   }
+
+  irQuestionarioAluno() {
+    this.router.navigate(['/pageQuestionarioAlunoProfessor/' + this.idAluno]);
+  }
 }
 

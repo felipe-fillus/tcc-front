@@ -1,58 +1,64 @@
 <body>
-  <ion-content>
-    <div class="textoMenu">
-      <ion-text class="logininfo">Professor(a): {{professor ? professor.nome : ''}}</ion-text>
-      <ion-text class="logininfo">Total de Alunos: {{professor ? professor.qtdAlunos : ''}}</ion-text>
-      <ion-text class="textMenu">Meus Alunos</ion-text>
-      <form class="formCenter" [formGroup]="formFilter">
+	<ion-content>
+		<div class="textoMenu">
+			<ion-text class="logininfo">Professor(a): {{professor ? professor.nome : ''}}</ion-text>
+			<ion-text class="logininfo">Total de Alunos: {{professor ? professor.qtdAlunos : ''}}</ion-text>
+			<ion-text class="textMenu">Meus Alunos</ion-text>
+			<form class="formCenter" [formGroup]="formFilter">
 				<ion-row>
 					<ion-col size="10">
 						<ion-searchbar class="custom" formControlName="nome" placeholder="Nome Aluno"></ion-searchbar>
 					</ion-col>
 					<ion-col size="2" style="padding-left: 0px;">
-						<ion-button class="botao-filtro" (click)="getAluno()"><ion-icon name="search-outline"></ion-icon></ion-button>
+						<ion-button class="botao-filtro" (click)="getAluno()">
+							<ion-icon name="search-outline"></ion-icon>
+						</ion-button>
 					</ion-col>
 				</ion-row>
 			</form>
-    </div>
+		</div>
 
-    <div class="div-alunos">
-      <ion-card *ngFor="let aluno of alunos; let i = index">
-        <ion-row>
-          <ion-col size="10">
-            <ion-row class="title-card">
-              {{aluno.nome}}
-            </ion-row>
-          </ion-col>
-          <ion-col size="2">
-            <ion-row>
-              <ion-button fill="clear" (click)="deletarAluno(i)"><ion-icon name="trash-outline"></ion-icon></ion-button>
-            </ion-row>
-            <ion-row>
-              <ion-button fill="clear" (click)="irMeuAluno(aluno)"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-            </ion-row>
-          </ion-col>
-        </ion-row>
-      </ion-card>
-    </div>
+		<div class="div-alunos">
+			<ion-card *ngFor="let aluno of alunos; let i = index">
+				<ion-row>
+					<ion-col size="10">
+						<ion-row class="title-card">
+							{{aluno.nome}}
+						</ion-row>
+					</ion-col>
+					<ion-col size="2">
+						<ion-row>
+							<ion-button fill="clear" (click)="deletarAluno(i)">
+								<ion-icon name="trash-outline"></ion-icon>
+							</ion-button>
+						</ion-row>
+						<ion-row>
+							<ion-button fill="clear" (click)="irMeuAluno(aluno)">
+								<ion-icon name="pencil-outline"></ion-icon>
+							</ion-button>
+						</ion-row>
+					</ion-col>
+				</ion-row>
+			</ion-card>
+		</div>
 
-    <div class="formCenter">
-      <ion-button id="volta" class="botaoOrange" (click)="irVoltar()">
-        <div class="divbotao">
-          <div class="divRigth">
-            <ion-icon name="arrow-back-outline"></ion-icon>
-          </div>
-          <div>
-            <ion-text class="textoBotao">Voltar</ion-text>
-          </div>
-      </div>
-      </ion-button>
-    </div> 
-    <div class="textofooder">
-      <div class="divImage">
-        <img src="../../../assets/img/logo.png">
-      </div>
-      <ion-text class="versao">{{versao}}</ion-text>
-    </div>
-  </ion-content>
+		<div class="formCenter">
+			<ion-button id="volta" class="botaoOrange" (click)="irVoltar()">
+				<div class="divbotao">
+					<div class="divRigth">
+						<ion-icon name="arrow-back-outline"></ion-icon>
+					</div>
+					<div>
+						<ion-text class="textoBotao">Voltar</ion-text>
+					</div>
+				</div>
+			</ion-button>
+		</div>
+		<div class="textofooder">
+			<div class="divImage">
+				<img src="../../../assets/img/logo.png">
+			</div>
+			<ion-text class="versao">{{versao}}</ion-text>
+		</div>
+	</ion-content>
 </body>

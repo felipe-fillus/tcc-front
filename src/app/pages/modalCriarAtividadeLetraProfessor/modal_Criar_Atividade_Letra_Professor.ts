@@ -1,16 +1,13 @@
-import { ETipoExercicioVogal } from './../../enum/tipo-exercicio-vogal.enum';
-import { ExercicioService } from './../../providers/service/exercicio.service';
-import { ETipoExercicioSilaba } from '../../enum/tipo-exercicio-silaba.enum';
-import { ETipoAtividade } from './../../enum/tipo-atividade.enum';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalController, NavParams, Platform } from '@ionic/angular';
 import { ETipoExercicioLetra } from '../../enum/tipo-exercicio-letra.enum';
+import { ETipoExercicioSilaba } from '../../enum/tipo-exercicio-silaba.enum';
 import { Versao } from '../../enum/versao.enum';
 import { ConferenceData } from '../../providers/conference-data';
 import { AuthBaseService } from '../../providers/service/auth/auth-base.service';
-import { Observable, ReplaySubject } from 'rxjs';
+import { ETipoExercicioVogal } from './../../enum/tipo-exercicio-vogal.enum';
 
 @Component({
 	selector: 'modal_Criar_Atividade_Letra_Professor',
@@ -43,8 +40,7 @@ export class ModalCriarAtividadeLetraProfessor {
 		public authBaseService: AuthBaseService,
 		private modalCtrl: ModalController,
 		private fb: FormBuilder,
-		private navParams: NavParams,
-		private exercicioService: ExercicioService) {
+		private navParams: NavParams) {
 
 		this.form = this.fb.group({
 			exercicios: this.fb.array([]),
@@ -94,11 +90,6 @@ export class ModalCriarAtividadeLetraProfessor {
 	}
 
 	deleteExercicio(i) {
-		// const exercicio = this.getExerciciosArray.value[i];
-		// if(exercicio != null && exercicio != undefined && exercicio.id != null) {
-		// 	console.log(exercicio.id)
-		// 	this.exercicioService.delete(exercicio.id);
-		// }
 		this.getExerciciosArray.removeAt(i);
 	}
 

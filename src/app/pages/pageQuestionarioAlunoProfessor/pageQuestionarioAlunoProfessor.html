@@ -1,82 +1,82 @@
 <body>
-  <ion-content>
-    <div class="textoMenu">
-      <ion-text class="logininfo">Professor(a): {{user ? user.nome : ''}}</ion-text>
-      <ion-text class="logininfo">Total de Alunos: {{user ? user.qtdAlunos : ''}}</ion-text>
-      <ion-text class="textMenu2">{{aluno ? aluno.nome : ''}}</ion-text>
-    </div>
+	<ion-content>
+		<div class="textoMenu">
+			<ion-text class="logininfo">Professor(a): {{user ? user.nome : ''}}</ion-text>
+			<ion-text class="logininfo">Total de Alunos: {{user ? user.qtdAlunos : ''}}</ion-text>
+			<ion-text class="textMenu">Aluno(a) {{aluno ? aluno.nome : ''}}</ion-text>
+		</div>
 
-    <form class="formCenter">
-      <div class="divQuestionario">
-        <div class="divTitulo">
-          <ion-text class="textoTitulo">Preferências do Aluno:</ion-text>
-        </div>
-        <div class="divtextArea">
-          <ion-item class="textArea">
-            <ion-textarea placeholder="Lembrete referente ao aluno..."></ion-textarea>
-          </ion-item>
-        </div>
-        <div class="divTitulo">
-          <ion-text class="textoTitulo">Tipo de Atividade recomendado para o aluno:</ion-text>
-        </div>
-        <div class="rad">
-          <ion-radio-group class="radio">
-            <ion-text class="divRadio"><ion-radio type="radio"></ion-radio> Atividade de Embaralhamento.</ion-text>
-            <ion-text class="divRadio"><ion-radio type="radio"></ion-radio> Atividade arrastar para imagem.</ion-text>
-            <ion-text class="divRadio"><ion-radio type="radio"></ion-radio> Atividade arrastar para imagem com 2 opções.</ion-text>
-            <ion-text class="divRadio"><ion-radio type="radio"></ion-radio> Atividade de arrastar partes da palavra para criar a palavra escrita. </ion-text>
-            <ion-text class="divRadio"><ion-radio type="radio"></ion-radio> Atividade de arrastar partes da palavra para criar a palavra escutada.</ion-text>
-          </ion-radio-group>
-        </div>
-        <div class="divTitulo">
-          <ion-text class="textoTitulo">Preferência de atividades recomendadas</ion-text>
-        </div>
-        <div class="combo">
-          <ion-item class="check">
-            <ion-checkbox slot="start"></ion-checkbox>
-            <ion-text class="checkText">Recomendo atividades com palavras pequenas.(Até 4 Letras)</ion-text>
-          </ion-item>
-          <ion-item class="check">
-            <ion-checkbox slot="start"></ion-checkbox>
-            <ion-text class="checkText">Recomendo atividades com  palavras maiores.(Mais que 4 Letras)</ion-text>
-          </ion-item>
-          <ion-item class="check">
-            <ion-checkbox slot="start"></ion-checkbox>
-            <ion-text class="checkText">Recomendo atividades com poucos exercícios por vez.(Até 4 exercícios)</ion-text>
-          </ion-item>
-          <ion-item class="check">
-            <ion-checkbox slot="start"></ion-checkbox>
-            <ion-text class="checkText">Recomendo atividades com bastantes exercícios por vez.(Mais que 4 exercícios)</ion-text>
-          </ion-item>
-          <ion-item class="check">
-            <ion-checkbox slot="start"></ion-checkbox>
-            <ion-text class="checkText">Recomendo atividades sem junção Ç, CH, H, LH, RR, SS, VR, X e Z.</ion-text>
-          </ion-item>
-        </div>
-      </div>
+		<div class="formCenter">
+			<div class="divQuestionario">
+				<div class="divTitulo">
+					<ion-text class="textoTitulo">Preferências:</ion-text>
+				</div>
+				<form [formGroup]="observacaoForm">~
+					<div class="divtextArea">
+						
+						<ion-item class="textArea">
+							<ion-textarea formControlName="observacao" placeholder="Lembrete referente ao aluno..."></ion-textarea>
+						</ion-item>
+					</div>
+				</form>
 
-      <ion-button id="botao05" class="botaoBlue">
-        <div class="divbotao">
-          <div class="divRigth">
-            <ion-icon name="arrow-back-outline"></ion-icon>
-          </div>
-          <div><ion-text class="textoBotao">salvar</ion-text></div>
-      </div>
-      </ion-button>
-      <ion-button id="botao05" class="botaoOrange" (click)="irVoltar()">
-        <div class="divbotao">
-          <div class="divRigth">
-            <ion-icon name="arrow-back-outline"></ion-icon>
-          </div>
-          <div><ion-text class="textoBotao">Voltar</ion-text></div>
-      </div>
-      </ion-button>
-    </form>
-    <div class="textofooder">
-      <div class="divImage">
-        <img src="../../../assets/img/logo.png">
-      </div>
-      <ion-text class="versao">{{versao}}</ion-text>
-    </div>
-  </ion-content>
+				<div class="divTitulo">
+					<ion-text class="textoTitulo">Tipo de atividade recomendadas:</ion-text>
+				</div>
+
+				<div class="combo">
+					<ion-list class="list-itens">
+						<ion-item allow-empty-selection="true" *ngFor="let tipo of tiposExercicios">
+							<ion-item style="width: 100%;">
+								<ion-text>{{ tipo.value }} </ion-text>
+								<ion-checkbox slot="start" [value]="tipo.key" [checked]="tipo.check" (ionChange)="tipoExercicioSelect($event)"></ion-checkbox>
+							</ion-item>
+						</ion-item>
+					</ion-list>
+				</div>
+
+				<div class="divTitulo">
+					<ion-text class="textoTitulo">Preferência de atividades recomendadas</ion-text>
+				</div>
+
+				<div class="combo">
+					<ion-list class="list-itens">
+						<ion-item allow-empty-selection="true" *ngFor="let tipo of tiposQuestionario">
+							<ion-item style="width: 100%;">
+								<ion-text>{{ tipo.value }} </ion-text>
+								<ion-checkbox slot="start" [value]="tipo.key" [checked]="tipo.check" (ionChange)="tipoQuestionarioSelect($event)"></ion-checkbox>
+							</ion-item>
+						</ion-item>
+					</ion-list>
+				</div>
+			</div>
+
+			<ion-button id="botao05" class="botaoBlue" (click)="saveQuestionario()">
+				<div class="divbotao">
+					<div>
+						<ion-text class="textoBotao">salvar</ion-text>
+					</div>
+					<div class="divLeft">
+						<ion-icon name="arrow-forward-outline"></ion-icon>
+					</div>
+				</div>
+			</ion-button>
+			<ion-button id="botao05" class="botaoOrange" (click)="irVoltar()">
+				<div class="divbotao">
+					<div class="divRigth">
+						<ion-icon name="arrow-back-outline"></ion-icon>
+					</div>
+					<div>
+						<ion-text class="textoBotao">Voltar</ion-text>
+					</div>
+				</div>
+			</ion-button>
+		</div>
+		<div class="textofooder">
+			<div class="divImage">
+				<img src="../../../assets/img/logo.png">
+			</div>
+			<ion-text class="versao">{{versao}}</ion-text>
+		</div>
+	</ion-content>
 </body>
