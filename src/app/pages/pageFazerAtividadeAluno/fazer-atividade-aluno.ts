@@ -681,6 +681,31 @@ export class FazerAtividadeAluno implements AfterViewInit {
 		this.audioAtividade.pause;
 		speechSynthesis.speak(this.msgslow);
 	}
+
+	playnormalTipo2e3Palavra1() {
+		this.msg.text = this.palavraExercicio1;
+		this.audioAtividade.pause;
+		speechSynthesis.speak(this.msg);
+	}
+
+	playnormalTipo2e3Palavra2() {
+		this.msg.text = this.palavraExercicio2;
+		this.audioAtividade.pause;
+		speechSynthesis.speak(this.msg);
+	}
+
+	playslowTipo2e3Palavra1() {
+		this.msgslow.text = this.palavraExercicio1;
+		this.audioAtividade.pause;
+		speechSynthesis.speak(this.msgslow);
+	}
+
+	playslowTipo2e3Palavra2() {
+		this.msgslow.text = this.palavraExercicio2;
+		this.audioAtividade.pause;
+		speechSynthesis.speak(this.msgslow);
+	}
+
 	setAudioTranslate() {
 		this.msg.volume = 0.8;
 		this.msg.rate = 0.8;
