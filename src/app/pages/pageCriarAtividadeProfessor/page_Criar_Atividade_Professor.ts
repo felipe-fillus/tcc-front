@@ -60,7 +60,7 @@ export class Page_Criar_Atividade_Professor implements AfterViewInit {
 		
 	}
 
-	async modal() {
+	async openModal() {
 		const modal = await this.modalCtrl.create({
 			component: ModalCriarAtividadeLetraProfessor,
 			componentProps: {exercicios: this.atividadeForm.get('exercicios'), tipoAtividade: this.atividadeForm.get('tipoAtividade')},
@@ -72,27 +72,6 @@ export class Page_Criar_Atividade_Professor implements AfterViewInit {
 		this.atividadeForm.get('qtdAtividade').setValue(data?.exercicios.length)
 	}
 
-	async modalImagens() {
-		const modal = await this.modalCtrl.create({
-			component: ModalCriarAtividadeImagensProfessor,
-			componentProps: {exercicios: this.atividadeForm.get('exercicios')},
-		});
-		await modal.present();
-
-		const data = await (await modal.onWillDismiss()).data;
-		this.atividadeForm.get('exercicios').setValue(data?.exercicios);
-		this.atividadeForm.get('qtdAtividade').setValue(data?.exercicios.length);
-	}
-
-	openModal() {
-		if(this.atividadeForm.get('tipoAtividade').value != null && this.atividadeForm.get('tipoAtividade').value != '' && this.atividadeForm.get('tipoAtividade').value != 'IMAGENS') {
-			this.modal();
-		}
-		if(this.atividadeForm.get('tipoAtividade').value != null && this.atividadeForm.get('tipoAtividade').value != '' && this.atividadeForm.get('tipoAtividade').value == 'IMAGENS') {
-			this.modalImagens();
-		}
-	}
-
 	saveAtividade() {
 		if (this.atividadeForm.valid) {
 			this.atividadeService.add(this.atividadeForm.value).subscribe((res: Atividade) => {
@@ -102,8 +81,10 @@ export class Page_Criar_Atividade_Professor implements AfterViewInit {
 					
 					for (let index = 0; index < res.exercicios.length; index++) {
 						if(element.palavra == res.exercicios[index].palavra) {
-							this.salvarImagem(res.exercicios[index].id, element.imagem, element.nomeImagem);
-							this.salvarParabenizacao(res.exercicios[index].id, element.parabenizacao, element.nomeParabenizacao);
+							if(element.imagem != null && element.nomeImagem != null)
+								this.salvarImagem(res.exercicios[index].id, element.imagem, element.nomeImagem);
+							if(element.parabenizacao != null && element.nomeParabenizacao != null)
+								this.salvarParabenizacao(res.exercicios[index].id, element.parabenizacao, element.nomeParabenizacao);
 						}
 					}
 				}

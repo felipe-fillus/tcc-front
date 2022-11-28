@@ -1,0 +1,46 @@
+<body>
+	<ion-content>
+		<div class="textoMenu">
+			<ion-text class="logininfo">Aluno(a): {{user ? user.nome : ''}}</ion-text>
+			<ion-text class="textMenu">Atividades Recomendadas</ion-text>
+		</div>
+
+		<div class="div-atividades">
+			<ion-card *ngFor="let atividade of atividadesAluno; let i = index">
+				<ion-row>
+					<ion-col size="10">
+						<ion-row class="title-card">
+							{{ atividade.nomeAtividade }}
+						</ion-row>
+					</ion-col>
+					<ion-col size="2">
+						<ion-icon size="large" name="checkmark-outline" *ngIf="atividade.concluido"
+							(click)="irAtividade(atividade.idAtividade)" style="color: green;"></ion-icon>
+						<ion-icon size="large" name="create-outline" *ngIf="!atividade.concluido"
+							(click)="irAtividade(atividade.idAtividade)"></ion-icon>
+					</ion-col>
+				</ion-row>
+			</ion-card>
+		</div>
+
+		<div class="formCenter">
+			<ion-button id="botao05" class="botaoOrange" (click)="irVoltar()">
+				<div class="divbotao">
+					<div class="divRigth">
+						<ion-icon name="arrow-back-outline"></ion-icon>
+					</div>
+					<div>
+						<ion-text class="textoBotao">Voltar</ion-text>
+					</div>
+				</div>
+			</ion-button>
+		</div>
+
+		<div class="textofooder">
+			<div class="divImage">
+				<img src="../../../assets/img/logo.png">
+			</div>
+			<ion-text class="versao">{{versao}}</ion-text>
+		</div>
+	</ion-content>
+</body>

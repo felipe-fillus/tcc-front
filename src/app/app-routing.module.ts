@@ -61,6 +61,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/pageMenuMinhaAtividadesAluno/page_Menu_Minha_Atividades_Aluno.Module').then(m => m.Page_Menu_Minha_Atividades_AlunoModule)
   },
   {
+    path: 'pageMenuAtividadesRecomendadas',
+    loadChildren: () => import('./pages/pageMenuAtividadesRecomendadas/page_Menu_Atividades_Recomendadas.Module').then(m => m.Page_Menu_Atividades_RecomendadasModule)
+  },
+  {
     path: 'pageMinhasAtividadesAluno',
     loadChildren: () => import('./pages/pageMinhasAtividadesAluno/page_Minhas_Atividades_Aluno.Module').then(m => m.Page_Minhas_Atividades_AlunoModule)
   },

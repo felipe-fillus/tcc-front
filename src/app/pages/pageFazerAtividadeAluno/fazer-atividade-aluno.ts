@@ -1,12 +1,13 @@
+import { ETipoExercicioImagens } from './../../enum/tipo-exercicio-imagens.enum';
 import { ETipoAtividade } from './../../enum/tipo-atividade.enum';
 import { ETipoExercicioVogal } from './../../enum/tipo-exercicio-vogal.enum';
 import { Exercicio } from './../../model/exercicio.model';
 import { Atividade } from './../../model/atividade.model';
 import { element } from 'protractor';
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
 import { CdkDragDrop, CdkDragEnter, CdkDragHandle, CdkDragRelease, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RoutesRecognized } from '@angular/router';
 import { AuthBaseService } from '../../providers/service/auth/auth-base.service';
 import { AtividadeService } from '../../providers/service/ativdade.service';
 import { ImagemService } from '../../providers/service/iamgem.service';
@@ -19,15 +20,17 @@ import { ETipoExercicioLetra } from '../../enum/tipo-exercicio-letra.enum';
 	styleUrls: ['./fazer-atividade-aluno.scss']
 })
 export class FazerAtividadeAluno implements AfterViewInit {
-	playNormal: String = "../../../assets/atividades/normal.png"
-	playSlow: String = "../../../assets/atividades/slow.png"
-	playSom: String = "../../../assets/atividades/som.png"
-	audioCard = new Audio();
-	audioAtividade = new Audio();
-	msg = new SpeechSynthesisUtterance();
-	msgslow = new SpeechSynthesisUtterance();
-	tipoAtividade: number; //Controlador de Atividade
-	variavel = [];
+	private playNormal: String = "../../../assets/atividades/normal.png"
+	private playSlow: String = "../../../assets/atividades/slow.png"
+	private playSom: String = "../../../assets/atividades/som.png"
+	private audioCard = new Audio();
+	private audioAtividade = new Audio();
+	private msg = new SpeechSynthesisUtterance();
+	private msgslow = new SpeechSynthesisUtterance();
+	public tipoAtividade: number;
+	private variavel = [];
+	private pagionaAnterior: any;
+	private tipoExercicioAtivo: any;
 
 	private user:any;
 	private idAtividade: number;
@@ -51,6 +54,19 @@ export class FazerAtividadeAluno implements AfterViewInit {
 	private palavra2: string;
 	private validaPalavra = false;
 	private acertouAtividade1 = false;
+
+	//variaveis Atividade 2 e 3
+	private imagePreview1: { pathImage: string, fileType: string, base64: string, base64WithHeader: string } = {pathImage: null, fileType: '', base64: '', base64WithHeader: '' };
+	private imagePreview2: { pathImage: string, fileType: string, base64: string, base64WithHeader: string } = {pathImage: null, fileType: '', base64: '', base64WithHeader: '' };
+	private acertouAtividade2item1 = false;
+	private acertouAtividade2item2 = false;
+	private validaPalavraAtividade2 = false;
+	private palavraSelected = [];
+    private palavra2Selected = [];
+	private palavrasToSelec = [];
+	private palavraExercicio1: string;
+	private palavraExercicio2: string;
+	private acertouAtividade3 = false;
 
 	//variaveis Atividade 4 e 5
 	private palavraListAtividade4 = [];
@@ -76,16 +92,19 @@ export class FazerAtividadeAluno implements AfterViewInit {
 	});
 
 	constructor(
+		private elementRef: ElementRef,
 		private fb: FormBuilder,
 		private activeRoute : ActivatedRoute,
 		private authBaseService: AuthBaseService,
 		private imagemService: ImagemService,
 		public router: Router,
 		private atividadeService: AtividadeService) {
-			activeRoute.params.subscribe(val => {
-				this.openExercicio();
-			});
-		}
+		activeRoute.params.subscribe(val => {
+			this.openExercicio();
+			this.pagionaAnterior = this.router.getCurrentNavigation().previousNavigation?.finalUrl?.toString();
+		});
+			
+	}
 
 	ngAfterViewInit(): void {
 		
@@ -115,7 +134,15 @@ export class FazerAtividadeAluno implements AfterViewInit {
 	}
 
 	voltarMenuAtividades() {
-		this.router.navigate(['/pageMenuMinhaAtividadesAluno/']);
+		if(this.pagionaAnterior == null || this.pagionaAnterior == undefined) {
+			this.router.navigate(['/pageMenuPrincipalAluno']);
+		}
+		if(this.pagionaAnterior == '/pageMenuAtividadesRecomendadas') {
+			this.router.navigate(['/pageMenuAtividadesRecomendadas']);
+		}
+		if(this.pagionaAnterior == '/pageMenuMinhaAtividadesAluno') {
+			this.router.navigate(['/pageMenuMinhaAtividadesAluno']);
+		}
 	}
 
 	buscarAtividade() {
@@ -147,6 +174,8 @@ export class FazerAtividadeAluno implements AfterViewInit {
 		else {
 			tipoExercicio = this.exercicios[index].tipoExercicio;
 		}
+
+		this.tipoExercicioAtivo = tipoExercicio;
 
 		switch(tipoExercicio) {
 			case this.getEnumKey(ETipoExercicioSilaba.SILABAS_EMBARALHADAS, ETipoExercicioSilaba): {
@@ -204,6 +233,28 @@ export class FazerAtividadeAluno implements AfterViewInit {
 				this.controladorExercicio6(this.exercicios[0]);
 				break;
 			}
+			case this.getEnumKey(ETipoExercicioImagens.PALAVRA_DESORGANIZADAS, ETipoExercicioImagens): {
+				this.tipoAtividade = 3;
+				this.controladorExercicio3(this.exercicios[index]);
+				break;
+			}
+			case this.getEnumKey(ETipoExercicioImagens.PALAVRA_ORGANIZADAS, ETipoExercicioImagens): {
+				this.tipoAtividade = 3;
+				this.controladorExercicio3(this.exercicios[index]);
+				break;
+			}
+			case this.getEnumKey(ETipoExercicioImagens.PALAVRA_ORGANIZADAS_2, ETipoExercicioImagens): {
+				this.tipoAtividade = 2;
+				this.controladorExercicio2(this.exercicios[index], this.exercicios[index + 1]);
+				index = index + 1;
+				break;
+			}
+			case this.getEnumKey(ETipoExercicioImagens.PALAVRA_DESORGANIZADAS_2, ETipoExercicioImagens): {
+				this.tipoAtividade = 2;
+				this.controladorExercicio2(this.exercicios[index], this.exercicios[index + 1]);
+				index = index + 1;
+				break;
+			}
 		}
 		
 		if(this.exercicios.length >= index + 1) {
@@ -216,6 +267,41 @@ export class FazerAtividadeAluno implements AfterViewInit {
 		this.palavraList = exercicio.palavraList;
 		
 		this.embaralharPalavraList(exercicio);
+
+		this.carregarImagemExericio(exercicio);
+
+		this.acertouRemove = true;
+		this.acertou = false;
+	}
+
+	controladorExercicio2(exercicio1 : Exercicio, exercicio2? : Exercicio) {
+		const listPalavras = [];
+		this.palavraExercicio1 = exercicio1.palavra;
+		this.palavraExercicio2 = exercicio2.palavra;
+
+		listPalavras.push(this.palavraExercicio1);
+		listPalavras.push(exercicio1.palavraList[0]);
+		listPalavras.push(this.palavraExercicio2);
+		listPalavras.push(exercicio1.palavraList[1]);
+
+		this.palavrasToSelec = listPalavras.sort(() => Math.random() - 0.5);
+
+		this.carregarImagemExericioImagens(exercicio1, exercicio2);
+
+		this.acertouRemove = true;
+		this.acertou = false;
+	}
+
+	controladorExercicio3(exercicio : Exercicio) {
+		const listPalavras = [];
+		this.palavraExercicio1 = exercicio.palavra;
+
+		listPalavras.push(this.palavraExercicio1);
+		listPalavras.push(exercicio.palavraList[0]);
+		listPalavras.push(exercicio.palavraList[1]);
+		listPalavras.push(exercicio.palavraList[2]);
+
+		this.palavrasToSelec = listPalavras.sort(() => Math.random() - 0.5);
 
 		this.carregarImagemExericio(exercicio);
 
@@ -261,8 +347,6 @@ export class FazerAtividadeAluno implements AfterViewInit {
 				this.palavraListEmbaralhadaAtividade4.push(this.palavraSelected2fb.value);
 			}
 		}
-		console.log(this.palavraListAtividade4);
-		console.log(this.palavraListEmbaralhadaAtividade4);
 		this.carregarImagemExericio(exercicio);
 		this.acertouRemove = true;
 		this.acertou = false;
@@ -315,10 +399,6 @@ export class FazerAtividadeAluno implements AfterViewInit {
 				this.palavraListEmbaralhadaAtividade6.push(this.palavraSelected2fb.value);
 			}
 		}
-
-		console.log(this.palavraListAtividade6);
-		console.log(this.palavraListEmbaralhadaAtividade6);
-
 		this.carregarImagemExericio(exercicio);
 		this.acertouRemove = true;
 		this.acertou = false;
@@ -346,9 +426,40 @@ export class FazerAtividadeAluno implements AfterViewInit {
 		});
 	}
 
+	carregarImagemExericioImagens(exercicio1: Exercicio, exercicio2: Exercicio) {
+		exercicio1.imagensExercicio.forEach(imagem => {
+			if(imagem.tipo == 'EXERCICIO') {
+				this.imagePreview1.pathImage = this.imagemService.getImagem(imagem.id);
+			}
+			if(imagem.tipo == 'PARABENIZACAO') {
+				this.parabenizacaoExericioPreview.pathImage = this.imagemService.getImagem(imagem.id);
+			}
+		});
+		exercicio2.imagensExercicio.forEach(imagem => {
+			if(imagem.tipo == 'EXERCICIO') {
+				this.imagePreview2.pathImage = this.imagemService.getImagem(imagem.id);
+			}
+			if(imagem.tipo == 'PARABENIZACAO' && this.parabenizacaoExericioPreview.pathImage == null) {
+				this.parabenizacaoExericioPreview.pathImage = this.imagemService.getImagem(imagem.id);
+			}
+		});
+	}
+
 	getImage() {
 		if (this.imagePreview.pathImage != null ) {
 			return this.imagePreview.pathImage;
+		}
+	}
+
+	getImage1() {
+		if (this.imagePreview1.pathImage != null ) {
+			return this.imagePreview1.pathImage;
+		}
+	}
+
+	getImage2() {
+		if (this.imagePreview2.pathImage != null ) {
+			return this.imagePreview2.pathImage;
 		}
 	}
 
@@ -392,7 +503,6 @@ export class FazerAtividadeAluno implements AfterViewInit {
 	}
 
 	validarPalavraAtividade4e5(event: CdkDragDrop<number[]>) {
-		console.log(event)
 		if(event.previousContainer.data == event.container.data) {
 			this.palavraListAtividade4[event.container.id].acerto = true;
 
@@ -424,14 +534,13 @@ export class FazerAtividadeAluno implements AfterViewInit {
 	}
 
 	validarPalavraAtividade6(event: CdkDragDrop<number[]>) {
-		console.log(event)
 		if(event.previousContainer.data == event.container.data) {
 			this.palavraListAtividade6[event.container.id].acerto = true;
-
 			speechSynthesis.pause;
 			this.audioCard.play();
 			setTimeout(() => {
 				this.msg.text = this.palavraListAtividade6[event.container.id].nome;
+				this.msg.text = this.msgVogalComConsoante(this.msg.text);
 				this.audioAtividade.pause;
 				speechSynthesis.speak(this.msg);
 			}, 350);
@@ -446,98 +555,111 @@ export class FazerAtividadeAluno implements AfterViewInit {
 		this.acertouRemove = false;
 	}
 
+	msgVogalComConsoante(palavra : string): string {
+		if(palavra[palavra.length -1] == 'A' && this.tipoExercicioAtivo == this.getEnumKey(ETipoExercicioVogal.VOGAIS_COM_CONSOANTES, ETipoExercicioVogal)) {
+			return palavra.toLowerCase().replace(/(?:^|\s)(?!da|de|do)\S/g, l => l.toUpperCase()).replace('a', 'á')
+		}
+		if(palavra[palavra.length -1] == 'O' && this.tipoExercicioAtivo == this.getEnumKey(ETipoExercicioVogal.VOGAIS_COM_CONSOANTES, ETipoExercicioVogal)) {
+			return palavra.toLowerCase().replace(/(?:^|\s)(?!da|de|do)\S/g, l => l.toUpperCase()).replace('o', 'ó')
+		}
+		else {
+			palavra = palavra.toLowerCase().replace(/(?:^|\s)(?!da|de|do)\S/g, l => l.toUpperCase());
+		}
+		return palavra;
+	}
+
 	repeatAtividade6() {
 		this.indexAtividadeVogal = this.indexAtividadeVogal - 1;
 		this.atividadeControler();
 	}
 
-	// validarPalavraAtividade2(event: CdkDragDrop<string[]>) {
-	// 	this.validaPalavra = event.previousContainer.data[event.previousIndex] == this.palavra;
+	validarPalavraAtividade2(event: CdkDragDrop<string[]>) {
+		this.validaPalavraAtividade2 = event.previousContainer.data[event.previousIndex] == this.palavraExercicio1;
 
-	// 	if (this.validaPalavra) {
-	// 		setTimeout(() => {
-	// 			this.msg.text = this.palavra;
-	// 			this.audioAtividade.pause;
-	// 			speechSynthesis.speak(this.msg);
-	// 		}, 500);
+		if (this.validaPalavraAtividade2) {
+			setTimeout(() => {
+				this.msg.text = this.palavraExercicio1;
+				this.audioAtividade.pause;
+				speechSynthesis.speak(this.msg);
+			}, 500);
 
-	// 		this.acertouAtividade2item1 = true;
+			this.acertouAtividade2item1 = true;
 
-	// 		transferArrayItem(
-	// 			event.previousContainer.data,
-	// 			event.container.data,
-	// 			event.previousIndex,
-	// 			event.currentIndex,
-	// 		);
-	// 		if (this.acertouAtividade2item2 == true) {
-	// 			setTimeout(() => {
-	// 				this.acertou = true;
-	// 				this.acertouRemove = false;
-	// 				this.audioAtividade.play();
-	// 			}, 1200);
+			transferArrayItem(
+				event.previousContainer.data,
+				event.container.data,
+				event.previousIndex,
+				event.currentIndex,
+			);
+			if (this.acertouAtividade2item2 == true) {
+				setTimeout(() => {
+					this.acertou = true;
+					this.acertouRemove = false;
+					this.audioAtividade.play();
+				}, 1200);
 
-	// 		}
-	// 	} else {
-	// 		moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-	// 	}
-	// }
+			}
+		} else {
+			moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+		}
+	}
 
 
-	// validarPalavra2Atividade2(event: CdkDragDrop<string[]>) {
-	// 	this.validaPalavra = event.previousContainer.data[event.previousIndex] == this.palavra2;
+	validarPalavra2Atividade2(event: CdkDragDrop<string[]>) {
+		this.validaPalavraAtividade2 = event.previousContainer.data[event.previousIndex] == this.palavraExercicio2;
 
-	// 	if (this.validaPalavra) {
-	// 		this.acertouAtividade2item2 = true;
-	// 		setTimeout(() => {
-	// 			this.msg.text = this.palavra2;
-	// 			this.audioAtividade.pause;
-	// 			speechSynthesis.speak(this.msg);
-	// 		}, 500);
-	// 		transferArrayItem(
-	// 			event.previousContainer.data,
-	// 			event.container.data,
-	// 			event.previousIndex,
-	// 			event.currentIndex,
-	// 		);
-	// 		if (this.acertouAtividade2item1 == true) {
-	// 			setTimeout(() => {
-	// 				this.acertou = true;
-	// 				this.acertouRemove = false;
-	// 				this.audioAtividade.play();
-	// 			}, 1000);
+		if (this.validaPalavraAtividade2) {
+			this.acertouAtividade2item2 = true;
+			setTimeout(() => {
+				this.msg.text = this.palavraExercicio2;
+				this.audioAtividade.pause;
+				speechSynthesis.speak(this.msg);
+			}, 500);
+			transferArrayItem(
+				event.previousContainer.data,
+				event.container.data,
+				event.previousIndex,
+				event.currentIndex,
+			);
+			if (this.acertouAtividade2item1 == true) {
+				setTimeout(() => {
+					this.acertou = true;
+					this.acertouRemove = false;
+					this.audioAtividade.play();
+				}, 1000);
 
-	// 		}
-	// 	} else {
-	// 		moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-	// 	}
-	// }
+			}
+		} else {
+			moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+		}
+	}
 
-	// validarPalavraAtividade3(event: CdkDragDrop<string[]>) {
-	// 	this.validaPalavra = event.previousContainer.data[event.previousIndex] == this.palavra;
+	validarPalavraAtividade3(event: CdkDragDrop<string[]>) {
+		this.validaPalavra = event.previousContainer.data[event.previousIndex] == this.palavraExercicio1;
 
-	// 	if (this.validaPalavra) {
-	// 		this.acertouAtividade3 = true;
-	// 		setTimeout(() => {
-	// 			this.msg.text = this.palavra;
-	// 			this.audioAtividade.pause;
-	// 			speechSynthesis.speak(this.msg);
-	// 		}, 500);
-	// 		transferArrayItem(
-	// 			event.previousContainer.data,
-	// 			event.container.data,
-	// 			event.previousIndex,
-	// 			event.currentIndex,
-	// 		);
-	// 		setTimeout(() => {
-	// 			this.acertou = true;
-	// 			this.acertouRemove = false;
-	// 			this.audioAtividade.play();
-	// 		}, 1000);
+		if (this.validaPalavra) {
+			this.acertouAtividade3 = true;
+			setTimeout(() => {
+				this.msg.text = this.palavraExercicio1;
+				this.audioAtividade.pause;
+				speechSynthesis.speak(this.msg);
+			}, 500);
+			transferArrayItem(
+				event.previousContainer.data,
+				event.container.data,
+				event.previousIndex,
+				event.currentIndex,
+			);
+			setTimeout(() => {
+				this.acertou = true;
+				this.acertouRemove = false;
+				this.audioAtividade.play();
+			}, 1000);
 
-	// 	} else {
-	// 		moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-	// 	}
-	// }
+		} else {
+			moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+		}
+	}
 
 	playnormal() {
 		this.msg.text = this.palavra;

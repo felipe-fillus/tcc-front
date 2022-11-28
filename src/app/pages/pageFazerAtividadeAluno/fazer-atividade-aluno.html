@@ -205,11 +205,11 @@
     </div>
     <!-- FIM ATIVIDADE 6 -->
 
-   <!--  <div *ngIf="tipoAtividade == 2">
+    <div *ngIf="tipoAtividade == 2">
         <div *ngIf="acertouRemove">
             
             <div class="divrodape">
-                <ion-button class="botaoBlue" (click)="irVoltar()">
+                <ion-button class="botaoBlue" (click)="voltarMenuAtividades()">
                     <ion-icon name="arrow-back-outline"></ion-icon>
                 </ion-button>
                 
@@ -235,12 +235,13 @@
                     </div>
                 </div>
             </div>
+
             <form class="formUp2">
                 <div class="divComImagem2">
                     <div class="divAtividadeImage2">
                         <div class="imageAtividade2" (click)="playnormal()">
 
-                            <ion-img src={{img1}}></ion-img>
+                            <ion-img [src]=getImage1()></ion-img>
                         </div>
 
                         <div [ngClass]="acertouAtividade2item1 ? 'atividadeCorrect2' : 'divAtividade2img2'">
@@ -255,7 +256,7 @@
                     <div class="espacamento"></div>
                     <div class="divAtividadeImage2">
                         <div class="imageAtividade2" (click)="playnormal2()">
-                            <ion-img src={{img2}}></ion-img>
+                            <ion-img [src]=getImage2()></ion-img>
                         </div>
 
                         <div [ngClass]="{'divAtividade2img2': !acertouAtividade2item2}">
@@ -269,6 +270,7 @@
                     </div>
                 </div>
             </form>
+
             <form class="formCenter2">
                 <div class="divAtividade2">
                     <ion-row class="ion-justify-content-center">
@@ -278,15 +280,16 @@
                         </div>
                     </ion-row>
                 </div>
-
             </form>
         </div>
         <div class="formparabens2">
             <div *ngIf="acertou">
-                <div class="divM2">
-                    <ion-img class="imageparabenizacaoatividade2" src="../../../assets/img/parabens.gif" alt="">
-                    </ion-img>
-                    <ion-button class="botaoBlueAcertou2" (click)="irVoltar()">
+                <div class="palavraParabens">{{palavraExercicio1}} e {{palavraExercicio2}}</div>
+                <div>
+                    <ion-img class="imageparabenizacaoatividade" [src]="getParabenizacao()" alt=""></ion-img>
+                </div>
+                <div>
+                    <ion-button class="botaoBlueAcertou" (click)="atividadeControler(nextExercicioIndex)">
                         <ion-icon name="checkmark-outline"></ion-icon>
                     </ion-button>
                 </div>
@@ -301,7 +304,7 @@
         <div *ngIf="acertouRemove">
             
             <div class="divrodape">
-                <ion-button class="botaoBlue" (click)="irVoltar()">
+                <ion-button class="botaoBlue" (click)="voltarMenuAtividades()">
                     <ion-icon name="arrow-back-outline"></ion-icon>
                 </ion-button>
                 <div class="divAtividadeImageSom3Slow">
@@ -320,7 +323,7 @@
                 <div class="divComImagemAtividade3">
                     <div class="divAtividadeImage3">
                         <div class="imageAtividade3" (click)="playnormal()">
-                            <ion-img src={{img1}}></ion-img>
+                            <ion-img [src]=getImage()></ion-img>
                         </div>
 
                         <div [ngClass]="{'divAtividade2img3': !acertouAtividade3}">
@@ -349,15 +352,17 @@
         </div>
         <div class="formparabens3">
             <div *ngIf="acertou">
-                <div class="divM3">
-                    <ion-img class="imageparabenizacaoatividade3" src="../../../assets/img/parabens.gif" alt="">
-                    </ion-img>
-                    <ion-button class="botaoBlueAcertou3" (click)="irVoltar()">
+                <div class="palavraParabens">{{palavraExercicio1}}</div>
+                <div>
+                    <ion-img class="imageparabenizacaoatividade" [src]="getParabenizacao()" alt=""></ion-img>
+                </div>
+                <div>
+                    <ion-button class="botaoBlueAcertou" (click)="atividadeControler(nextExercicioIndex)">
                         <ion-icon name="checkmark-outline"></ion-icon>
                     </ion-button>
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 
 </ion-content>

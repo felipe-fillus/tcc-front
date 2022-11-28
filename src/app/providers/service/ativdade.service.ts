@@ -34,7 +34,13 @@ export class AtividadeService extends BaseService<Atividade> {
     }
 
     getByIdAluno(id: number) {
-        return this.http.get(this.urlApi + '/buscar-idaluno/' + id);
+        if(id != null && id != undefined)
+            return this.http.get(this.urlApi + '/buscar-idaluno/' + id);
+    }
+
+    getRecomendadasByIdAluno(id: number) {
+        if(id != null && id != undefined)
+            return this.http.get(this.urlApi + '/recomendadas-idaluno/' + id);
     }
 
     filtrar(model: any) {

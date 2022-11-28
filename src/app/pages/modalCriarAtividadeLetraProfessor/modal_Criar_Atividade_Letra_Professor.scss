@@ -199,6 +199,18 @@ ion-content {
   text-align: center;
   overflow-y: scroll;
 }
+.tableCenterTipo {
+  margin: 0 auto;
+  overflow-y: scroll;
+  border-radius: 5px;
+  background: #3F99FB;
+  width: 90%;
+  margin-top: 3%;
+  height: 98px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  text-align: center;
+}
 .textoMenu{
   margin-top: 5%;
   text-align: center;
@@ -212,6 +224,14 @@ ion-content {
   padding-left: 3%;
   font-size: 130%;
   text-align: left;
+}
+.negritoTipo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 20px;
+  font-weight: bold;
 }
 .negrito{
   display: flex;

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ModalController, NavParams, Platform } from '@ionic/angular';
+import { AlertController, ModalController, NavParams, Platform } from '@ionic/angular';
+import { ETipoExercicioImagens } from '../../enum/tipo-exercicio-imagens.enum';
 import { ETipoExercicioLetra } from '../../enum/tipo-exercicio-letra.enum';
 import { ETipoExercicioSilaba } from '../../enum/tipo-exercicio-silaba.enum';
 import { Versao } from '../../enum/versao.enum';
@@ -23,6 +24,7 @@ export class ModalCriarAtividadeLetraProfessor {
 	public tiposExerciciosLetra = ETipoExercicioLetra;
 	public tiposExerciciosSilaba = ETipoExercicioSilaba;
 	public tiposExerciciosVogal = ETipoExercicioVogal;
+	public tiposExerciciosImagem = ETipoExercicioImagens;
 	public addConsoantes = false;
 	public nomeImagem: string;
 	public nomeParabenizacao: string;
@@ -31,7 +33,9 @@ export class ModalCriarAtividadeLetraProfessor {
 	public tipoAtividadeLetra: any;
 	public tipoAtividadeSilaba: any;
 	public tipoAtividadeVogal: any;
+	public tipoAtividadeImagem: any;
 	public base64Output: any;
+	public tipoExercicioImagemSelected: any;
 
 	constructor(
 		public confData: ConferenceData,
@@ -40,6 +44,7 @@ export class ModalCriarAtividadeLetraProfessor {
 		public authBaseService: AuthBaseService,
 		private modalCtrl: ModalController,
 		private fb: FormBuilder,
+		private alertControl: AlertController,
 		private navParams: NavParams) {
 
 		this.form = this.fb.group({
@@ -49,6 +54,7 @@ export class ModalCriarAtividadeLetraProfessor {
 		this.tipoAtividadeLetra = this.navParams.get('tipoAtividade').value == 'LETRAS' ? true : false;
 		this.tipoAtividadeSilaba = this.navParams.get('tipoAtividade').value == 'SILABAS' ? true : false;
 		this.tipoAtividadeVogal = this.navParams.get('tipoAtividade').value == 'VOGAIS' ? true : false;
+		this.tipoAtividadeImagem = this.navParams.get('tipoAtividade').value == 'IMAGENS' ? true : false;
 
 		if (this.navParams.get('exercicios').value != null && this.navParams.get('exercicios').value.length > 0) {
 			this.recuperaExercicios();
@@ -62,8 +68,8 @@ export class ModalCriarAtividadeLetraProfessor {
 	addForm() {
 		const exercicio = this.fb.group({
 			id: [],
-			palavra: [''],
-			tipoExercicio: [null, Validators.required],
+			palavra: ['', Validators.required],
+			tipoExercicio: [null],
 			imagem: [],
 			parabenizacao: [],
 			imagensExercicio: []
@@ -99,11 +105,17 @@ export class ModalCriarAtividadeLetraProfessor {
 
 
 	openFileDialog(index: number) {
-		(document as any).getElementById("file-upload-" + index).click();
+		if(this.tipoAtividadeImagem) {
+			this.form.get('exercicios').value[index].tipoExercicio = this.tipoExercicioImagemSelected;
+		}
+
+		if(this.form.get('exercicios').value[index].tipoExercicio != null && this.form.get('exercicios').value[index].palavra != '')
+			(document as any).getElementById("file-upload-" + index).click();
 	}
 
 	openFileDialogParabenizacao(index: number) {
-		(document as any).getElementById("file-upload-parabenizacao-" + index).click();
+		if(this.form.get('exercicios').value[index].tipoExercicio != null && this.form.get('exercicios').value[index].palavra != '')
+			(document as any).getElementById("file-upload-parabenizacao-" + index).click();
 	}
 
 	setImage(event: any, index: number) {
@@ -158,6 +170,10 @@ export class ModalCriarAtividadeLetraProfessor {
 	}
 
 	confirm() {
+		if(this.tipoAtividadeImagem && !this.validaTipoImagemSelected()) {
+			this.presentAlert();
+			return;
+		}
 		if (this.form.get('exercicios').value != null) {
 			for (let index = 0; index < this.form.get('exercicios').value.length; index++) {
 				const element = this.form.get('exercicios').value[index];
@@ -190,4 +206,34 @@ export class ModalCriarAtividadeLetraProfessor {
 			this.addConsoantes = false;
 		}
 	}
+
+	validaTipoImagem(event: any) {
+		this.tipoExercicioImagemSelected = event.detail?.value;
+	}
+
+	validaTipoImagemSelected(): boolean {
+		if(this.tipoExercicioImagemSelected == this.getEnumKey(ETipoExercicioImagens.PALAVRA_DESORGANIZADAS_2, ETipoExercicioImagens) || this.tipoExercicioImagemSelected == this.getEnumKey(ETipoExercicioImagens.PALAVRA_ORGANIZADAS_2, ETipoExercicioImagens) ) {
+			if(this.form.get('exercicios').value.length % 2 === 0) {
+				return true;
+			}
+			else {
+				return false
+			}
+		}
+		return true;
+	}
+
+	getEnumKey(valueEnum, Enum) {
+		for (const [key, value] of Object.entries(Enum))
+		  if (value == valueEnum)
+			return key;
+	}
+
+	async presentAlert() {
+		const alert = this.alertControl.create({
+		  message: 'Atividades de 2 Imagens os exercicios devem ser pares.',
+		  buttons: ['Continuar']
+		});
+		(await alert).present();
+	  }
 }

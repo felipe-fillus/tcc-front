@@ -68,7 +68,7 @@ export class Page_Editar_Atividade_Professor implements AfterViewInit {
 		});
 	}
 
-	async modal() {
+	async openModal() {
 		const modal = await this.modalCtrl.create({
 			component: ModalCriarAtividadeLetraProfessor,
 			componentProps: {exercicios: this.atividadeForm.get('exercicios'), tipoAtividade: this.atividadeForm.get('tipoAtividade')},
@@ -78,27 +78,6 @@ export class Page_Editar_Atividade_Professor implements AfterViewInit {
 		const data = await (await modal.onWillDismiss()).data;
 		this.atividadeForm.get('exercicios').setValue(data?.exercicios);
 		this.atividadeForm.get('qtdAtividade').setValue(data?.exercicios.length)
-	}
-
-	async modalImagens() {
-		const modal = await this.modalCtrl.create({
-			component: ModalCriarAtividadeImagensProfessor,
-			componentProps: {exercicios: this.atividadeForm.get('exercicios')},
-		});
-		await modal.present();
-
-		const data = await (await modal.onWillDismiss()).data;
-		this.atividadeForm.get('exercicios').setValue(data?.exercicios);
-		this.atividadeForm.get('qtdAtividade').setValue(data?.exercicios.length);
-	}
-
-	openModal() {
-		if(this.atividadeForm.get('tipoAtividade').value != null && this.atividadeForm.get('tipoAtividade').value != '' && this.atividadeForm.get('tipoAtividade').value != 'IMAGENS') {
-			this.modal();
-		}
-		if(this.atividadeForm.get('tipoAtividade').value != null && this.atividadeForm.get('tipoAtividade').value != '' && this.atividadeForm.get('tipoAtividade').value == 'IMAGENS') {
-			this.modalImagens();
-		}
 	}
 
 	saveAtividade() {
