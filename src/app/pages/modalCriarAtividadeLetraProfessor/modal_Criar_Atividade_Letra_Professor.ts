@@ -93,6 +93,10 @@ export class ModalCriarAtividadeLetraProfessor {
 			
 			
 		});
+		if(this.tipoAtividadeImagem) {
+			this.tipoExercicioImagemSelected = this.form.get('exercicios').value[0].tipoExercicio.toString();
+			console.log(this.tipoExercicioImagemSelected)
+		}
 	}
 
 	deleteExercicio(i) {

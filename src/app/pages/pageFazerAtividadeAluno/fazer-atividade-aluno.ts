@@ -111,6 +111,7 @@ export class FazerAtividadeAluno implements AfterViewInit {
 	}
 
 	openExercicio() {
+		this.nextExercicioIndex = 0;
 		this.indexAtividadeVogal = 0;
 		this.tipoExercicioVogalConcluido = false;
 		this.acertouRemove = true;
@@ -159,6 +160,7 @@ export class FazerAtividadeAluno implements AfterViewInit {
 	atividadeControler(index? : number) {
 		const tipoVogal = this.atividade.tipoAtividade == this.getEnumKey(ETipoAtividade.VOGAIS, ETipoAtividade);
 		
+		console.log(this.tipoExercicioVogalConcluido)
 		if((this.exercicios.length == this.nextExercicioIndex && !tipoVogal) || (this.tipoExercicioVogalConcluido && tipoVogal)) {
 			this.atividadeService.setCloncluido({idAluno: this.user.id, idAtividade: this.idAtividade}).subscribe((res:any) => {
 				this.voltarMenuAtividades();
@@ -225,12 +227,12 @@ export class FazerAtividadeAluno implements AfterViewInit {
 			}
 			case this.getEnumKey(ETipoExercicioVogal.SOMENTE_VOGAL, ETipoExercicioVogal): {
 				this.tipoAtividade = 6;
-				this.controladorExercicio6(this.exercicios[0]);
+				this.controladorExercicio6(this.exercicios[index]);
 				break;
 			}
 			case this.getEnumKey(ETipoExercicioVogal.VOGAIS_COM_CONSOANTES, ETipoExercicioVogal): {
 				this.tipoAtividade = 6;
-				this.controladorExercicio6(this.exercicios[0]);
+				this.controladorExercicio6(this.exercicios[index]);
 				break;
 			}
 			case this.getEnumKey(ETipoExercicioImagens.PALAVRA_DESORGANIZADAS, ETipoExercicioImagens): {
@@ -257,7 +259,10 @@ export class FazerAtividadeAluno implements AfterViewInit {
 			}
 		}
 		
-		if(this.exercicios.length >= index + 1) {
+		if(this.exercicios.length >= index + 1 && !tipoVogal) {
+			this.nextExercicioIndex = index + 1;
+		}
+		if(this.exercicios.length >= index + 1 && tipoVogal && this.indexAtividadeVogal == 3) {
 			this.nextExercicioIndex = index + 1;
 		}
 	}
@@ -353,13 +358,19 @@ export class FazerAtividadeAluno implements AfterViewInit {
 	}
 
 	controladorExercicio6(exercicio : Exercicio) {
-		this.palavra = exercicio.palavra;
+		if(this.indexAtividadeVogal == 3) {
+			this.indexAtividadeVogal = 0;
+		}
 
+		this.palavra = exercicio.palavra;
 		this.palavraList = [];
-		exercicio.palavraList.forEach(element => {
+		exercicio.palavra.split(" - ").forEach(element => {
 			this.palavraList.push(element)
 		});
 
+		this.palavraSelected2fb.get('id').setValue(null);
+		this.palavraSelected2fb.get('nome').setValue(null);
+		this.palavraSelected2fb.get('acerto').setValue(false);
 		this.palavraListEmbaralhadaAtividade6 = [];
 		this.palavraListAtividade6 = [];
 		this.allDropListAtividade6 = [];
@@ -391,7 +402,11 @@ export class FazerAtividadeAluno implements AfterViewInit {
 				this.palavraListEmbaralhadaAtividade6.push(this.palavraSelected2fb.value);
 			}
 		} else if(this.indexAtividadeVogal == 2) {
-			this.tipoExercicioVogalConcluido = true;
+			if(this.exercicios.length == this.nextExercicioIndex + 1){
+				this.tipoExercicioVogalConcluido = true;
+			} else {
+				this.indexAtividadeVogal = 3;
+			}
 			this.embaralharPalavraList(exercicio);
 			for (let index = 0; index < this.palavraListEmbaralhada.length; index++) {
 				this.palavraSelected2fb.get('id').setValue(index.toString());
@@ -399,9 +414,21 @@ export class FazerAtividadeAluno implements AfterViewInit {
 				this.palavraListEmbaralhadaAtividade6.push(this.palavraSelected2fb.value);
 			}
 		}
-		this.carregarImagemExericio(exercicio);
 		this.acertouRemove = true;
 		this.acertou = false;
+	}
+
+	repeatAtividade6() {
+		if(this.indexAtividadeVogal < 2)
+			this.indexAtividadeVogal = this.indexAtividadeVogal - 1;
+
+		if(this.tipoExercicioVogalConcluido == true) {
+			this.tipoExercicioVogalConcluido = false;
+		}
+
+		this.acertouRemove = true;
+		this.acertou = false;
+		this.atividadeControler(this.nextExercicioIndex);
 	}
 
 	embaralharPalavraList(exercicio: Exercicio) {
@@ -561,18 +588,22 @@ export class FazerAtividadeAluno implements AfterViewInit {
 		if(palavra[palavra.length -1] == 'A' && this.tipoExercicioAtivo == this.getEnumKey(ETipoExercicioVogal.VOGAIS_COM_CONSOANTES, ETipoExercicioVogal)) {
 			return palavra.toLowerCase().replace(/(?:^|\s)(?!da|de|do)\S/g, l => l.toUpperCase()).replace('a', 'á')
 		}
+		if(palavra[palavra.length -1] == 'E' && this.tipoExercicioAtivo == this.getEnumKey(ETipoExercicioVogal.VOGAIS_COM_CONSOANTES, ETipoExercicioVogal)) {
+			return palavra.toLowerCase().replace(/(?:^|\s)(?!da|de|do)\S/g, l => l.toUpperCase()).replace('e', 'é')
+		}
+		if(palavra[palavra.length -1] == 'I' && this.tipoExercicioAtivo == this.getEnumKey(ETipoExercicioVogal.VOGAIS_COM_CONSOANTES, ETipoExercicioVogal)) {
+			return palavra.toLowerCase().replace(/(?:^|\s)(?!da|de|do)\S/g, l => l.toUpperCase()).replace('i', 'í')
+		}
 		if(palavra[palavra.length -1] == 'O' && this.tipoExercicioAtivo == this.getEnumKey(ETipoExercicioVogal.VOGAIS_COM_CONSOANTES, ETipoExercicioVogal)) {
 			return palavra.toLowerCase().replace(/(?:^|\s)(?!da|de|do)\S/g, l => l.toUpperCase()).replace('o', 'ó')
+		}
+		if(palavra[palavra.length -1] == 'U' && this.tipoExercicioAtivo == this.getEnumKey(ETipoExercicioVogal.VOGAIS_COM_CONSOANTES, ETipoExercicioVogal)) {
+			return palavra.toLowerCase().replace(/(?:^|\s)(?!da|de|do)\S/g, l => l.toUpperCase()).replace('u', 'ú')
 		}
 		else {
 			palavra = palavra.toLowerCase().replace(/(?:^|\s)(?!da|de|do)\S/g, l => l.toUpperCase());
 		}
 		return palavra;
-	}
-
-	repeatAtividade6() {
-		this.indexAtividadeVogal = this.indexAtividadeVogal - 1;
-		this.atividadeControler();
 	}
 
 	validarPalavraAtividade2(event: CdkDragDrop<string[]>) {

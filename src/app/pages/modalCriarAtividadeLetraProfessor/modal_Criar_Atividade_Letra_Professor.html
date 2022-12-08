@@ -23,8 +23,8 @@
 					</ion-grid>
 					<ion-list class="listinput">
 						<ion-item>
-							<ion-select class="combocss" interface="popover" placeholder="Tipos Exercicícios" (ionChange)="validaTipoImagem($event)">
-								<ion-select-option *ngFor="let type of tiposExerciciosImagem | keyvalue" [value]="type.key" interface="action-sheet">
+							<ion-select class="combocss" interface="popover" [interfaceOptions]="{'cssClass': 'mycomponent-wider-popover'}" placeholder="Tipos Exercicícios" (ionChange)="validaTipoImagem($event)">
+								<ion-select-option *ngFor="let type of tiposExerciciosImagem | keyvalue" [value]="type.key" selected="{{tipoExercicioImagemSelected}}" interface="action-sheet">
 									{{type.value}}
 								</ion-select-option>
 							</ion-select>
@@ -46,8 +46,8 @@
 						</ion-grid>
 						<ion-list class="listinput"  *ngIf="tipoAtividadeVogal">
 							<ion-item>
-								<ion-select class="combocss" interface="popover" placeholder="Tipos Exercicícios" formControlName="tipoExercicio" (ngModelChange)="validaTipoVogal($event, i)">
-									<ion-select-option *ngFor="let type of tiposExerciciosVogal | keyvalue" [value]="type.key" interface="action-sheet">
+								<ion-select class="combocss" interface="popover" [interfaceOptions]="{'cssClass': 'mycomponent-wider-popover'}" placeholder="Tipos Exercicícios" formControlName="tipoExercicio" (ngModelChange)="validaTipoVogal($event, i)">
+									<ion-select-option *ngFor="let type of tiposExerciciosVogal | keyvalue" [value]="type.key">
 										{{type.value}}
 									</ion-select-option>
 								</ion-select>
@@ -55,8 +55,8 @@
 						</ion-list>
 						<ion-list class="listinput"  *ngIf="tipoAtividadeLetra">
 							<ion-item>
-								<ion-select class="combocss" interface="popover" placeholder="Tipos Exercicícios" formControlName="tipoExercicio">
-									<ion-select-option *ngFor="let type of tiposExerciciosLetra | keyvalue" [value]="type.key" interface="action-sheet">{{
+								<ion-select class="combocss" interface="popover" [interfaceOptions]="{'cssClass': 'mycomponent-wider-popover'}" placeholder="Tipos Exercicícios" formControlName="tipoExercicio">
+									<ion-select-option *ngFor="let type of tiposExerciciosLetra | keyvalue" [value]="type.key">{{
 										type.value }}
 									</ion-select-option>
 								</ion-select>
@@ -64,7 +64,7 @@
 						</ion-list>
 						<ion-list class="listinput" *ngIf="tipoAtividadeSilaba">
 							<ion-item >
-								<ion-select class="combocss" interface="popover" placeholder="Tipos Exercicícios" formControlName="tipoExercicio">
+								<ion-select class="combocss" interface="popover" [interfaceOptions]="{'cssClass': 'mycomponent-wider-popover'}" placeholder="Tipos Exercicícios" formControlName="tipoExercicio">
 									<ion-select-option *ngFor="let type of tiposExerciciosSilaba | keyvalue" [value]="type.key">{{
 										type.value }}
 									</ion-select-option>

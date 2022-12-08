@@ -1,6 +1,9 @@
 .list-md {
   padding-top: 0px !important;
 }
+::ng-deep ion-label {
+  white-space: normal !important;
+}
 .map-canvas {
   position: absolute;
 
@@ -90,13 +93,15 @@
   font-size: 150%;
 }
 .combocss{
-  margin-left: 5%;
-  margin-right: 5%;
-  height: 40px;
+  width: 100%;
   --background: #ffffff; 
   border-radius: 30px;
   text-align: center;
-  width: 270px;
+}
+::ng-deep .mycomponent-wider-popover
+{
+  --width: 90%;
+  --max-width: 370px;
 }
 .textoLeft{
   display: flex;
