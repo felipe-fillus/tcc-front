@@ -1,0 +1,264 @@
+<body>
+	<ion-content>
+		<ion-toolbar>
+			<ion-buttons slot="end">
+				<ion-button (click)="confirm()" [strong]="true">Voltar</ion-button>
+			</ion-buttons>
+		</ion-toolbar>
+		<div class="textoMenu">
+			<ion-text class="textMenu">Cadastrar Instituição</ion-text>
+		</div>
+		<form class="formCenter" [formGroup]="formInstituicao">
+			<div class="inputcss" *ngIf="modalControllerIndex == 1">
+				<ion-list>
+					<ion-item>
+						<ion-input type="text" placeholder="Email:" formControlName="email" name="email"></ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-input [type]="passwordType" placeholder="Senha:" formControlName="senha"
+							clearOnEdit="false" name="senha"></ion-input>
+						<ion-icon item-end [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'>
+						</ion-icon>
+					</ion-item>
+					<ion-item>
+						<ion-input [type]="passwordRepeatType" placeholder="Senha Novamente:" formControlName="senha"
+							clearOnEdit="false" name="senha"></ion-input>
+						<ion-icon item-end [name]="passwordRepeatIcon" class="passwordIcon"
+							(click)='hideShowRepeatPassword()'></ion-icon>
+					</ion-item>
+				</ion-list>
+
+				<div class="divbotao">
+					<ion-col size="10" style="margin-left: 2%;">
+					</ion-col>
+					<ion-col size="2">
+						<div class="page-controller">
+							<ion-icon name="chevron-forward-outline" (click)="modalController(2)"></ion-icon>
+						</div>
+					</ion-col>
+				</div>
+			</div>
+
+			<div class="inputcss" *ngIf="modalControllerIndex == 2">
+				<ion-list>
+					<ion-item>
+						<ion-input type="text" placeholder="Nome Institução:" formControlName="nome" name="nome">
+						</ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-input type="number" mask="**.***.***/****-**" placeholder="CNPJ:" formControlName="cnpj" name="cnpj"></ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-input type="number" mask="(**) *****-****" placeholder="Telefone:" formControlName="telefone" name="telefone">
+						</ion-input>
+					</ion-item>
+				</ion-list>
+
+				<div class="divbotao">
+					<ion-col size="2" style="margin-left: 2%;">
+						<div class="page-controller">
+							<ion-icon name="chevron-back-outline" (click)="modalController(1)"></ion-icon>
+						</div>
+					</ion-col>
+					<ion-col size="8">
+					</ion-col>
+					<ion-col size="2">
+						<div class="page-controller">
+							<ion-icon name="chevron-forward-outline" (click)="modalController(3)"></ion-icon>
+						</div>
+					</ion-col>
+				</div>
+			</div>
+
+			<div class="inputcss" *ngIf="modalControllerIndex == 3">
+				<ion-list>
+					<ion-item>
+						<ion-input type="number" mask="*****-***" placeholder="CEP:" formControlName="cep" name="cep"></ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-input type="text" placeholder="Estado:" formControlName="uf" name="uf"></ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-input type="text" placeholder="Cidade:" formControlName="cidade" name="cidade"></ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-input type="text" placeholder="Bairro:" formControlName="bairro" name="bairro"></ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-input type="text" placeholder="Endereço:" formControlName="endereco" name="endereco">
+						</ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-input type="number" placeholder="Número:" formControlName="numero" name="numero">
+						</ion-input>
+					</ion-item>
+				</ion-list>
+
+				<div class="divbotao">
+					<ion-col size="2" style="margin-left: 2%;">
+						<div class="page-controller">
+							<ion-icon name="chevron-back-outline" (click)="modalController(2)"></ion-icon>
+						</div>
+					</ion-col>
+					<ion-col size="8">
+					</ion-col>
+					<ion-col size="2">
+						<div class="page-controller">
+							<ion-icon name="chevron-forward-outline" (click)="modalController(4)"></ion-icon>
+						</div>
+					</ion-col>
+				</div>
+			</div>
+
+			<div class="inputcss" *ngIf="modalControllerIndex == 4">
+				<ion-list>
+					
+						<ion-list-header class="header-plano">
+							<ion-col size="4" style="padding-left: 10%;">
+								<ion-label>Plano</ion-label>
+							</ion-col>
+							<ion-col size="3">
+								<ion-label>Qtd. Aluno</ion-label>
+							</ion-col>
+							<ion-col size="4" style="padding-left: 7%;">
+								<ion-label>Mensalidade</ion-label>
+							</ion-col>
+						</ion-list-header>
+
+						<ion-item (click)="radioChecked('BASICO')">
+							<ion-checkbox slot="start" [checked]="planoSelected == 'BASICO'" value="BASICO" class="radio-plano"></ion-checkbox>
+							<ion-col size="4">
+								<ion-label class="label-plano">Básico</ion-label>
+							</ion-col>
+							<ion-col size="3" style="padding-left: 10px;">
+								<ion-label class="label-plano">3</ion-label>
+							</ion-col>
+							<ion-col size="4" style="padding-left: 8%;">
+								<ion-label class="label-plano-valor">R$48,90</ion-label>
+							</ion-col>
+						</ion-item>
+
+						<ion-item (click)="radioChecked('PADRAO')">
+							<ion-checkbox slot="start" [checked]="planoSelected == 'PADRAO'" value="PADRAO" class="radio-plano"></ion-checkbox>
+							<ion-col size="4">
+								<ion-label class="label-plano">Padrão</ion-label>
+							</ion-col>
+							<ion-col size="3" style="padding-left: 10px;">
+								<ion-label class="label-plano">9</ion-label>
+							</ion-col>
+							<ion-col size="4" style="padding-left: 8%;">
+								<ion-label class="label-plano-valor">R$124,70</ion-label>
+							</ion-col>
+						</ion-item>
+
+						<ion-item (click)="radioChecked('PREMIUM')">
+							<ion-checkbox slot="start" [checked]="planoSelected == 'PREMIUM'" value="PREMIUM" class="radio-plano"></ion-checkbox>
+							<ion-col size="4">
+								<ion-label class="label-plano">Premium</ion-label>
+							</ion-col>
+							<ion-col size="3" style="padding-left: 5px;">
+								<ion-label class="label-plano">20</ion-label>
+							</ion-col>
+							<ion-col size="4" style="padding-left: 8%;">
+								<ion-label class="label-plano-valor">R$199,90</ion-label>
+							</ion-col>
+						</ion-item>
+					
+				</ion-list>
+				<div class="divbotao">
+					<ion-col size="2" style="margin-left: 2%;">
+						<div class="page-controller">
+							<ion-icon name="chevron-back-outline" (click)="modalController(3)"></ion-icon>
+						</div>
+					</ion-col>
+					<ion-col size="8">
+					</ion-col>
+					<ion-col size="2">
+						<div class="page-controller">
+							<ion-icon name="chevron-forward-outline" (click)="modalController(5)"></ion-icon>
+						</div>
+					</ion-col>
+				</div>
+			</div>
+
+			<div class="inputcss-final" *ngIf="modalControllerIndex == 5">
+				<ion-img class="bandeira" src="../../../assets/img/bandeira.png"></ion-img>
+				<ion-list class="list-cartao-md">
+					<ion-item>
+						<ion-input type="text" placeholder="Nome:" formControlName="nomeCartao" name="nomeCartao"></ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-input type="text" placeholder="Sobrenome:" formControlName="sobrenomeCartao" name="sobrenomeCartao">
+						</ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-input type="number" mask="**** **** **** ****" placeholder="Número do cartão:" formControlName="numeroCartao" name="numeroCartao">
+						</ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-input type="number" mask="**/**" placeholder="Data de validade (MM/AA):" formControlName="validadeCartao" name="validadeCartao"></ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-input type="number" mask="***" placeholder="Código de segurança (CVV):" formControlName="cvvCartao" name="cvvCartao"></ion-input>
+					</ion-item>
+				</ion-list>
+				<div style="margin-top: 7px; font-size: 16px; font-weight: bold;">
+					<ion-text>Escolha sua forma de pagamento:</ion-text>
+				</div>
+				<ion-radio-group value="custom-checked" >
+					<ion-row>
+						<ion-col>
+							<ion-item size="6" class="list-md" (click)="formaPagamentoChecked('CREDITO')">
+								<ion-checkbox value="CREDITO" [checked]="formaPagamento == 'CREDITO'" style="margin-right: 8px;"></ion-checkbox>
+								<ion-label> Crédito</ion-label>
+							</ion-item>
+						</ion-col>
+						<ion-col>
+							<ion-item size="6" class="list-md" (click)="formaPagamentoChecked('DEBITO')">
+								<ion-checkbox value="DEBITO" [checked]="formaPagamento == 'DEBITO'" style="margin-right: 8px;"></ion-checkbox>
+								<ion-label> Débito</ion-label>
+							</ion-item>
+						</ion-col>
+					</ion-row>
+				</ion-radio-group>
+
+				<div style="margin-top: 7px; font-size: 16px;">
+					<ion-item style="border-radius: 30px;">
+						<ion-label slot="start">
+							<h3>R$ {{valorPlanoSelected}}/Mês</h3>
+							<p>{{planoSelected}}</p>
+						</ion-label>
+						<ion-label slot="end" (click)="modalController(4)" style="color: rgb(0, 162, 255);">
+							Trocar
+						</ion-label>
+					</ion-item>
+				</div>
+
+				<div class="divbotao">
+					<div class="page-controller" style="margin-left: 2%;">
+						<ion-icon name="chevron-back-outline" (click)="modalController(4)"></ion-icon>
+					</div>
+					<ion-button id="botao01" class="botaoBlue" (click)="irCadastrar()">
+
+						<div class="divRigth">
+							<ion-icon name="school-outline"></ion-icon>
+						</div>
+						<div class="middleDiv">
+							<ion-text class="textoBotao">Cadastrar Instituição</ion-text>
+						</div>
+						<div class="divLeft">
+							<ion-icon name="chevron-forward-outline"></ion-icon>
+						</div>
+
+					</ion-button>
+				</div>
+			</div>
+		</form>
+		<ion-text class="textofooder">
+			<div class="divImage">
+				<ion-img src="../../../assets/img/logo.png"></ion-img>
+			</div>
+			<ion-text class="textoBotao">{{versao}}</ion-text>
+		</ion-text>
+	</ion-content>
+</body>

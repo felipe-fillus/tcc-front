@@ -45,14 +45,8 @@
   justify-content: center;
   flex-direction: column;
 }
-.divinterna{
-  padding-top: 40px;
-  text-align: center;
-  border-radius: 5px;
-  background: #3F99FB;
-}
 .botaoInterno{  
-  margin-top: 20px;
+  margin-top: 10px;
   font-weight: bold;
   text-align:center;
     --background: #007BFF;
@@ -97,7 +91,6 @@ transform: translateY(3px);
 }
 .textofooder{
   display:block;
-  margin-top: 15%;
   text-align:center;
   font-size: 140%;
   color: rgb(0, 0, 0);
@@ -107,11 +100,12 @@ transform: translateY(3px);
 .divbotao{
   display: flex;
 }
-.textoBotao{
+.textoDica{
   font-weight: bold;
+  margin-top: 10px;
 }
 .textoMenu{
-  margin-top: 17%;
+  margin-top: 5%;
   text-align: center;
   color: rgb(0, 0, 0);
 }
@@ -126,6 +120,14 @@ transform: translateY(3px);
   font-size: 130%;
   text-align: left;
 }
+ion-item{
+  background-color: rgba(255, 255, 255, 0.808);
+  border-radius: 30px;
+  font-size: 130%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 8px;
+}
 
 ion-content {
   --background: none;
@@ -134,14 +136,15 @@ ion-content {
   background-repeat: no-repeat;
   background-size: cover;
 }
-.formBotao{
-  border-radius: 5px;
-  background: #3F99FB;
+
+.divprincipal{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  background: none;
+  border-radius: 10px;
   width: 90%;
-  height: 300px;
-  margin-top: -6px;
-  background-size: cover;
-  background-repeat: no-repeat;
+  height: 350px;
   overflow-y: scroll;
 }
 

@@ -1,4 +1,3 @@
-
 .map-canvas {
   position: absolute;
 
@@ -9,6 +8,9 @@
 
   opacity: 0;
   transition: opacity 150ms ease-in;
+}
+.textoBotao{
+  font-weight: bold;
 }
 .textMenu{
   margin-top: 6%;
@@ -21,48 +23,25 @@
   justify-content: center;
   flex-direction: column;
 }
-.textMenu2{
+
+.title-card {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  font-weight: bold;
-  font-size: 240%;
-  margin-bottom: 5%;
+  // margin-top: 10%;
+  margin-left: 10px;
+  font-size: 20px;
 }
-.textoBotao{
-  font-weight: bold;
-}
-.divImage{
-  background-position: center center;
-  background-repeat: no-repeat;
-  text-align: center;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 38%;
-  height: 9.5%;
-}
-.certetext{
-  font-size: 200%;
-}
-.botaoInterno{  
-  font-weight: bold;
-  margin-top: 10px;
-  position:relative;
-  text-align:center;
-    --background: #007BFF;
-    color: black;
-}
-.divGrid{
-  padding-top: 20px;
-  text-align: center;
+.card {
+  display: flex;
+  height: 55px;
+  width: 90%;
+  margin-top: 15px;
+  padding-top: 16px;
+  font-size: 20px;
+  background-color: #ededed;
 }
 .divRigth{
   position: fixed;
   right: 92%;
-  
 }
 .divLeft{
   position: fixed;
@@ -75,6 +54,7 @@
   flex-direction: column;
 }
 .botaoBlue{
+  margin-top: 10%;
   height: 40px;
   width: 90%;
   --background: #007BFF;   
@@ -83,7 +63,7 @@
   --border: none;
   --border-radius: 30px;
   color: black;
-  font-weight: bold;
+  
 }
 .botaoBlue:active {
 --background: #4ca1fc;
@@ -94,9 +74,11 @@ transform: translateY(3px);
 --background: #e4a150e1;
 transform: translateY(3px);
 }
-
+.textoPage{
+font-size: 250%;
+}
 .botaoOrange{
-  height: 40px;
+height: 40px;
 width: 90%;
 --background: #f29523;
 font-size: 130%;
@@ -104,7 +86,6 @@ text-align: center;
 --border: none;
 --border-radius: 30px;
 color: black;
-font-weight: bold;
 }
 .textofooder{
   display:block;
@@ -118,8 +99,9 @@ font-weight: bold;
 .divbotao{
   display: flex;
 }
+
 .textoMenu{
-  margin-top: 17%;
+  margin-top: 5%;
   text-align: center;
   color: rgb(0, 0, 0);
 }
@@ -134,9 +116,23 @@ font-weight: bold;
   font-size: 130%;
   text-align: left;
 }
-.sizetext{
-  font-weight: bold;
-  font-size: 95%;
+.divImage{
+  background-position: center center;
+  background-repeat: no-repeat;
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 38%;
+  height: 9.5%;
+}
+.inputcss{
+  width: 90%;
+  border-radius: 10px;
+}
+.combocss{
+  width: 90%;
+  background-color: #3F99FB;
 }
 ion-content {
   --background: none;
@@ -145,31 +141,9 @@ ion-content {
   background-repeat: no-repeat;
   background-size: cover;
 }
-.tableCenter{
-  border-radius: 5px;
-  background: #3F99FB;
-  width: 90%;
-  margin-top: -6px;
-  height: 300px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  overflow-y: scroll;
-}
-
-.divUpload{
-  width: 90%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-}
 ion-title{
   align-items: center;
 }
-.fundoAzul{
-  background: #3F99FB;
-}
 body{
-  height: 100%
+  height: 100%;
 }
-

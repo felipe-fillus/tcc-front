@@ -1,0 +1,93 @@
+<body>
+	<ion-content>
+		<div class="textoMenu">
+			<ion-text class="logininfo">Professor(a): {{user ? user.nome : ''}}</ion-text>
+			<ion-text class="logininfo">Total de Alunos: {{user ? user.qtdAlunos : ''}}</ion-text>
+			<ion-text class="textMenu">Alterar Professor</ion-text>
+		</div>
+
+		<form class="formCenter" [formGroup]="professorForm">
+			<ion-list class="inputcss">
+				<ion-item>
+					<ion-input type="text" formControlName="nome" placeholder="Nome Professor:"></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-input type="number" formControlName="cpf" placeholder="CPF:" maxlength="11" disabled="true"></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-input type="text" formControlName="email" placeholder="Email:" disabled="true"></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-input type="text" formControlName="telefone" placeholder="Telefone:"></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-input type="password" formControlName="senha" placeholder="Senha:"></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-input type="password" formControlName="senha2" placeholder="Senha Novamente"></ion-input>
+				</ion-item>
+			</ion-list>
+			<br>
+			<ion-button id="botao02" class="botaoOrange" (click)="setOpen(true)">
+				<div class="divbotao">
+					<div>
+						<ion-text class="textoBotao">Alunos do Professor</ion-text>
+					</div>
+				</div>
+			</ion-button>
+			<ion-button id="botao01" class="botaoBlue" (click)="addProfessor()">
+				<div class="divbotao">
+					<div class="divRigth">
+						<ion-icon name="school-outline"></ion-icon>
+					</div>
+					<div>
+						<ion-text class="textoBotao">Alterar Professor</ion-text>
+					</div>
+					<div class="divLeft">
+						<ion-icon name="chevron-forward-outline"></ion-icon>
+					</div>
+				</div>
+			</ion-button>
+			<ion-button id="botao02" class="botaoOrange" (click)="irVoltar()">
+				<div class="divbotao">
+					<div class="divRigth">
+						<ion-icon name="arrow-back-outline"></ion-icon>
+					</div>
+					<div>
+						<ion-text class="textoBotao">Voltar</ion-text>
+					</div>
+				</div>
+			</ion-button>
+		</form>
+		<ion-text class="textofooder">
+			<div class="divImage">
+				<ion-img src="../../../assets/img/logo.png"></ion-img>
+			</div>
+			<ion-text class="textoBotao">{{versao}}</ion-text>
+		</ion-text>
+
+
+		<ion-modal [isOpen]="isModalOpen">
+			<ng-template>
+				<ion-header>
+					<ion-toolbar>
+						<ion-title></ion-title>
+						<ion-buttons slot="end">
+							<ion-button (click)="setOpen(false)">Voltar</ion-button>
+						</ion-buttons>
+					</ion-toolbar>
+				</ion-header>
+				<ion-content class="ion-padding">
+					<div class="div-alunos">
+						<ion-card class="card" *ngFor="let aluno of alunos; let i = index">
+							<ion-row class="title-card">
+								{{aluno.nome}}
+							</ion-row>
+						</ion-card>
+					</div>
+
+				</ion-content>
+			</ng-template>
+		</ion-modal>
+	</ion-content>
+</body>

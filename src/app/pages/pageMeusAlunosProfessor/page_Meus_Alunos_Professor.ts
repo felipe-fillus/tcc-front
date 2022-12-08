@@ -21,7 +21,8 @@ export class Page_Meus_Alunos_Professor implements AfterViewInit {
   alunos: Aluno[] = [];
   user: any;
 
-  filterForm = this.fb.group({
+  formFilter = this.fb.group({
+    nome: [''],
     idProfessor: [null],
   });
   
@@ -36,14 +37,14 @@ export class Page_Meus_Alunos_Professor implements AfterViewInit {
     this.authBaseService.watchLoggedUser().subscribe((res) => {
       if(res.user) {
         this.professor = res.user;
-        this.filterForm.get('idProfessor').setValue(this.professor.id)
+        this.formFilter.get('idProfessor').setValue(this.professor.id)
       }
     });
     this.getAluno();
   }
 
   getAluno() {
-    this.alunoService.filter(this.filterForm.value,'lista-alunos').subscribe((res: Aluno[]) => {
+    this.alunoService.filtrar(this.formFilter.value).subscribe((res: Aluno[]) => {
       if(res != null && res.length > 0){
         this.alunos = res;
       }
@@ -55,12 +56,15 @@ export class Page_Meus_Alunos_Professor implements AfterViewInit {
   }
 
   irMeuAluno(alunoSelect : Aluno) {
-    this.router.navigate(['pageMeuAlunoProfessor'], 
-    {queryParams: 
-      {       
-        id : alunoSelect.id
+    this.router.navigate(['/pageMeuAlunoProfessor/' + alunoSelect.id]);
+  }
+
+  deletarAluno(index : number) {
+    this.alunoService.deletar(this.alunos[index].id).subscribe((res) => {
+      if(res) {
+        this.getAluno();
       }
-  });
+    });
   }
 
 }

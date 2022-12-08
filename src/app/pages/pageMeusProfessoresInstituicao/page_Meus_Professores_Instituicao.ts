@@ -1,14 +1,16 @@
+import { Professor } from './../../model/professor.model';
 import { Component, ElementRef, Inject, ViewChild, AfterViewInit } from '@angular/core';
 import { ConferenceData } from '../../providers/conference-data';
 import { Platform } from '@ionic/angular';
 import { DOCUMENT} from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Versao } from '../../enum/versao.enum';
 import { UsuarioEventService } from '../../providers/service/usuarioEvent.service';
 import { AlunoService } from '../../providers/service/aluno.service';
 import { Aluno } from '../../model/aluno.model';
 import { FormBuilder } from '@angular/forms';
 import { AuthBaseService } from '../../providers/service/auth/auth-base.service';
+import { ProfessorService } from '../../providers/service/professor.service';
 
 @Component({
   selector: 'page_Meus_Professores_Instituicao',
@@ -17,35 +19,45 @@ import { AuthBaseService } from '../../providers/service/auth/auth-base.service'
 })
 export class Page_Meus_Professores_Instituicao implements AfterViewInit {
   versao = Versao.numero;
-  Instituicao: any;
-  alunos: Aluno[] = [];
+  instituicao: any;
+  professores: Professor[] = [];
   user: any;
 
-  filterForm = this.fb.group({
-    idProfessor: [null],
+  formFilter = this.fb.group({
+    nome: [''],
+    idInstituicao: [null],
   });
   
   constructor(
     public router: Router,
     private userEvent: UsuarioEventService,
+    private activeRoute : ActivatedRoute,
     private authBaseService: AuthBaseService,
-    private alunoService: AlunoService,
-    private fb: FormBuilder) {}
+    private professorService: ProfessorService,
+    private fb: FormBuilder) {
+      activeRoute.params.subscribe(val => {
+				this.openComponent();
+			});
+    }
 
   async ngAfterViewInit() {
-    this.authBaseService.watchLoggedUser().subscribe((res) => {
-      if(res.user) {
-        this.Instituicao = res.user;
-        this.filterForm.get('idInstituicao').setValue(this.Instituicao.id)
-      }
-    });
-    this.getAluno();
+    //this.openComponent();
   }
 
-  getAluno() { // Metodo pega base no Professor, Alterar!!!
-    this.alunoService.filter(this.filterForm.value,'lista-alunos').subscribe((res: Aluno[]) => {
+  openComponent() {
+    this.authBaseService.watchLoggedUser().subscribe((res) => {
+      if(res.user) {
+        this.instituicao = res.user;
+        this.formFilter.get('idInstituicao').setValue(this.instituicao.id)
+      }
+    });
+    this.getProfessor();
+  }
+
+  getProfessor() { // Metodo pega base no Professor, Alterar!!!
+    this.professorService.filtrar(this.formFilter.value).subscribe((res: Professor[]) => {
       if(res != null && res.length > 0){
-        this.alunos = res;
+        this.professores = res;
       }
     })
   }
@@ -54,5 +66,16 @@ export class Page_Meus_Professores_Instituicao implements AfterViewInit {
     this.router.navigateByUrl('/pageMenuPrincipalInstituicao');
   }
 
+  deletarProfessor(id : number, index : number) {
+    this.professorService.deletarProfessor(id).subscribe((res:any) => {
+      if(res) {
+        this.professores.splice(index, 1);
+      }
+    });
+  }
+
+  irMeuProfessor(id : number) {
+    this.router.navigate(['/pageAlterarProfessor/' + id]);
+  }
 
 }

@@ -3,51 +3,50 @@
     <div class="textoMenu">
       <ion-text class="logininfo">Aluno(a): {{user ? user.nome : ''}}</ion-text>
       <ion-text class="logininfo">Professor(a): {{user ? user.professorDTO.nome : ''}}</ion-text>
-      <ion-text class="logininfo">Atividade Pendentes:4</ion-text>
+      <ion-text class="logininfo">Atividade Pendentes: {{atividadesPendentes ? atividadesPendentes : '0'}}</ion-text>
       <ion-text class="textMenu">Minhas Atividades</ion-text>
     </div>
 
-    <form class="formCenter">
-      <ion-button id="botao01" class="botaoBlue">
-        <div class="divbotao">
-          <div class="divRigth">
-            <ion-icon name="layers-outline"></ion-icon>
-          </div>
-          <div>
-            <ion-text class="textoBotao">Minhas Atividades</ion-text>
-          </div>
-          <div class="divLeft">
-            <ion-icon name="chevron-down-outline"></ion-icon>
-          </div>
-      </div>      
-      </ion-button>
-      <ion-button id="botao02" class="botaoBlueSequence" (click)="irMinhasAtividadesAtuais()">
-        <div class="divbotao">
-          <div class="divRigth">
-            <ion-icon name="reader-outline"></ion-icon>
-          </div>
-          <div>
-            <ion-text class="textoBotao">Atividades Atuais</ion-text>
-          </div>
-          <div class="divLeft">
-            <ion-icon name="chevron-forward-outline"></ion-icon>
-          </div>
+    <form class="formCenter" [formGroup]="formFilter">
+      <div>
+        <ion-row>
+          
+        </ion-row>
       </div>
-      </ion-button>
-      <ion-button id="botao03" class="botaoBlueSequence" (click)="irMinhasAtividadesRealizadas()">
-        <div class="divbotao">
-          <div class="divRigth">
-            <ion-icon name="reader-outline"></ion-icon>
-          </div>
-          <div>
-            <ion-text class="textoBotao">Atividade Realizadas</ion-text>
-          </div>
-          <div class="divLeft">
-            <ion-icon name="chevron-forward-outline"></ion-icon>
-          </div>
-      </div>
-      </ion-button>
-      
+      <ion-row>
+        <ion-col size="9">
+          <ion-searchbar class="custom" formControlName="nomeAtividade" placeholder="Nome Atividade" (ionChange)="filtrarAtividadeLista($event.target.value)"></ion-searchbar>
+        </ion-col>
+        <ion-col size="3" style="padding-left: 0px;">
+          <ion-list class="dropCheckBox">
+            <ion-item>
+              <ion-select interface="popover" placeholder="Status Atividade" (ionChange)="statusChange($event.target.value)" value="TODOS">
+                <ion-select-option value="TODOS">Todas</ion-select-option>
+                <ion-select-option value="CONCLUIDO">Concluídas</ion-select-option>
+                <ion-select-option value="NAO_CONCLUIDO">Não Concluídas</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </form>
+    <div class="div-atividades">
+			<ion-card *ngFor="let atividade of atividadesAluno; let i = index">
+				<ion-row>
+					<ion-col size="10">
+            <ion-row class="title-card">
+							{{ atividade.nomeAtividade }}
+						</ion-row>
+					</ion-col>
+          <ion-col size="2">
+            <ion-icon size="large" name="checkmark-outline" *ngIf="atividade.concluido" (click)="irAtividade(atividade.idAtividade)" style="color: green;"></ion-icon>
+            <ion-icon size="large" name="create-outline" *ngIf="!atividade.concluido" (click)="irAtividade(atividade.idAtividade)"></ion-icon>
+          </ion-col>
+				</ion-row>
+			</ion-card>
+		</div>
+
+    <div class="formCenter">
       <ion-button id="botao05" class="botaoOrange" (click)="irVoltar()">
         <div class="divbotao">
           <div class="divRigth">
@@ -58,8 +57,8 @@
           </div>
       </div>
       </ion-button>
-      
-    </form>
+    </div>
+
     <div class="textofooder">
       <div class="divImage">
         <img src="../../../assets/img/logo.png">

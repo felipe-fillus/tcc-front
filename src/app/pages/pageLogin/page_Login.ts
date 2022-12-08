@@ -6,7 +6,8 @@ import { Router } from '@angular/router';
 import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { Versao } from '../../enum/versao.enum';
 import { UsuarioService } from '../../providers/service/usuario.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
+import { ModalNovaInstituicao } from '../modalNovaInstituicao/modal_nova_instituicao';
 
 @Component({
   selector: 'page_Login',
@@ -21,13 +22,14 @@ export class Page_Login implements AfterViewInit {
     senha: ['', Validators.required],
     tipo: ['', Validators.required]
   });
-
+  
   submitted = false;
   versao = Versao.numero;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private modalCtrl: ModalController,
     private usuarioService: UsuarioService,
     private authBaseService: AuthBaseService,
     private alertControl: AlertController,
@@ -70,5 +72,14 @@ export class Page_Login implements AfterViewInit {
     });
     (await alert).present();
   }
+
+  async modal() {
+		const modal = await this.modalCtrl.create({
+			component: ModalNovaInstituicao,
+		});
+		await modal.present();
+
+		const data = await (await modal.onWillDismiss()).data;
+	}
 
 }

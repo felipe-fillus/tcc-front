@@ -57,10 +57,11 @@ export class PageCadastrarNovoAluno implements AfterViewInit {
         this.user = res.user;
         this.alunoForm.get('idProfessor').setValue(this.user.id);
         this.alunoForm.get('idInstituicao').setValue(this.user.idInstituicao);
+        this.professor = this.user;
       }
-
+      
     });
-
+    
     this.getInstituicao();
   }
 

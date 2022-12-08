@@ -5,7 +5,7 @@ import { Page_Meu_Aluno_Professor } from './page_Meu_Aluno_Professor';
 
 const routes: Routes = [
   {
-    path: '',
+    path: ':id',
     component: Page_Meu_Aluno_Professor
   }
 ];

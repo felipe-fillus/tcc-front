@@ -34,6 +34,9 @@ export class Page_Menu_Principal_Aluno implements AfterViewInit {
   irAtividadesDoProfessor() {
     this.router.navigateByUrl('/pageMenuMinhaAtividadesAluno');
   }
+  irAtividadesRecomendadas() {
+    this.router.navigateByUrl('/pageMenuAtividadesRecomendadas');
+  }
   logout() {
     this.authBaseService.logout();
   }

@@ -1,3 +1,4 @@
+import { ModalNovaInstituicao } from './../modalNovaInstituicao/modal_nova_instituicao';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
@@ -8,15 +9,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
+    Page_LoginRoutingModule,
     CommonModule,
     IonicModule,
-    Page_LoginRoutingModule,
     FormsModule,
-    IonicModule,
     ReactiveFormsModule
   ],
   declarations: [
-    Page_Login,
-  ]
+    Page_Login, ModalNovaInstituicao
+  ],
+  entryComponents: [ModalNovaInstituicao]
 })
 export class Page_LoginModule { }

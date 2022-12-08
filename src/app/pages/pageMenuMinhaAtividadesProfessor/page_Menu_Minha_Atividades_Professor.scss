@@ -91,14 +91,14 @@ color: black;
 .textofooder{
 text-align:center;
 font-size: 130%;
-margin-top: 30%;
+margin-top: 35px;
 color: rgb(0, 0, 0);
 }
 .divbotao{
   display: flex;
 }
 .textoMenu{
-  margin-top: 17%;
+  margin-top: 5%;
   text-align: center;
   color: rgb(0, 0, 0);
 }
@@ -107,7 +107,7 @@ color: rgb(0, 0, 0);
   text-align: center;
   font-weight: bold;
   font-size: 240%;
-  margin-bottom: 22%;
+  margin-bottom: 6%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -125,6 +125,45 @@ color: rgb(0, 0, 0);
   text-align: left;
 }
 
+.botao-filtro{
+  background: #007BFF;   
+  border-radius: 30px;
+  margin-top: 10px;
+}
+
+ion-checkbox {
+  margin-right: 10px;
+}
+
+ion-checkbox::part(container) {
+  border-radius: 6px;
+}
+
+.checkText{
+  font-size: 96%;
+}
+.check{
+  text-align: center;
+  display:inline-block;
+  width: 120px;
+  border-radius: 40px;
+}
+
+ion-searchbar.custom {
+  --border-radius: 40px;
+}
+
+.title-card {
+  display: flex;
+  margin-top: 10%;
+  margin-left: 10px;
+  font-size: 20px;
+}
+
+.div-atividades {
+  height: 320px;
+  overflow-y: scroll;
+}
 ion-content {
   --background: none;
   background-image: url('../../../assets/img/fundo1.jpg');

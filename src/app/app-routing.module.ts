@@ -5,8 +5,16 @@ import { CheckTutorial } from './providers/check-tutorial.service';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/pageFazerAtividadeAluno',
+    redirectTo: '/pageLogin',
     pathMatch: 'full'
+  },
+  {
+    path: 'pageQuestionarioAlunoProfessor',
+    loadChildren: () => import('./pages/pageQuestionarioAlunoProfessor/pageQuestionarioAlunoProfessor.Module').then(m => m.Page_QuestionarioAlunoProfessorModule)
+  },
+  {
+    path: 'pageLogin',
+    loadChildren: () => import('./pages/pageLogin/page_Login.Module').then(m => m.Page_LoginModule)
   },
   {
     path: 'pageMeusAlunosInstituicao',
@@ -21,8 +29,8 @@ const routes: Routes = [
     loadChildren: () => import('./pages/pageMeusProfessoresInstituicao/page_Meus_Professores_Instituicao.Module').then(m => m.Page_Meus_Professor_ProfessorModule)
   },
   {
-    path: 'pageLogin',
-    loadChildren: () => import('./pages/pageLogin/page_Login.Module').then(m => m.Page_LoginModule)
+    path: 'pageQuestionarioAlunoProfessor',
+    loadChildren: () => import('./pages/pageQuestionarioAlunoProfessor/pageQuestionarioAlunoProfessor.Module').then(m => m.Page_QuestionarioAlunoProfessorModule)
   },
   {
     path: 'pageMenuAtividadesProfessor',
@@ -31,6 +39,10 @@ const routes: Routes = [
   {
     path: 'pageCadastrarProfessor',
     loadChildren: () => import('./pages/pageCadastrarProfessor/pageCadastrarProfessor.module').then(m => m.PageCadastrarProfessorModule)
+  },
+  {
+    path: 'pageAlterarProfessor',
+    loadChildren: () => import('./pages/pageAlterarProfessor/pageAlterarProfessor.module').then(m => m.PageAlterarProfessorModule)
   },
   {
     path: 'pageMenuPrincipalInstituicao',
@@ -49,12 +61,20 @@ const routes: Routes = [
     loadChildren: () => import('./pages/pageMenuMinhaAtividadesAluno/page_Menu_Minha_Atividades_Aluno.Module').then(m => m.Page_Menu_Minha_Atividades_AlunoModule)
   },
   {
+    path: 'pageMenuAtividadesRecomendadas',
+    loadChildren: () => import('./pages/pageMenuAtividadesRecomendadas/page_Menu_Atividades_Recomendadas.Module').then(m => m.Page_Menu_Atividades_RecomendadasModule)
+  },
+  {
     path: 'pageMinhasAtividadesAluno',
     loadChildren: () => import('./pages/pageMinhasAtividadesAluno/page_Minhas_Atividades_Aluno.Module').then(m => m.Page_Minhas_Atividades_AlunoModule)
   },
   {
     path: 'pageCriarAtividadeProfessor',
     loadChildren: () => import('./pages/pageCriarAtividadeProfessor/page_Criar_Atividade_Professor.Module').then(m => m.Page_Criar_Atividade_ProfessorModule)
+  },
+  {
+    path: 'pageEditarAtividadeProfessor',
+    loadChildren: () => import('./pages/pageEditarAtividadeProfessor/page_Editar_Atividade_Professor.Module').then(m => m.Page_Editar_Atividade_ProfessorModule)
   },
   {
     path: 'pageCriarAtividadeImgensProfessor',
@@ -73,12 +93,8 @@ const routes: Routes = [
     loadChildren: () => import('./pages/pageCadastrarNovoAluno/pageCadastrarNovoAluno.Module').then(m => m.PageCadastrarNovoAlunoModule)
   },
   {
-    path: 'pageAtividadeRealizadasAlunoProfessor',
-    loadChildren: () => import('./pages/pageAtividadeRealizadasAlunoProfessor/page_Atividade_Realizadas_Aluno_Professor.module').then(m => m.page_Atividade_Realizadas_Aluno_ProfessorModule)
-  },
-  {
-    path: 'pageAtividadePendentesAlunoProfessor',
-    loadChildren: () => import('./pages/pageAtividadePendentesAlunoProfessor/page_Atividade_Pendentes_Aluno_Professor.Router').then(m => m.Page_Atividade_Pendentes_Aluno_ProfessorRouter)
+    path: 'pageAtividadeAlunoProfessor',
+    loadChildren: () => import('./pages/pageAtividadeAlunoProfessor/page_Atividade_Aluno_Professor.Module').then(m => m.page_Atividade_Aluno_ProfessorModule)
   },
   {
     path: 'pageCriarAtividadeLetraProfessor',

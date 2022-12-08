@@ -74,15 +74,12 @@ export class CadastrarInstituicao implements AfterViewInit {
         senha: [null, Validators.required]
       })
     }
-    
   }
 
   irCadastrar(): void {
-    console.log(this.formInstituicao.value);
     if (this.formInstituicao.valid) {
       this.instituicaoService.add(this.formInstituicao.value).subscribe((res) => {
         if(res){
-          console.log(res)
         }
       })
 

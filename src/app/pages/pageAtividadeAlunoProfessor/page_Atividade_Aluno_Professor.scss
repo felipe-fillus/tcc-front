@@ -1,3 +1,4 @@
+
 .map-canvas {
   position: absolute;
 
@@ -19,6 +20,16 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+.title-card {
+  display: flex;
+  padding-top: 6px;
+  margin-left: 10px;
+  font-size: 20px;
+}
+.div-atividades {
+  height: 320px;
+  overflow-y: scroll;
 }
 .textMenu2{
   display: flex;
@@ -46,13 +57,8 @@
 .certetext{
   font-size: 200%;
 }
-.formup{
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  height: 30%;
-}
 .botaoInterno{  
+  font-weight: bold;
   margin-top: 10px;
   position:relative;
   text-align:center;
@@ -98,6 +104,7 @@ transform: translateY(3px);
 --background: #e4a150e1;
 transform: translateY(3px);
 }
+
 .botaoOrange{
   height: 40px;
 width: 90%;
@@ -122,7 +129,7 @@ font-weight: bold;
   display: flex;
 }
 .textoMenu{
-  margin-top: 17%;
+  margin-top: 5%;
   text-align: center;
   color: rgb(0, 0, 0);
 }
@@ -175,4 +182,20 @@ ion-title{
 body{
   height: 100%
 }
+ion-searchbar.custom {
+  --border-radius: 40px;
+}
+.botao-filtro{
+  background: #007BFF;   
+  border-radius: 30px;
+  margin-top: 10px;
+}
+
+.dropCheckBox {
+  border-radius: 30px;
+  height: 43px;
+  padding: 0px;
+  margin-top: 7px
+}
+
 

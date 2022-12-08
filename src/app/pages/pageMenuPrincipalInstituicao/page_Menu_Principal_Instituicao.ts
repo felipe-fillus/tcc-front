@@ -1,9 +1,10 @@
 import { Component, ElementRef, Inject, ViewChild, AfterViewInit } from '@angular/core';
-import { Platform } from '@ionic/angular';
+import { ModalController, Platform } from '@ionic/angular';
 import { DOCUMENT} from '@angular/common';
 import { Router } from '@angular/router';
 import { Versao } from '../../enum/versao.enum';
 import { AuthBaseService } from '../../providers/service/auth/auth-base.service';
+import { ModalNovaInstituicao } from '../modalNovaInstituicao/modal_nova_instituicao';
 
 @Component({
   selector: 'page_Menu_Principal_Instituicao',
@@ -17,21 +18,32 @@ export class Page_Menu_Principal_Instituicao implements AfterViewInit {
   constructor(
     @Inject(DOCUMENT) private doc: Document,
     public router: Router,
+    private modalCtrl: ModalController,
     public platform: Platform,
     public authBaseService: AuthBaseService) {
       
     }
 
-    async ngAfterViewInit() {
-      this.authBaseService.watchLoggedUser().subscribe((res) => {
-  
-        if (res.user) {
-          this.user = res.user;
-        }
-  
-      });
-      const appEl = this.doc.querySelector('ion-app');
-    }
+  async ngAfterViewInit() {
+    this.authBaseService.watchLoggedUser().subscribe((res) => {
+
+      if (res.user) {
+        this.user = res.user;
+      }
+
+    });
+    const appEl = this.doc.querySelector('ion-app');
+  }
+
+  async modal() {
+		const modal = await this.modalCtrl.create({
+			component: ModalNovaInstituicao,
+      componentProps: {idInstituicao: this.user.id},
+		});
+		await modal.present();
+
+		const data = await (await modal.onWillDismiss()).data;
+	}
 
   irCadastrarProfessor() {
     this.router.navigateByUrl('/pageCadastrarProfessor');

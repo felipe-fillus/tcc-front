@@ -48,9 +48,6 @@ export class SpeakerDetailPage {
         {
           text: 'Copy Link',
           handler: () => {
-            console.log(
-              'Copy link clicked on https://twitter.com/' + speaker.twitter
-            );
             if (
               (window as any).cordova &&
               (window as any).cordova.plugins.clipboard

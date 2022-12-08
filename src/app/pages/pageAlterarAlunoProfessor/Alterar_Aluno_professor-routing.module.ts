@@ -5,7 +5,7 @@ import { AlterarAlunoprofessor } from './Alterar_Aluno_professor';
 
 const routes: Routes = [
   {
-    path: '',
+    path: ':id',
     component: AlterarAlunoprofessor
   }
 ];

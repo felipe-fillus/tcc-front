@@ -1,74 +1,134 @@
-import { Component, ElementRef, Inject, ViewChild, AfterViewInit } from '@angular/core';
-import { ConferenceData } from '../../providers/conference-data';
-import { Platform } from '@ionic/angular';
-import { DOCUMENT} from '@angular/common';
-import { Router } from '@angular/router';
+import { Exercicio } from './../../model/exercicio.model';
+import { Atividade } from './../../model/atividade.model';
+import { ExercicioService } from './../../providers/service/exercicio.service';
+import { AtividadeService } from './../../providers/service/ativdade.service';
+import { ModalCriarAtividadeImagensProfessor } from './../modalCriarAtividadeImagensProfessor/modal_Criar_Atividade_Imagens_Professor';
+import { AfterViewInit, Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ModalController, Platform } from '@ionic/angular';
+import { ETipoAtividade } from '../../enum/tipo-atividade.enum';
 import { Versao } from '../../enum/versao.enum';
+import { ConferenceData } from '../../providers/conference-data';
 import { AuthBaseService } from '../../providers/service/auth/auth-base.service';
+import { ModalCriarAtividadeLetraProfessor } from '../modalCriarAtividadeLetraProfessor/modal_Criar_Atividade_Letra_Professor';
 
 @Component({
-  selector: 'page_Criar_Atividade_Professor',
-  templateUrl: 'page_Criar_Atividade_Professor.html',
-  styleUrls: ['./page_Criar_Atividade_Professor.scss']
+	selector: 'page_Criar_Atividade_Professor',
+	templateUrl: 'page_Criar_Atividade_Professor.html',
+	styleUrls: ['./page_Criar_Atividade_Professor.scss']
 })
 export class Page_Criar_Atividade_Professor implements AfterViewInit {
-  @ViewChild('mapCanvas', { static: true }) mapElement: ElementRef;
-  versao = Versao.numero;
-  user: any;
-  constructor(
-    @Inject(DOCUMENT) private doc: Document,
-    public confData: ConferenceData,
-    public router: Router,
-    public platform: Platform,
-    public authBaseService: AuthBaseService) {}
+	public versao = Versao.numero;
+	public user: any;
+	public tiposAtividades = ETipoAtividade;
+	public tipoAtividade = ETipoAtividade;
 
-    public tipoAtividade = 'pageCriarAtividadeLetraProfessor';
-  async ngAfterViewInit() {
-    this.authBaseService.watchLoggedUser().subscribe((res) => {
+	public atividadeForm;
 
-      if (res.user) {
-        this.user = res.user;
-      }
+	constructor(
+		public confData: ConferenceData,
+		public router: Router,
+		public platform: Platform,
+		public authBaseService: AuthBaseService,
+		private fb: FormBuilder,
+		private modalCtrl: ModalController,
+		private activeRoute : ActivatedRoute,
+		private atividadeService: AtividadeService,
+		private exercicioService: ExercicioService) { 
+			activeRoute.params.subscribe(val => {
+				this.authBaseService.watchLoggedUser().subscribe((res) => {
+					this.atividadeForm = this.fb.group({
+						id: [null],
+						idProfessor: [null, Validators.required],
+						tipoAtividade: ['', Validators.required],
+						nomeAtividade: ['', Validators.required],
+						qtdAtividade: [null, Validators.required],
+						exercicios: [null]
+					});
+			
+					if (res.user) {
+						this.user = res.user;
+						this.atividadeForm.get('idProfessor').setValue(this.user.id);
+					}
+		
+				});
+			});
+		}
 
-    });
-    const appEl = this.doc.querySelector('ion-app');
+	async ngAfterViewInit() {
+		
+	}
 
-  }
-  
-  file: File;
-  changeListener($event) : void {
-     this.file = $event.target.files[0];
-   }
-  countryChange($event) {
-    this.tipoAtividade =$event.target.value;
-  }
-   onProssiga() {
-    this.router.navigateByUrl('/'+this.tipoAtividade);
+	async openModal() {
+		const modal = await this.modalCtrl.create({
+			component: ModalCriarAtividadeLetraProfessor,
+			componentProps: {exercicios: this.atividadeForm.get('exercicios'), tipoAtividade: this.atividadeForm.get('tipoAtividade')},
+		});
+		await modal.present();
 
-  }
+		const data = await (await modal.onWillDismiss()).data;
+		this.atividadeForm.get('exercicios').setValue(data?.exercicios);
+		this.atividadeForm.get('qtdAtividade').setValue(data?.exercicios.length)
+	}
 
+	saveAtividade() {
+		if (this.atividadeForm.valid) {
+			this.atividadeService.add(this.atividadeForm.value).subscribe((res: Atividade) => {
+			if(res && res.exercicios){
+				let elements =  this.atividadeForm.get('exercicios').value;
+				for (var i = 0, element; element = elements[i++];){
+					
+					for (let index = 0; index < res.exercicios.length; index++) {
+						if(element.palavra == res.exercicios[index].palavra) {
+							if(element.imagem != null && element.nomeImagem != null)
+								this.salvarImagem(res.exercicios[index].id, element.imagem, element.nomeImagem);
+							if(element.parabenizacao != null && element.nomeParabenizacao != null)
+								this.salvarParabenizacao(res.exercicios[index].id, element.parabenizacao, element.nomeParabenizacao);
+						}
+					}
+				}
+			}
+			});
+		}
+		this.irVoltar();
+	}
 
-   saveProfile_click() {
-     console.log("saveProfile_click");
-     // Add your code here
-     /*this.afAuth.authState.take(1).subscribe(auth => {
-       this.afDatabase.object(`profile/${this.uid}`).set(this.profile)
-         .then(() => {
-           this.uploadProfileImage();
-           this.navCtrl.pop();
-         });
-     })*/
-   }
- 
-   uploadProfileImage(){
-     /*console.log("uploadProfileImage");
-     let fileRef = firebase.storage().ref('profileImages/' + this.uid + ".jpg");
-     fileRef.put(this.file).then(function(snapshot) {
-       console.log('Uploaded a blob or file!');
-     });*/
-   }
-   
-  irVoltar() {
-    this.router.navigateByUrl('/pageMenuAtividadesProfessor');
-  }
+	private salvarImagem(idExercicio: number, base64: string, fileName: string) {
+        const file = this.getFile(base64, fileName);
+		this.atividadeService.uploadFiles(idExercicio, file,'salvar-imagem').subscribe((res: any) => {
+		});
+	}
+	private salvarParabenizacao(idExercicio: number, base64: string, fileName: string) {
+		const file = this.getFile(base64, fileName);
+		this.atividadeService.uploadFiles(idExercicio, file,'salvar-parabenizacao').subscribe((res: any) => {
+		});
+	}
+
+	getFile(base64, imgName): any {
+		const imgBlob = this.dataURItoBlob(base64);
+		return new File([imgBlob], imgName, { type: "image/png" });
+	}
+
+	dataURItoBlob(dataURI) {
+		const byteString = window.atob(dataURI);
+		const arrayBuffer = new ArrayBuffer(byteString.length);
+		const int8Array = new Uint8Array(arrayBuffer);
+		for (let i = 0; i < byteString.length; i++) {
+		  int8Array[i] = byteString.charCodeAt(i);
+		}
+		const blob = new Blob([int8Array], { type: "image/png" });
+		return blob;
+	}
+
+	irVoltar() {
+		this.router.navigateByUrl('/pageMenuAtividadesProfessor');
+	}
+
+	tipoChange($event) {
+		this.atividadeForm.get('nomeAtividade').reset();
+		this.atividadeForm.get('qtdAtividade').reset();
+		this.atividadeForm.get('exercicios').reset();
+	 }
+
 }

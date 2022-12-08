@@ -1,11 +1,16 @@
 .app {
-  font-family: 'moralist';
+  font-family: 'CaviarDreams';
 }
 ion-menu ion-content {
   --padding-top: 20px;
   --padding-bottom: 20px;
 
   --background: var(--ion-item-background, var(--ion-background-color, #fff));
+}
+
+ion-content{ 
+  font-family:CaviarDreams !important;
+  font-size:1.1em;
 }
 
 /* Remove background transitions for switching themes */

@@ -1,81 +1,90 @@
 <body>
-  <ion-content>
-    <div class="textoMenu">
-      <ion-text class="logininfo">Professor(a): {{user ? user.nome : ''}}</ion-text>
-      <ion-text class="logininfo">Total de Alunos: {{user ? user.qtdAlunos : ''}}</ion-text>
-      <ion-text class="textMenu">Minhas Atividades</ion-text>
-    </div>
-    <form class="formCenter">
-      <ion-button id="botao01" class="botaoBlue">
-        <div class="divbotao">
-          <div class="divRigth">
-            <ion-icon name="layers-outline"></ion-icon>
-          </div>
-          <div>
-            <ion-text class="textoBotao">Minhas Atividades</ion-text>
-          </div>
-          <div class="divLeft">
-            <ion-icon name="chevron-down-outline"></ion-icon>
-          </div>
-      </div>      
-      </ion-button>
-      <ion-button id="botao02" class="botaoBlueSequence" (click)="irMinhasAtividades()">
-        <div class="divbotao">
-          <div class="divRigth">
-            <ion-icon name="reader-outline"></ion-icon>
-          </div>
-          <div>
-            <ion-text class="textoBotao">Atividade de Letras</ion-text>
-          </div>
-          <div class="divLeft">
-            <ion-icon name="chevron-forward-outline"></ion-icon>
-          </div>
-      </div>
-      </ion-button>
-      <ion-button id="botao03" class="botaoBlueSequence" (click)="irMinhasAtividades()">
-        <div class="divbotao">
-          <div class="divRigth">
-            <ion-icon name="reader-outline"></ion-icon>
-          </div>
-          <div>
-            <ion-text class="textoBotao">Atividade de Sílabas</ion-text>
-          </div>
-          <div class="divLeft">
-            <ion-icon name="chevron-forward-outline"></ion-icon>
-          </div>
-      </div>
-      </ion-button>
-      <ion-button id="botao04" class="botaoBlueSequence" (click)="irMinhasAtividades()">
-        <div class="divbotao">
-          <div class="divRigth">
-            <ion-icon name="reader-outline"></ion-icon>
-          </div>
-          <div>
-            <ion-text class="textoBotao">Atividades Com Imagem</ion-text>
-          </div>
-          <div class="divLeft">
-            <ion-icon name="chevron-forward-outline"></ion-icon>
-          </div>
-      </div>
-      </ion-button>
+	<ion-content>
+		<div class="textoMenu">
+			<ion-text class="logininfo">Professor(a): {{user ? user.nome : ''}}</ion-text>
+			<ion-text class="logininfo">Total de Alunos: {{user ? user.qtdAlunos : ''}}</ion-text>
+			<ion-text class="textMenu">Minhas Atividades</ion-text>
+			<form class="formCenter" [formGroup]="formFilter">
+				<div>
+					<ion-row>
+						<ion-col>
+							<ion-item class="check">
+								<ion-checkbox slot="start" checked="true" formControlName="tipoLetra"></ion-checkbox>
+								<ion-text class="checkText">Letra</ion-text>
+							</ion-item>
+						</ion-col>
+						<ion-col>
+							<ion-item class="check">
+								<ion-checkbox slot="start" checked="true" formControlName="tipoSilaba"></ion-checkbox>
+								<ion-text class="checkText">Sílaba</ion-text>
+							</ion-item>
+						</ion-col>
+					</ion-row>
+					<ion-row>
+						<ion-col>
+							<ion-item class="check">
+								<ion-checkbox slot="start" checked="true" formControlName="tipoImagem"></ion-checkbox>
+								<ion-text class="checkText">Imagem</ion-text>
+							</ion-item>''
+						</ion-col>
+						<ion-col>
+							<ion-item class="check">
+								<ion-checkbox slot="start" checked="true" formControlName="tipoVogal"></ion-checkbox>
+								<ion-text class="checkText">Vogal</ion-text>
+							</ion-item>''
+						</ion-col>
+					</ion-row>
+				</div>
+				<ion-row>
+					<ion-col size="10">
+						<ion-searchbar class="custom" formControlName="nomeAtividade" placeholder="Nome Atividade"></ion-searchbar>
+					</ion-col>
+					<ion-col size="2" style="padding-left: 0px;">
+						<ion-button class="botao-filtro" (click)="filtrarAtividade()"><ion-icon name="search-outline"></ion-icon></ion-button>
+					</ion-col>
+				</ion-row>
+			</form>
+		</div>
 
-      <ion-button id="botao05" class="botaoOrange" (click)="irVoltar()">
-        <div class="divbotao">
-          <div class="divRigth">
-            <ion-icon name="arrow-back-outline"></ion-icon>
-          </div>
-          <div>
-            <ion-text class="textoBotao">Voltar</ion-text>
-          </div>
-      </div>
-      </ion-button>
-      
-    </form>
-    <div class="textofooder">
-      <div class="divImage">
-        <img src="../../../assets/img/logo.png">
-      </div>
-      <ion-text class="versao">{{versao}}</ion-text>
-    </div>
-  </ion-content>
+		<div class="div-atividades">
+			<ion-card *ngFor="let atividade of atividades; let i = index">
+				<ion-row>
+					<ion-col size="10">
+						<ion-row class="title-card">
+							{{ atividade.nomeAtividade }}
+						</ion-row>
+						<ion-button fill="clear" (click)="modal(i)">Atribuir</ion-button>
+					</ion-col>
+					<ion-col size="2">
+						<ion-row>
+							<ion-button fill="clear" (click)="deletarAtividade(i)"><ion-icon name="trash-outline"></ion-icon></ion-button>
+						</ion-row>
+						<ion-row>
+							<ion-button fill="clear" (click)="irAtividade(i)"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+						</ion-row>
+					</ion-col>
+				</ion-row>
+			</ion-card>
+		</div>
+		
+		<div class="formCenter">
+			<ion-button id="botao05" class="botaoOrange" (click)="irVoltar()">
+				<div class="divbotao">
+					<div class="divRigth">
+						<ion-icon name="arrow-back-outline"></ion-icon>
+					</div>
+					<div>
+						<ion-text class="textoBotao">Voltar</ion-text>
+					</div>
+				</div>
+			</ion-button>
+		</div>
+
+		<div class="textofooder">
+			<div class="divImage">
+				<img src="../../../assets/img/logo.png">
+			</div>
+			<ion-text class="versao">{{versao}}</ion-text>
+		</div>
+	</ion-content>
 </body>

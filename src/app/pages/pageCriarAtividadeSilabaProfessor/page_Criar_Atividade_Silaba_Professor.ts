@@ -39,7 +39,6 @@ export class Page_Criar_Atividade_Silaba_Professor implements AfterViewInit {
    }
  
    saveProfile_click() {
-     console.log("saveProfile_click");
      // Add your code here
      /*this.afAuth.authState.take(1).subscribe(auth => {
        this.afDatabase.object(`profile/${this.uid}`).set(this.profile)

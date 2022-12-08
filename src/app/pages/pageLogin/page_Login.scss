@@ -43,7 +43,7 @@
 }
 .botaoBlue{
   margin-top: 10%;
-  margin-bottom: 10%;
+  margin-bottom: 3%;
   height: 40px;
   width: 90%;
   --background: #007BFF;   
@@ -57,6 +57,21 @@
 .botaoBlue:active {
 --background: #4ca1fc;
 transform: translateY(3px);
+}
+.botaoOrange:active {
+  --background: #e4a150e1;
+  transform: translateY(3px);
+  }
+.botaoOrange{
+  margin-bottom: 10%;
+  height: 40px;
+  width: 90%;
+  --background: #f29523;
+  font-size: 130%;
+  text-align: center;
+  --border: none;
+  --border-radius: 30px;
+  color: black;
 }
 .textoBotao{
   font-weight: bold;

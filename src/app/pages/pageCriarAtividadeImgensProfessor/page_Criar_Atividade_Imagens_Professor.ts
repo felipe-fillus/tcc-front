@@ -40,7 +40,6 @@ export class Page_Criar_Atividade_Imagens_Professor implements AfterViewInit {
    }
  
    saveProfile_click() {
-     console.log("saveProfile_click");
      // Add your code here
      /*this.afAuth.authState.take(1).subscribe(auth => {
        this.afDatabase.object(`profile/${this.uid}`).set(this.profile)
@@ -59,13 +58,11 @@ export class Page_Criar_Atividade_Imagens_Professor implements AfterViewInit {
      });*/
    }
    countryChange($event) {
-     console.log($event.target.value);
     if($event.target.value > 2){
       this.atividadeImage = true;
     }else{
       this.atividadeImage = false;
     }
-    console.log(this.atividadeImage);
   }
    
   irVoltar() {
