@@ -68,7 +68,7 @@ export class ModalCriarAtividadeLetraProfessor {
 	addForm() {
 		const exercicio = this.fb.group({
 			id: [],
-			palavra: ['', Validators.required],
+			palavra: [''],
 			tipoExercicio: [null],
 			imagem: [],
 			parabenizacao: [],

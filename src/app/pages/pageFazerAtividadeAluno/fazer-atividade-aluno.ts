@@ -416,6 +416,7 @@ export class FazerAtividadeAluno implements AfterViewInit {
 	}
 
 	carregarImagemExericio(exercicio: Exercicio) {
+		console.log(exercicio)
 		exercicio.imagensExercicio.forEach(imagem => {
 			if(imagem.tipo == 'EXERCICIO') {
 				this.imagePreview.pathImage = this.imagemService.getImagem(imagem.id);
@@ -424,6 +425,7 @@ export class FazerAtividadeAluno implements AfterViewInit {
 				this.parabenizacaoExericioPreview.pathImage = this.imagemService.getImagem(imagem.id);
 			}
 		});
+		console.log(this.imagePreview.pathImage)
 	}
 
 	carregarImagemExericioImagens(exercicio1: Exercicio, exercicio2: Exercicio) {
