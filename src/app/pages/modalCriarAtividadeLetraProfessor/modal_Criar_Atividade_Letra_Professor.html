@@ -23,8 +23,8 @@
 					</ion-grid>
 					<ion-list class="listinput">
 						<ion-item>
-							<ion-select class="combocss" interface="popover" [interfaceOptions]="{'cssClass': 'mycomponent-wider-popover'}" placeholder="Tipos Exercicícios" (ionChange)="validaTipoImagem($event)">
-								<ion-select-option *ngFor="let type of tiposExerciciosImagem | keyvalue" [value]="type.key" selected="{{tipoExercicioImagemSelected}}" interface="action-sheet">
+							<ion-select class="combocss" [value]="tipoExercicioForm" interface="popover" [interfaceOptions]="{'cssClass': 'mycomponent-wider-popover'}" placeholder="Tipos Exercicícios" (ionChange)="validaTipoImagem($event)">
+								<ion-select-option *ngFor="let type of tiposExerciciosImagem | keyvalue" [value]="type.key">
 									{{type.value}}
 								</ion-select-option>
 							</ion-select>

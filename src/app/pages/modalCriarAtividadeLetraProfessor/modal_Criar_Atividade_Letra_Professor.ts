@@ -36,6 +36,7 @@ export class ModalCriarAtividadeLetraProfessor {
 	public tipoAtividadeImagem: any;
 	public base64Output: any;
 	public tipoExercicioImagemSelected: any;
+	public tipoExercicioForm: any;
 
 	constructor(
 		public confData: ConferenceData,
@@ -94,8 +95,10 @@ export class ModalCriarAtividadeLetraProfessor {
 			
 		});
 		if(this.tipoAtividadeImagem) {
-			this.tipoExercicioImagemSelected = this.form.get('exercicios').value[0].tipoExercicio.toString();
-			console.log(this.tipoExercicioImagemSelected)
+			this.tipoExercicioForm = this.form.get('exercicios').value[0].tipoExercicio.toString();
+		}
+		if(this.form.get('exercicios').value[0].tipoExercicio.toString() == 'VOGAIS_COM_CONSOANTES') {
+			this.addConsoantes = true;
 		}
 	}
 
